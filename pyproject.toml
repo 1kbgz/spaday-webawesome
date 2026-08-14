@@ -86,7 +86,8 @@ replace = '"version": "{new_version}"'
 [tool.coverage.run]
 branch = true
 omit = [
-    "spaday_webawesome/tests/integration/",
+    "spaday_webawesome/components.py",
+    "spaday_webawesome/tests/*",
 ]
 
 [tool.coverage.report]

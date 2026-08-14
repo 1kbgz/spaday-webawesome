@@ -35,6 +35,7 @@ import enum
 import math
 from collections.abc import Callable, Iterator
 from dataclasses import dataclass
+from types import UnionType
 from typing import Any, Literal, Union, get_args, get_origin
 
 import annotated_types as at
@@ -89,7 +90,7 @@ class _FieldSpec:
 
 def _unwrap_optional(ann: Any) -> Any:
     """`Optional[X]` / `X | None` → `X` (so the control matches the underlying type)."""
-    if get_origin(ann) is Union:
+    if get_origin(ann) in (Union, UnionType):
         non_none = [a for a in get_args(ann) if a is not type(None)]
         if len(non_none) == 1:
             return non_none[0]
@@ -98,7 +99,7 @@ def _unwrap_optional(ann: Any) -> Any:
 
 def _is_optional(ann: Any) -> bool:
     """True if ``None`` is allowed (``Optional[X]`` / ``X | None``) — the field may be left empty."""
-    return get_origin(ann) is Union and type(None) in get_args(ann)
+    return get_origin(ann) in (Union, UnionType) and type(None) in get_args(ann)
 
 
 def _required(spec: _FieldSpec) -> bool:

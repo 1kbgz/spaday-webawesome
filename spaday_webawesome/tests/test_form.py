@@ -1,5 +1,5 @@
 import enum
-from typing import Annotated, Literal
+from typing import Annotated, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -75,6 +75,29 @@ def test_schema_constraints_become_native_validation_attributes():
     assert c["short"]["props"]["minlength"] == {"Int": 2}
     assert c["short"]["props"]["maxlength"] == {"Int": 8}
     assert c["code"]["props"]["pattern"] == {"Str": "[A-Z]+"}
+
+
+def test_optional_syntaxes_are_unwrapped():
+    class OptionalFields(BaseModel):
+        modern: int | None = None
+        legacy: Optional[int] = None  # noqa: UP045 - exercise typing.Optional compatibility
+        multiple: int | str | None = None
+
+    c = _controls(OptionalFields)
+    assert c["modern"]["props"]["type"] == {"Str": "number"}
+    assert c["legacy"]["props"]["type"] == {"Str": "number"}
+    assert c["multiple"]["props"]["type"] == {"Str": "text"}
+    assert "required" not in c["modern"].get("props", {})
+    assert "required" not in c["legacy"].get("props", {})
+
+
+def test_strict_pydantic_bounds_become_native_constraints():
+    class StrictBounds(BaseModel):
+        level: Annotated[int, Field(gt=0, lt=10)] = 5
+
+    props = _controls(StrictBounds)["level"]["props"]
+    assert props["min"] == {"Int": 0}
+    assert props["max"] == {"Int": 10}
 
 
 def test_enum_and_literal_become_options():
@@ -285,6 +308,19 @@ def test_json_schema_nullable_type_array_is_optional_and_typed():
     c = _controls(schema)
     assert c["count"]["props"]["type"] == {"Str": "number"}
     assert "required" not in c["count"].get("props", {})  # null allowed → optional
+
+
+def test_json_schema_multi_type_forms_fall_back_to_text_controls():
+    schema = {
+        "type": "object",
+        "properties": {
+            "union": {"anyOf": [{"type": "string"}, {"type": "integer"}, {"type": "null"}]},
+            "single": {"type": ["string"]},
+        },
+    }
+    c = _controls(schema)
+    assert c["union"]["props"]["type"] == {"Str": "text"}
+    assert c["single"]["props"]["type"] == {"Str": "text"}
 
 
 def test_json_schema_root_ref_is_dereferenced():
