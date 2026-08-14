@@ -270,6 +270,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterator</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnionType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">get_args</span><span class="p">,</span> <span class="n">get_origin</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">annotated_types</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">at</span>
@@ -327,7 +328,7 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_unwrap_optional</span><span class="p">(</span><span class="n">ann</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;`Optional[X]` / `X | None` → `X` (so the control matches the underlying type).&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">get_origin</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Union</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">get_origin</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Union</span><span class="p">,</span> <span class="n">UnionType</span><span class="p">):</span>
         <span class="n">non_none</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">get_args</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">non_none</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">non_none</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -336,7 +337,7 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_is_optional</span><span class="p">(</span><span class="n">ann</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;True if ``None`` is allowed (``Optional[X]`` / ``X | None``) — the field may be left empty.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">get_origin</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Union</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">in</span> <span class="n">get_args</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">get_origin</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Union</span><span class="p">,</span> <span class="n">UnionType</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">in</span> <span class="n">get_args</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_required</span><span class="p">(</span><span class="n">spec</span><span class="p">:</span> <span class="n">_FieldSpec</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
