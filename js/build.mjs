@@ -5,6 +5,18 @@ import { node_modules_external } from "./tools/externals.mjs";
 import fs from "fs";
 import cpy from "cpy";
 
+const componentDir = "node_modules/@awesome.me/webawesome/dist/components";
+const catalog = fs
+  .readdirSync(componentDir)
+  .filter((name) => fs.existsSync(`${componentDir}/${name}/${name}.js`))
+  .map(
+    (name) =>
+      `import "@awesome.me/webawesome/dist/components/${name}/${name}.js";`,
+  )
+  .join("\n");
+const layoutFixes =
+  '\nif (typeof document !== "undefined" && !document.querySelector("style[data-spaday-webawesome]")) { const s = document.createElement("style"); s.dataset.spadayWebawesome = ""; s.textContent = "wa-input::part(base),wa-select::part(combobox){box-sizing:border-box}wa-button{display:inline-flex}"; document.head.appendChild(s); }\n';
+
 const BUNDLES = [
   {
     entryPoints: ["src/ts/index.ts"],
@@ -12,28 +24,35 @@ const BUNDLES = [
     outfile: "dist/esm/index.js",
   },
   {
-    entryPoints: ["src/ts/index.ts"],
+    stdin: { contents: catalog + layoutFixes, resolveDir: ".", loader: "js" },
     outfile: "dist/cdn/index.js",
   },
 ];
 
 async function build() {
-  // Bundle css
-  await bundle_css();
+  fs.rmSync("dist", { recursive: true, force: true });
+  fs.rmSync("../spaday_webawesome/extension", {
+    recursive: true,
+    force: true,
+  });
+
+  await bundle_css("src/css/webawesome.css");
 
   // Copy HTML
-  cpy("src/html/*", "dist/");
+  await cpy("src/html/*", "dist/");
 
   // Copy images
   fs.mkdirSync("dist/img", { recursive: true });
-  cpy("src/img/*", "dist/img");
+  await cpy("src/img/*", "dist/img");
 
   await Promise.all(BUNDLES.map(bundle)).catch(() => process.exit(1));
 
   // Copy servable assets to python extension (exclude esm/)
   fs.mkdirSync("../spaday_webawesome/extension", { recursive: true });
-  cpy("dist/**/*", "../spaday_webawesome/extension", {
-    filter: (file) => !file.relativePath.startsWith("esm"),
+  await cpy("dist/**/*", "../spaday_webawesome/extension", {
+    filter: (file) =>
+      !file.relativePath.startsWith("esm/") &&
+      !file.relativePath.startsWith("dist/esm/"),
   });
 }
 
