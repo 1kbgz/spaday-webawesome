@@ -29,7 +29,13 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 
-dependencies = []
+dependencies = [
+    "pydantic>=2",
+    "spaday>=0.3.0",
+]
+
+[project.entry-points."spaday.component_packages"]
+webawesome = "spaday_webawesome:package"
 
 [project.optional-dependencies]
 develop = [
@@ -164,6 +170,10 @@ section-order = [
 [tool.yardang]
 title = "spaday-webawesome"
 root = "README.md"
-pages = []
-use-autoapi = true
-
+pages = [
+    "docs/src/tutorial.md",
+    "docs/src/how-to.md",
+    "docs/src/reference.md",
+    "docs/src/explanation.md",
+]
+use-autoapi = false
