@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="spaday_webawesome" href="../spaday_webawesome/index.html"><link rel="prev" title="API Reference" href="../index.html">
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="How to generate a bound form" href="how-to.html"><link rel="prev" title="spaday-webawesome" href="../../index.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>test_all - spaday-webawesome v0.1.0</title>
+        <title>Build an interactive WebAwesome page - spaday-webawesome v0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
@@ -197,11 +197,10 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">test_all</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../spaday_webawesome/index.html">spaday_webawesome</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Build an interactive WebAwesome page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-to.html">How to generate a bound form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explanation.html">Why WebAwesome is a peer package</a></li>
 </ul>
 
 </div>
@@ -222,7 +221,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../../_sources/autoapi/test_all/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../../_sources/docs/src/tutorial.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -240,27 +239,46 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-test_all">
-<span id="test-all"></span><h1>test_all<a class="headerlink" href="#module-test_all" title="Link to this heading">¶</a></h1>
-<section id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#test_all.test_all" title="test_all.test_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_all</span></code></a>()</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
+          <section class="tex2jax_ignore mathjax_ignore" id="build-an-interactive-webawesome-page">
+<h1>Build an interactive WebAwesome page<a class="headerlink" href="#build-an-interactive-webawesome-page" title="Link to this heading">¶</a></h1>
+<p>In this tutorial, we will serve a WebAwesome card whose button shows and hides a callout entirely in
+the browser.</p>
+<section id="install-the-packages">
+<h2>Install the packages<a class="headerlink" href="#install-the-packages" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;spaday[examples]&quot;</span><span class="w"> </span>spaday-webawesome
+</pre></div>
 </div>
 </section>
-<section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="test_all.test_all">
-<span class="sig-prename descclassname"><span class="pre">test_all.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_all.test_all" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<section id="create-the-page">
+<h2>Create the page<a class="headerlink" href="#create-the-page" title="Link to this heading">¶</a></h2>
+<p>Save this as <code class="docutils literal notranslate"><span class="pre">webawesome_app.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">uvicorn</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">spaday</span><span class="w"> </span><span class="kn">import</span> <span class="n">Toggle</span><span class="p">,</span> <span class="n">by_id</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spaday.backends.starlette</span><span class="w"> </span><span class="kn">import</span> <span class="n">serve</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spaday_webawesome</span><span class="w"> </span><span class="kn">import</span> <span class="n">WaButton</span><span class="p">,</span> <span class="n">WaCallout</span><span class="p">,</span> <span class="n">WaCard</span>
+
+<span class="n">page</span> <span class="o">=</span> <span class="n">WaCard</span><span class="p">(</span>
+    <span class="n">WaButton</span><span class="p">(</span><span class="n">variant</span><span class="o">=</span><span class="s2">&quot;brand&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Toggle details&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="n">Toggle</span><span class="p">(</span><span class="n">by_id</span><span class="p">(</span><span class="s2">&quot;details&quot;</span><span class="p">),</span> <span class="s2">&quot;hidden&quot;</span><span class="p">)),</span>
+    <span class="n">WaCallout</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;details&quot;</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">&quot;success&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;WebAwesome is mounted.&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">serve</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;webawesome&quot;</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>webawesome_app.py
+</pre></div>
+</div>
+<p>Open <code class="docutils literal notranslate"><span class="pre">http://127.0.0.1:8000</span></code>. You should see a styled card, button, and callout. Click the button; the
+callout disappears. Click it again; it returns without a Python round-trip.</p>
+<p>You now have typed WebAwesome components using spaday’s serializable action model. Continue with
+<a class="reference internal" href="how-to.html"><span class="std std-doc">Generate a bound form</span></a> when your controls come from a schema.</p>
 </section>
 </section>
 
@@ -269,23 +287,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../spaday_webawesome/index.html">
+          <a class="next-page" href="how-to.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">spaday_webawesome</div>
+                <div class="title">How to generate a bound form</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../index.html">
+          <a class="prev-page" href="../../index.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">API Reference</div>
+                <div class="title">Home</div>
                 
               </div>
             </a>
@@ -319,12 +337,9 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">test_all</a><ul>
-<li><a class="reference internal" href="#functions">Functions</a></li>
-<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#test_all.test_all"><code class="docutils literal notranslate"><span class="pre">test_all()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Build an interactive WebAwesome page</a><ul>
+<li><a class="reference internal" href="#install-the-packages">Install the packages</a></li>
+<li><a class="reference internal" href="#create-the-page">Create the page</a></li>
 </ul>
 </li>
 </ul>

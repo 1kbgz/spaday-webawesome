@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API Reference" href="autoapi/index.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Build an interactive WebAwesome page" href="docs/src/tutorial.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
         <title>spaday-webawesome v0.1.0</title>
@@ -197,11 +197,10 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="autoapi/test_all/index.html">test_all</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autoapi/spaday_webawesome/index.html">spaday_webawesome</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="docs/src/tutorial.html">Build an interactive WebAwesome page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/src/how-to.html">How to generate a bound form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/src/reference.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/src/explanation.html">Why WebAwesome is a peer package</a></li>
 </ul>
 
 </div>
@@ -244,17 +243,31 @@
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="spaday-webawesome">
 <h1>spaday-webawesome<a class="headerlink" href="#spaday-webawesome" title="Link to this heading">¶</a></h1>
-<p>Webawesome for spaday</p>
+<p>Typed WebAwesome components and self-contained browser assets for spaday.</p>
 <p><a class="reference external" href="https://github.com/1kbgz/spaday-webawesome/actions/workflows/build.yaml"><img alt="Build Status" src="https://github.com/1kbgz/spaday-webawesome/actions/workflows/build.yaml/badge.svg?branch=main&amp;event=push" /></a>
 <a class="reference external" href="https://codecov.io/gh/1kbgz/spaday-webawesome"><img alt="codecov" src="https://codecov.io/gh/1kbgz/spaday-webawesome/branch/main/graph/badge.svg" /></a>
 <a class="reference external" href="https://github.com/1kbgz/spaday-webawesome"><img alt="License" src="https://img.shields.io/github/license/1kbgz/spaday-webawesome" /></a>
 <a class="reference external" href="https://pypi.python.org/pypi/spaday-webawesome"><img alt="PyPI" src="https://img.shields.io/pypi/v/spaday-webawesome.svg" /></a></p>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This library was generated using <a class="reference external" href="https://copier.readthedocs.io/en/stable/">copier</a> from the <a class="reference external" href="https://github.com/python-project-templates/base">Base Python Project Template repository</a>.</p>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="docs/src/tutorial.html"><span class="std std-doc">Build an interactive WebAwesome page</span></a> — guided first page.</p></li>
+<li><p><a class="reference internal" href="docs/src/how-to.html"><span class="std std-doc">Generate a bound form</span></a> — task-focused model form guide.</p></li>
+<li><p><a class="reference internal" href="docs/src/reference.html"><span class="std std-doc">API reference</span></a> — catalog, helpers, and assets.</p></li>
+<li><p><a class="reference internal" href="docs/src/explanation.html"><span class="std std-doc">Why WebAwesome is a peer package</span></a> — ownership and loading model.</p></li>
+</ul>
+</section>
+<section id="quick-example">
+<h2>Quick example<a class="headerlink" href="#quick-example" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">spaday</span><span class="w"> </span><span class="kn">import</span> <span class="n">serve</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spaday_webawesome</span><span class="w"> </span><span class="kn">import</span> <span class="n">WaButton</span><span class="p">,</span> <span class="n">WaCard</span>
+
+<span class="n">page</span> <span class="o">=</span> <span class="n">WaCard</span><span class="p">(</span><span class="n">WaButton</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Run&quot;</span><span class="p">))</span>
+<span class="n">serve</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;webawesome&quot;</span><span class="p">])</span>
+</pre></div>
 </div>
+<p>The package also exports <code class="docutils literal notranslate"><span class="pre">Tabs</span></code>, plus <code class="docutils literal notranslate"><span class="pre">form()</span></code> and <code class="docutils literal notranslate"><span class="pre">FormField</span></code> for generating bound WebAwesome controls from pydantic models or JSON Schema.</p>
+<p>Installing the package does not inject assets. Select it explicitly with <code class="docutils literal notranslate"><span class="pre">packages=[&quot;webawesome&quot;]</span></code> or pass the exported <code class="docutils literal notranslate"><span class="pre">package</span></code> descriptor.</p>
 </section>
 </section>
 
@@ -263,12 +276,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="autoapi/index.html">
+          <a class="next-page" href="docs/src/tutorial.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">API Reference</div>
+                <div class="title">Build an interactive WebAwesome page</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
