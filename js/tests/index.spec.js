@@ -18,3 +18,23 @@ test("registers and renders the full WebAwesome catalog", async ({ page }) => {
     await page.evaluate(() => !!customElements.get("wa-zoomable-frame")),
   ).toBe(true);
 });
+
+test("runs the Python console with live metrics and order preview", async ({
+  page,
+}) => {
+  await page.goto("http://127.0.0.1:8012");
+  await expect(page.locator("wa-card")).toBeVisible();
+  const sessions = page.locator(".metrics article").first().locator("strong");
+  const initial = await sessions.textContent();
+  await expect
+    .poll(() => sessions.textContent(), { timeout: 5_000 })
+    .not.toBe(initial);
+
+  await page.getByText("Order controls", { exact: true }).click();
+  await page.getByRole("textbox", { name: "Symbol" }).fill("MSFT");
+  await page.getByRole("spinbutton", { name: "Quantity" }).fill("25");
+  await page.getByRole("button", { name: "Preview order" }).click();
+  await expect(page.locator("#order-preview")).toContainText(
+    "Previewed 25 MSFT shares",
+  );
+});
