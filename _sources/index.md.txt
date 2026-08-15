@@ -46,3 +46,15 @@ serve(page, packages=["webawesome"])
 The package also exports `Tabs`, plus `form()` and `FormField` for generating bound WebAwesome controls from pydantic models or JSON Schema.
 
 Installing the package does not inject assets. Select it explicitly with `packages=["webawesome"]` or pass the exported `package` descriptor.
+
+## Run the local example
+
+```bash
+python -m pip install -e ".[examples]"
+python -m spaday_webawesome.example
+```
+
+Open `http://127.0.0.1:8012` to inspect the [complete operations-console example](spaday_webawesome/example.py): cards,
+server-updated metrics, tabs, inputs, selects, switches, progress, badges, responsive layout, and an order
+preview that round-trips to Python. It passes the local package descriptor directly, so it does not install
+or resolve the integration from GitHub.
