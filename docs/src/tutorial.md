@@ -44,3 +44,6 @@ callout disappears. Click it again; it returns without a Python round-trip.
 
 You now have typed WebAwesome components using spaday's serializable action model. Continue with
 [Generate a bound form](how-to.md) when your controls come from a schema.
+
+For a larger responsive page with server-updated metrics and an order-preview round-trip, run the
+[complete operations-console example](../../spaday_webawesome/example.py).
