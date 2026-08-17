@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
+from spaday.catalog import ComponentSchema, PropertySchema
 from spaday.component import Child, Component
 
 __all__ = [
@@ -83,6 +84,78 @@ class WaIcon(Component):
     """Icons are scalable vector symbols that represent actions, content, or status throughout your application. They support Font Awesome and custom icon libraries with animation presets."""
 
     tag = "wa-icon"
+    schema = ComponentSchema(
+        tag="wa-icon",
+        class_name="WaIcon",
+        summary="Icons are scalable vector symbols that represent actions, content, or status throughout your application.\nThey support Font Awesome and custom icon libraries with animation presets.",
+        props=(
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the icon to draw. Available names depend on the icon library being used.",
+            ),
+            PropertySchema(
+                name="family",
+                kind="string",
+                choices=(),
+                default=None,
+                description='The family of icons to choose from. For Font Awesome Free, valid options include `classic` and `brands`. For\nFont Awesome Pro subscribers, valid options include, `classic`, `sharp`, `duotone`, `sharp-duotone`, and `brands`.\nA valid kit code must be present to show pro icons via CDN. You can set `<html data-fa-kit-code="...">` to provide\none.',
+            ),
+            PropertySchema(
+                name="variant",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the icon's variant. For Font Awesome, valid options include `thin`, `light`, `regular`, and `solid` for\nthe `classic` and `sharp` families. Some variants require a Font Awesome Pro subscription. Custom icon libraries\nmay or may not use this property.",
+            ),
+            PropertySchema(
+                name="canvas",
+                kind="json",
+                choices=(),
+                default=None,
+                description="Sets the icon canvas — the box the icon is centered within. Unset renders as `fixed` (1.25em × 1em); `auto` hugs the\nicon's width; `square` is 1.25em × 1.25em; `roomy` is 1.5em × 1.5em. Mirrors Font Awesome's `fa-fixed-width`,\n`fa-width-auto`, `fa-canvas-square`, and `fa-canvas-roomy`. Scales with `font-size`.",
+            ),
+            PropertySchema(
+                name="auto-width",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Sets the width of the icon to match the cropped SVG viewBox. This operates like the Font `fa-width-auto` class.",
+            ),
+            PropertySchema(name="swap-opacity", kind="boolean", choices=(), default="false", description="Swaps the opacity of duotone icons."),
+            PropertySchema(
+                name="src",
+                kind="string",
+                choices=(),
+                default=None,
+                description="An external URL of an SVG file. Be sure you trust the content you are including, as it will be executed as code and\ncan result in XSS attacks.",
+            ),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="An alternate description to use for assistive devices. If omitted, the icon will be considered presentational and\nignored by assistive devices.",
+            ),
+            PropertySchema(name="library", kind="string", choices=(), default="default", description="The name of a registered custom icon library."),
+            PropertySchema(name="rotate", kind="number", choices=(), default="0", description="Sets the rotation degree of the icon"),
+            PropertySchema(
+                name="flip",
+                kind="enum",
+                choices=("x", "y", "both"),
+                default=None,
+                description="Sets the flip direction of the icon along the 'x' (horizontal), 'y' (vertical), or 'both' axes.",
+            ),
+            PropertySchema(name="animation", kind="json", choices=(), default=None, description="Sets the animation for the icon"),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-load", "wa-error"),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -133,6 +206,29 @@ class WaAccordionItem(Component):
     """Accordion items are used inside `<wa-accordion>` to create expandable sections with accessible headers."""
 
     tag = "wa-accordion-item"
+    schema = ComponentSchema(
+        tag="wa-accordion-item",
+        class_name="WaAccordionItem",
+        summary="Accordion items are used inside `<wa-accordion>` to create expandable sections with accessible headers.",
+        props=(
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The text label shown in the header. If you need HTML, use the `label` slot instead.",
+            ),
+            PropertySchema(name="expanded", kind="boolean", choices=(), default="false", description="Expands the accordion item."),
+            PropertySchema(
+                name="disabled", kind="boolean", choices=(), default="false", description="Disables the accordion item so it can't be toggled."
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("", "label", "icon"),
+    )
 
     def __init__(
         self,
@@ -165,6 +261,64 @@ class WaCheckbox(Component):
     """Checkboxes let users toggle an option on or off, or select multiple items from a list. They also support an indeterminate state for partial selections in groups."""
 
     tag = "wa-checkbox"
+    schema = ComponentSchema(
+        tag="wa-checkbox",
+        class_name="WaCheckbox",
+        summary="Checkboxes let users toggle an option on or off, or select multiple items from a list. They also support an\nindeterminate state for partial selections in groups.",
+        props=(
+            PropertySchema(name="title", kind="string", choices=(), default="", description=None),
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The value of the checkbox, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The checkbox's size.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the checkbox."),
+            PropertySchema(
+                name="indeterminate",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description='Draws the checkbox in an indeterminate state. This is usually applied to checkboxes that represents a "select\nall/none" behavior when associated checkboxes have a mix of checked and unchecked states.',
+            ),
+            PropertySchema(
+                name="checked",
+                kind="boolean",
+                choices=(),
+                default=None,
+                description="The default value of the form control. Primarily used for resetting the form control.",
+            ),
+            PropertySchema(name="required", kind="boolean", choices=(), default="false", description="Makes the checkbox a required field."),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The checkbox's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the input, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("change", "blur", "focus", "input", "wa-invalid"),
+        slots=("", "hint"),
+    )
 
     def __init__(
         self,
@@ -211,6 +365,18 @@ class WaSpinner(Component):
     """Spinners indicate that an operation is in progress when the duration is unknown. Use them for loading states where a determinate progress bar isn't practical."""
 
     tag = "wa-spinner"
+    schema = ComponentSchema(
+        tag="wa-spinner",
+        class_name="WaSpinner",
+        summary="Spinners indicate that an operation is in progress when the duration is unknown. Use them for loading states\nwhere a determinate progress bar isn't practical.",
+        props=(
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -237,6 +403,24 @@ class WaTreeItem(Component):
     """Tree items represent a single hierarchical node inside a tree, and can contain nested items that expand and collapse."""
 
     tag = "wa-tree-item"
+    schema = ComponentSchema(
+        tag="wa-tree-item",
+        class_name="WaTreeItem",
+        summary="Tree items represent a single hierarchical node inside a tree, and can contain nested items that expand and\ncollapse.",
+        props=(
+            PropertySchema(name="expanded", kind="boolean", choices=(), default="false", description="Expands the tree item."),
+            PropertySchema(name="selected", kind="boolean", choices=(), default="false", description="Draws the tree item in a selected state."),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the tree item."),
+            PropertySchema(name="lazy", kind="boolean", choices=(), default="false", description="Enables lazy loading behavior."),
+            PropertySchema(name="tabindex", kind="number", choices=(), default="-1", description=None),
+            PropertySchema(name="role", kind="string", choices=(), default="treeitem", description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-expand", "wa-after-expand", "wa-collapse", "wa-after-collapse", "wa-lazy-change", "wa-lazy-load"),
+        slots=("", "expand-icon", "collapse-icon"),
+    )
 
     def __init__(
         self,
@@ -275,6 +459,18 @@ class WaCarouselItem(Component):
     """Carousel items represent individual slides within a carousel."""
 
     tag = "wa-carousel-item"
+    schema = ComponentSchema(
+        tag="wa-carousel-item",
+        class_name="WaCarouselItem",
+        summary="Carousel items represent individual slides within a carousel.",
+        props=(
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -301,6 +497,141 @@ class WaButton(Component):
     """Buttons represent actions the user can take, such as submitting a form, opening a dialog, or navigating to another page."""
 
     tag = "wa-button"
+    schema = ComponentSchema(
+        tag="wa-button",
+        class_name="WaButton",
+        summary="Buttons represent actions the user can take, such as submitting a form, opening a dialog, or navigating to\nanother page.",
+        props=(
+            PropertySchema(name="title", kind="string", choices=(), default="", description=None),
+            PropertySchema(
+                name="variant",
+                kind="enum",
+                choices=("neutral", "brand", "success", "warning", "danger"),
+                default="neutral",
+                description="The button's theme variant. Defaults to `neutral` if not within another element with a variant.",
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("accent", "filled", "outlined", "filled-outlined", "plain"),
+                default="accent",
+                description="The button's visual appearance.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The button's size.",
+            ),
+            PropertySchema(
+                name="with-caret",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Draws the button with a caret. Used to indicate that the button triggers a dropdown menu or similar behavior.",
+            ),
+            PropertySchema(
+                name="with-start",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `start` element so the server-rendered markup\nincludes the start slot before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-end",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in an `end` element so the server-rendered markup\nincludes the end slot before the component hydrates on the client.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the button."),
+            PropertySchema(name="loading", kind="boolean", choices=(), default="false", description="Draws the button in a loading state."),
+            PropertySchema(name="pill", kind="boolean", choices=(), default="false", description="Draws a pill-style button with rounded edges."),
+            PropertySchema(
+                name="type",
+                kind="enum",
+                choices=("button", "submit", "reset"),
+                default="button",
+                description="The type of button. Note that the default value is `button` instead of `submit`, which is opposite of how native\n`<button>` elements behave. When the type is `submit`, the button will submit the surrounding form.",
+            ),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the button, submitted as a name/value pair with form data, but only when this button is the submitter.\nThis attribute is ignored when `href` is present.",
+            ),
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The value of the button, submitted as a pair with the button's name as part of the form data, but only when this\nbutton is the submitter. This attribute is ignored when `href` is present.",
+            ),
+            PropertySchema(
+                name="href",
+                kind="string",
+                choices=(),
+                default=None,
+                description="When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`.",
+            ),
+            PropertySchema(
+                name="target",
+                kind="enum",
+                choices=("_blank", "_parent", "_self", "_top"),
+                default=None,
+                description="Tells the browser where to open the link. Only used when `href` is present.",
+            ),
+            PropertySchema(
+                name="rel",
+                kind="string",
+                choices=(),
+                default=None,
+                description="When using `href`, this attribute will map to the underlying link's `rel` attribute.",
+            ),
+            PropertySchema(
+                name="download",
+                kind="string",
+                choices=(),
+                default=None,
+                description="Tells the browser to download the linked file as this filename. Only used when `href` is present.",
+            ),
+            PropertySchema(
+                name="formaction", kind="string", choices=(), default=None, description="Used to override the form owner's `action` attribute."
+            ),
+            PropertySchema(
+                name="formenctype",
+                kind="enum",
+                choices=("application/x-www-form-urlencoded", "multipart/form-data", "text/plain"),
+                default=None,
+                description="Used to override the form owner's `enctype` attribute.",
+            ),
+            PropertySchema(
+                name="formmethod",
+                kind="enum",
+                choices=("post", "get"),
+                default=None,
+                description="Used to override the form owner's `method` attribute.",
+            ),
+            PropertySchema(
+                name="formnovalidate",
+                kind="boolean",
+                choices=(),
+                default=None,
+                description="Used to override the form owner's `novalidate` attribute.",
+            ),
+            PropertySchema(
+                name="formtarget", kind="json", choices=(), default=None, description="Used to override the form owner's `target` attribute."
+            ),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("blur", "focus", "wa-invalid"),
+        slots=("", "start", "end"),
+    )
 
     def __init__(
         self,
@@ -373,6 +704,46 @@ class WaAccordion(Component):
     """Accordions are a vertically stacked set of interactive headings that each contain a title, representing a section of content."""
 
     tag = "wa-accordion"
+    schema = ComponentSchema(
+        tag="wa-accordion",
+        class_name="WaAccordion",
+        summary="Accordions are a vertically stacked set of interactive headings that each contain a title, representing a section of content.",
+        props=(
+            PropertySchema(
+                name="mode",
+                kind="enum",
+                choices=("single", "single-collapsible", "multiple"),
+                default="multiple",
+                description="Controls how items can be expanded. `multiple` (the default) allows any number of items to be open at\nonce. `single` allows only one item to be open at a time; opening a new item collapses the previously\nopen one, and clicking an open item does not collapse it. `single-collapsible` is the same as `single`\nexcept that clicking the open item collapses it, so zero open items is a valid state.",
+            ),
+            PropertySchema(
+                name="icon-placement",
+                kind="enum",
+                choices=("start", "end"),
+                default="end",
+                description="The location of the expand/collapse icon in child items.",
+            ),
+            PropertySchema(
+                name="heading-level",
+                kind="string",
+                choices=(),
+                default="3",
+                description='The heading level for child item triggers (1–6), or "none" to omit the heading wrapper. Defaults to 3.',
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("filled", "outlined", "filled-outlined", "plain"),
+                default="outlined",
+                description="The accordion's visual appearance.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-expand", "wa-after-expand", "wa-collapse", "wa-after-collapse"),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -407,6 +778,27 @@ class WaAnimatedImage(Component):
     """Animated images display GIFs and WEBPs with controls to play and pause them on demand. Use them when you want motion but need to give users control over when it plays."""
 
     tag = "wa-animated-image"
+    schema = ComponentSchema(
+        tag="wa-animated-image",
+        class_name="WaAnimatedImage",
+        summary="Animated images display GIFs and WEBPs with controls to play and pause them on demand. Use them when you\nwant motion but need to give users control over when it plays.",
+        props=(
+            PropertySchema(name="src", kind="string", choices=(), default=None, description="The path to the image to load."),
+            PropertySchema(name="alt", kind="string", choices=(), default=None, description="A description of the image used by assistive devices."),
+            PropertySchema(
+                name="play",
+                kind="boolean",
+                choices=(),
+                default=None,
+                description="Plays the animation. When this attribute is remove, the animation will pause.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-load", "wa-error"),
+        slots=("play-icon", "pause-icon"),
+    )
 
     def __init__(
         self,
@@ -439,6 +831,91 @@ class WaAnimation(Component):
     """Animate elements declaratively with nearly 100 baked-in presets, or roll your own with custom keyframes. Powered by the Web Animations API."""
 
     tag = "wa-animation"
+    schema = ComponentSchema(
+        tag="wa-animation",
+        class_name="WaAnimation",
+        summary="Animate elements declaratively with nearly 100 baked-in presets, or roll your own with custom keyframes.\nPowered by the Web Animations API.",
+        props=(
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default="none",
+                description="The name of the built-in animation to use. For custom animations, use the `keyframes` prop.",
+            ),
+            PropertySchema(
+                name="play",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Plays the animation. When omitted, the animation will be paused. This attribute will be automatically removed when\nthe animation finishes or gets canceled.",
+            ),
+            PropertySchema(
+                name="delay", kind="number", choices=(), default="0", description="The number of milliseconds to delay the start of the animation."
+            ),
+            PropertySchema(
+                name="direction",
+                kind="json",
+                choices=(),
+                default="normal",
+                description="Determines the direction of playback as well as the behavior when reaching the end of an iteration.\n[Learn more](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction)",
+            ),
+            PropertySchema(
+                name="duration",
+                kind="number",
+                choices=(),
+                default="1000",
+                description="The number of milliseconds each iteration of the animation takes to complete.",
+            ),
+            PropertySchema(
+                name="easing",
+                kind="string",
+                choices=(),
+                default="linear",
+                description="The easing function to use for the animation. This can be a Web Awesome easing function or a custom easing function\nsuch as `cubic-bezier(0, 1, .76, 1.14)`.",
+            ),
+            PropertySchema(
+                name="end-delay",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The number of milliseconds to delay after the active period of an animation sequence.",
+            ),
+            PropertySchema(
+                name="fill",
+                kind="json",
+                choices=(),
+                default="auto",
+                description="Sets how the animation applies styles to its target before and after its execution.",
+            ),
+            PropertySchema(
+                name="iterations",
+                kind="number",
+                choices=(),
+                default="Infinity",
+                description="The number of iterations to run before the animation completes. Defaults to `Infinity`, which loops.",
+            ),
+            PropertySchema(
+                name="iteration-start",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The offset at which to start the animation, usually between 0 (start) and 1 (end).",
+            ),
+            PropertySchema(
+                name="playback-rate",
+                kind="number",
+                choices=(),
+                default="1",
+                description="Sets the animation's playback rate. The default is `1`, which plays the animation at a normal speed. Setting this\nto `2`, for example, will double the animation's speed. A negative value can be used to reverse the animation. This\nvalue can be changed without causing the animation to restart.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-cancel", "wa-finish", "wa-start"),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -487,6 +964,39 @@ class WaAvatar(Component):
     """Avatars represent a person or object with an image, initials, or icon. Use them in lists, comments, and profiles to give users visual context at a glance."""
 
     tag = "wa-avatar"
+    schema = ComponentSchema(
+        tag="wa-avatar",
+        class_name="WaAvatar",
+        summary="Avatars represent a person or object with an image, initials, or icon. Use them in lists, comments, and\nprofiles to give users visual context at a glance.",
+        props=(
+            PropertySchema(name="image", kind="string", choices=(), default="", description="The image source to use for the avatar."),
+            PropertySchema(
+                name="label", kind="string", choices=(), default="", description="A label to use to describe the avatar to assistive devices."
+            ),
+            PropertySchema(
+                name="initials",
+                kind="string",
+                choices=(),
+                default="",
+                description="Initials to use as a fallback when no image is available (1-2 characters max recommended).",
+            ),
+            PropertySchema(
+                name="loading",
+                kind="enum",
+                choices=("eager", "lazy"),
+                default="eager",
+                description="Indicates how the browser should load the image.",
+            ),
+            PropertySchema(
+                name="shape", kind="enum", choices=("circle", "square", "rounded"), default="circle", description="The shape of the avatar."
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-error",),
+        slots=("icon",),
+    )
 
     def __init__(
         self,
@@ -523,6 +1033,40 @@ class WaBadge(Component):
     """Badges draw attention to adjacent content by displaying a status, count, or label. Use them to highlight notifications, categorize items, or flag new activity."""
 
     tag = "wa-badge"
+    schema = ComponentSchema(
+        tag="wa-badge",
+        class_name="WaBadge",
+        summary="Badges draw attention to adjacent content by displaying a status, count, or label. Use them to highlight\nnotifications, categorize items, or flag new activity.",
+        props=(
+            PropertySchema(
+                name="variant",
+                kind="enum",
+                choices=("brand", "neutral", "success", "warning", "danger"),
+                default="brand",
+                description="The badge's theme variant. Defaults to `brand` if not within another element with a variant.",
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("accent", "filled", "outlined", "filled-outlined"),
+                default="accent",
+                description="The badge's visual appearance.",
+            ),
+            PropertySchema(name="pill", kind="boolean", choices=(), default="false", description="Draws a pill-style badge with rounded edges."),
+            PropertySchema(
+                name="attention",
+                kind="enum",
+                choices=("none", "pulse", "bounce"),
+                default="none",
+                description="Adds an animation to draw attention to the badge.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("", "start", "end"),
+    )
 
     def __init__(
         self,
@@ -557,6 +1101,39 @@ class WaBreadcrumbItem(Component):
     """Breadcrumb items represent individual links inside a breadcrumb, typically one per level of the site hierarchy."""
 
     tag = "wa-breadcrumb-item"
+    schema = ComponentSchema(
+        tag="wa-breadcrumb-item",
+        class_name="WaBreadcrumbItem",
+        summary="Breadcrumb items represent individual links inside a breadcrumb, typically one per level of the site\nhierarchy.",
+        props=(
+            PropertySchema(
+                name="href",
+                kind="string",
+                choices=(),
+                default=None,
+                description="Optional URL to direct the user to when the breadcrumb item is activated. When set, a link will be rendered\ninternally. When unset, a button will be rendered instead.",
+            ),
+            PropertySchema(
+                name="target",
+                kind="enum",
+                choices=("_blank", "_parent", "_self", "_top"),
+                default=None,
+                description="Tells the browser where to open the link. Only used when `href` is set.",
+            ),
+            PropertySchema(
+                name="rel",
+                kind="string",
+                choices=(),
+                default="noreferrer noopener",
+                description="The `rel` attribute to use on the link. Only used when `href` is set.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("", "start", "end", "separator"),
+    )
 
     def __init__(
         self,
@@ -589,6 +1166,25 @@ class WaBreadcrumb(Component):
     """Breadcrumbs display a trail of links that show users where they are in a site's hierarchy. They help users understand the current location and navigate back to parent pages."""
 
     tag = "wa-breadcrumb"
+    schema = ComponentSchema(
+        tag="wa-breadcrumb",
+        class_name="WaBreadcrumb",
+        summary="Breadcrumbs display a trail of links that show users where they are in a site's hierarchy. They help users\nunderstand the current location and navigate back to parent pages.",
+        props=(
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The label to use for the breadcrumb control. This will not be shown on the screen, but it will be announced by\nscreen readers and other assistive devices to provide more context for users.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("", "separator"),
+    )
 
     def __init__(
         self,
@@ -617,6 +1213,32 @@ class WaButtonGroup(Component):
     """Button groups combine related buttons into a single visual unit. Use them for toolbars, segmented controls, or any set of actions that belong together."""
 
     tag = "wa-button-group"
+    schema = ComponentSchema(
+        tag="wa-button-group",
+        class_name="WaButtonGroup",
+        summary="Button groups combine related buttons into a single visual unit. Use them for toolbars, segmented controls,\nor any set of actions that belong together.",
+        props=(
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="A label to use for the button group. This won't be displayed on the screen, but it will be announced by assistive\ndevices when interacting with the control and is strongly recommended.",
+            ),
+            PropertySchema(
+                name="orientation",
+                kind="enum",
+                choices=("horizontal", "vertical"),
+                default="horizontal",
+                description="The button group's orientation.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -647,6 +1269,39 @@ class WaCallout(Component):
     """Callouts display important messages inline with surrounding content. Use them to highlight tips, warnings, errors, or other information users should not miss."""
 
     tag = "wa-callout"
+    schema = ComponentSchema(
+        tag="wa-callout",
+        class_name="WaCallout",
+        summary="Callouts display important messages inline with surrounding content. Use them to highlight tips, warnings,\nerrors, or other information users should not miss.",
+        props=(
+            PropertySchema(
+                name="variant",
+                kind="enum",
+                choices=("brand", "neutral", "success", "warning", "danger"),
+                default="brand",
+                description="The callout's theme variant. Defaults to `brand` if not within another element with a variant.",
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("accent", "filled", "outlined", "plain", "filled-outlined"),
+                default=None,
+                description="The callout's visual appearance.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The callout's size.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("", "icon"),
+    )
 
     def __init__(
         self,
@@ -679,6 +1334,67 @@ class WaCard(Component):
     """Cards group related content and actions inside a bordered container. Use them to present products, articles, user profiles, or any self-contained unit of information."""
 
     tag = "wa-card"
+    schema = ComponentSchema(
+        tag="wa-card",
+        class_name="WaCard",
+        summary="Cards group related content and actions inside a bordered container. Use them to present products, articles,\nuser profiles, or any self-contained unit of information.",
+        props=(
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("accent", "filled", "outlined", "filled-outlined", "plain"),
+                default="outlined",
+                description="The card's visual appearance.",
+            ),
+            PropertySchema(
+                name="with-header",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `header` element so the server-rendered markup\nincludes the header before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-media",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `media` element so the server-rendered markup\nincludes the media before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-footer",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `footer` element so the server-rendered markup\nincludes the footer before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-header-actions",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `header-actions` element so the server-rendered markup\nincludes the media before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-footer-actions",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `footer-actions` element so the server-rendered markup\nincludes the media before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="orientation",
+                kind="enum",
+                choices=("horizontal", "vertical"),
+                default="vertical",
+                description="Renders the card's orientation *",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("", "header", "footer", "media", "actions", "header-actions", "footer-actions"),
+    )
 
     def __init__(
         self,
@@ -719,6 +1435,73 @@ class WaCarousel(Component):
     """Carousels display a series of content slides along a horizontal or vertical axis, one or more at a time. Users can navigate between slides with controls, pagination, or autoplay."""
 
     tag = "wa-carousel"
+    schema = ComponentSchema(
+        tag="wa-carousel",
+        class_name="WaCarousel",
+        summary="Carousels display a series of content slides along a horizontal or vertical axis, one or more at a time.\nUsers can navigate between slides with controls, pagination, or autoplay.",
+        props=(
+            PropertySchema(
+                name="loop",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="When set, allows the user to navigate the carousel in the same direction indefinitely.",
+            ),
+            PropertySchema(name="slides", kind="number", choices=(), default="0", description=None),
+            PropertySchema(name="currentSlide", kind="number", choices=(), default="0", description=None),
+            PropertySchema(name="navigation", kind="boolean", choices=(), default="false", description="When set, show the carousel's navigation."),
+            PropertySchema(
+                name="pagination", kind="boolean", choices=(), default="false", description="When set, show the carousel's pagination indicators."
+            ),
+            PropertySchema(
+                name="autoplay",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="When set, the slides will scroll automatically when the user is not interacting with them.",
+            ),
+            PropertySchema(
+                name="autoplay-interval",
+                kind="number",
+                choices=(),
+                default="3000",
+                description="Specifies the amount of time, in milliseconds, between each automatic scroll.",
+            ),
+            PropertySchema(
+                name="slides-per-page",
+                kind="number",
+                choices=(),
+                default="1",
+                description="Specifies how many slides should be shown at a given time.",
+            ),
+            PropertySchema(
+                name="slides-per-move",
+                kind="number",
+                choices=(),
+                default="1",
+                description="Specifies the number of slides the carousel will advance when scrolling, useful when specifying a `slides-per-page`\ngreater than one. It can't be higher than `slides-per-page`.",
+            ),
+            PropertySchema(
+                name="orientation",
+                kind="enum",
+                choices=("horizontal", "vertical"),
+                default="horizontal",
+                description="Specifies the orientation in which the carousel will lay out.",
+            ),
+            PropertySchema(
+                name="mouse-dragging",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="When set, it is possible to scroll through the slides by dragging them with the mouse.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-slide-change",),
+        slots=("", "next-icon", "previous-icon"),
+    )
 
     def __init__(
         self,
@@ -767,6 +1550,67 @@ class WaCheckboxGroup(Component):
     """Checkbox groups wrap a set of related checkboxes or switches so they share a label, hint, and grouping semantics."""
 
     tag = "wa-checkbox-group"
+    schema = ComponentSchema(
+        tag="wa-checkbox-group",
+        class_name="WaCheckboxGroup",
+        summary="Checkbox groups wrap a set of related checkboxes or switches so they share a label, hint, and grouping\nsemantics.",
+        props=(
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The checkbox group's label. Required for proper accessibility. If you need to display HTML, use the `label` slot\ninstead.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The checkbox group's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="orientation",
+                kind="enum",
+                choices=("horizontal", "vertical"),
+                default="vertical",
+                description="The orientation in which to show grouped checkboxes.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default=None,
+                description="The group's size. When present, this size will be applied to all `<wa-checkbox>` and `<wa-switch>` items inside.",
+            ),
+            PropertySchema(
+                name="required",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Indicates that at least one option should be selected. This only adds a visual indicator to the label. To enforce\nthe requirement, use the `required` attribute on the individual checkboxes and/or their `setCustomValidity()`\nmethod.",
+            ),
+            PropertySchema(
+                name="with-label",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup includes\nthe label before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup includes\nthe hint before the component hydrates on the client.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("", "label", "hint"),
+    )
 
     def __init__(
         self,
@@ -807,6 +1651,183 @@ class WaInput(Component):
     """Inputs collect single-line data from the user, such as text, numbers, email addresses, and passwords. They support labels, hints, validation, and prefix or suffix slots."""
 
     tag = "wa-input"
+    schema = ComponentSchema(
+        tag="wa-input",
+        class_name="WaInput",
+        summary="Inputs collect single-line data from the user, such as text, numbers, email addresses, and passwords. They\nsupport labels, hints, validation, and prefix or suffix slots.",
+        props=(
+            PropertySchema(name="title", kind="string", choices=(), default="", description=None),
+            PropertySchema(
+                name="type",
+                kind="enum",
+                choices=("date", "datetime-local", "email", "number", "password", "search", "tel", "text", "time", "url"),
+                default="text",
+                description="The type of input. Works the same as a native `<input>` element, but only a subset of types are supported. Defaults\nto `text`.",
+            ),
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The default value of the form control. Primarily used for resetting the form control.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The input's size.",
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("filled", "outlined", "filled-outlined"),
+                default="outlined",
+                description="The input's visual appearance.",
+            ),
+            PropertySchema(name="pill", kind="boolean", choices=(), default="false", description="Draws a pill-style input with rounded edges."),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The input's label. If you need to display HTML, use the `label` slot instead.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The input's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="with-clear", kind="boolean", choices=(), default="false", description="Adds a clear button when the input is not empty."
+            ),
+            PropertySchema(
+                name="placeholder", kind="string", choices=(), default="", description="Placeholder text to show as a hint when the input is empty."
+            ),
+            PropertySchema(name="readonly", kind="boolean", choices=(), default="false", description="Makes the input readonly."),
+            PropertySchema(
+                name="password-toggle",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Adds a button to toggle the password's visibility. Only applies to password types.",
+            ),
+            PropertySchema(
+                name="password-visible",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Determines whether or not the password is currently visible. Only applies to password input types.",
+            ),
+            PropertySchema(
+                name="without-spin-buttons",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Hides the browser's built-in increment/decrement spin buttons for number inputs.",
+            ),
+            PropertySchema(name="required", kind="boolean", choices=(), default="false", description="Makes the input a required field."),
+            PropertySchema(
+                name="pattern", kind="string", choices=(), default=None, description="A regular expression pattern to validate input against."
+            ),
+            PropertySchema(
+                name="minlength", kind="number", choices=(), default=None, description="The minimum length of input that will be considered valid."
+            ),
+            PropertySchema(
+                name="maxlength", kind="number", choices=(), default=None, description="The maximum length of input that will be considered valid."
+            ),
+            PropertySchema(
+                name="min",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The input's minimum value. Only applies to date and number input types.",
+            ),
+            PropertySchema(
+                name="max",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The input's maximum value. Only applies to date and number input types.",
+            ),
+            PropertySchema(
+                name="step",
+                kind="json",
+                choices=(),
+                default=None,
+                description="Specifies the granularity that the value must adhere to, or the special value `any` which means no stepping is\nimplied, allowing any numeric value. Only applies to date and number input types.",
+            ),
+            PropertySchema(
+                name="autocapitalize",
+                kind="enum",
+                choices=("off", "none", "on", "sentences", "words", "characters"),
+                default=None,
+                description="Controls whether and how text input is automatically capitalized as it is entered by the user.",
+            ),
+            PropertySchema(
+                name="autocorrect",
+                kind="boolean",
+                choices=(),
+                default=None,
+                description='Indicates whether the browser\'s autocorrect feature is on or off. When set as an attribute, use `"off"` or `"on"`.\nWhen set as a property, use `true` or `false`.',
+            ),
+            PropertySchema(
+                name="autocomplete",
+                kind="string",
+                choices=(),
+                default=None,
+                description="Specifies what permission the browser has to provide assistance in filling out form field values. Refer to\n[this page on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) for available values.",
+            ),
+            PropertySchema(
+                name="autofocus", kind="boolean", choices=(), default=None, description="Indicates that the input should receive focus on page load."
+            ),
+            PropertySchema(
+                name="enterkeyhint",
+                kind="enum",
+                choices=("enter", "done", "go", "next", "previous", "search", "send"),
+                default=None,
+                description="Used to customize the label or icon of the Enter key on virtual keyboards.",
+            ),
+            PropertySchema(name="spellcheck", kind="boolean", choices=(), default="true", description="Enables spell checking on the input."),
+            PropertySchema(
+                name="inputmode",
+                kind="enum",
+                choices=("none", "text", "decimal", "numeric", "tel", "search", "email", "url"),
+                default=None,
+                description="Tells the browser what type of data will be entered by the user, allowing it to display the appropriate virtual\nkeyboard on supportive devices.",
+            ),
+            PropertySchema(
+                name="with-label",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup\nincludes the label before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup\nincludes the hint before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the input, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the form control."),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("input", "change", "blur", "focus", "wa-clear", "wa-invalid"),
+        slots=("label", "start", "end", "clear-icon", "show-password-icon", "hide-password-icon", "hint"),
+    )
 
     def __init__(
         self,
@@ -899,6 +1920,185 @@ class WaPopup(Component):
     """Popups declaratively anchor one element to another and keep them positioned together as the page scrolls or resizes. Primarily a low-level building block for popovers, dropdowns, and tooltips."""
 
     tag = "wa-popup"
+    schema = ComponentSchema(
+        tag="wa-popup",
+        class_name="WaPopup",
+        summary="Popups declaratively anchor one element to another and keep them positioned together as the page scrolls or\nresizes. Primarily a low-level building block for popovers, dropdowns, and tooltips.",
+        props=(
+            PropertySchema(
+                name="anchor",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The element the popup will be anchored to. If the anchor lives outside of the popup, you can provide the anchor\nelement `id`, a DOM element reference, or a `VirtualElement`. If the anchor lives inside the popup, use the\n`anchor` slot instead.",
+            ),
+            PropertySchema(
+                name="active",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Activates the positioning logic and shows the popup. When this attribute is removed, the positioning logic is torn\ndown and the popup will be hidden.",
+            ),
+            PropertySchema(
+                name="placement",
+                kind="enum",
+                choices=(
+                    "top",
+                    "top-start",
+                    "top-end",
+                    "bottom",
+                    "bottom-start",
+                    "bottom-end",
+                    "right",
+                    "right-start",
+                    "right-end",
+                    "left",
+                    "left-start",
+                    "left-end",
+                ),
+                default="top",
+                description="The preferred placement of the popup. Note that the actual placement will vary as configured to keep the\npanel inside of the viewport.",
+            ),
+            PropertySchema(
+                name="boundary",
+                kind="enum",
+                choices=("viewport", "scroll"),
+                default="viewport",
+                description="The bounding box to use for flipping, shifting, and auto-sizing.",
+            ),
+            PropertySchema(
+                name="distance",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The distance in pixels from which to offset the panel away from its anchor.",
+            ),
+            PropertySchema(
+                name="skidding",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The distance in pixels from which to offset the panel along its anchor.",
+            ),
+            PropertySchema(
+                name="arrow",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Attaches an arrow to the popup. The arrow's size and color can be customized using the `--arrow-size` and\n`--arrow-color` custom properties. For additional customizations, you can also target the arrow using\n`::part(arrow)` in your stylesheet.",
+            ),
+            PropertySchema(
+                name="arrow-placement",
+                kind="enum",
+                choices=("start", "end", "center", "anchor"),
+                default="anchor",
+                description="The placement of the arrow. The default is `anchor`, which will align the arrow as close to the center of the\nanchor as possible, considering available space and `arrow-padding`. A value of `start`, `end`, or `center` will\nalign the arrow to the start, end, or center of the popover instead.",
+            ),
+            PropertySchema(
+                name="arrow-padding",
+                kind="number",
+                choices=(),
+                default="10",
+                description="The amount of padding between the arrow and the edges of the popup. If the popup has a border-radius, for example,\nthis will prevent it from overflowing the corners.",
+            ),
+            PropertySchema(
+                name="flip",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="When set, placement of the popup will flip to the opposite site to keep it in view. You can use\n`flipFallbackPlacements` to further configure how the fallback placement is determined.",
+            ),
+            PropertySchema(
+                name="flip-fallback-placements",
+                kind="string",
+                choices=(),
+                default="",
+                description='If the preferred placement doesn\'t fit, popup will be tested in these fallback placements until one fits. Must be a\nstring of any number of placements separated by a space, e.g. "top bottom left". If no placement fits, the flip\nfallback strategy will be used instead.',
+            ),
+            PropertySchema(
+                name="flip-fallback-strategy",
+                kind="enum",
+                choices=("best-fit", "initial"),
+                default="best-fit",
+                description="When neither the preferred placement nor the fallback placements fit, this value will be used to determine whether\nthe popup should be positioned using the best available fit based on available space or as it was initially\npreferred.",
+            ),
+            PropertySchema(
+                name="flipBoundary",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The flip boundary describes clipping element(s) that overflow will be checked relative to when flipping. By\ndefault, the boundary includes overflow ancestors that will cause the element to be clipped. If needed, you can\nchange the boundary by passing a reference to one or more elements to this property.",
+            ),
+            PropertySchema(
+                name="flip-padding",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The amount of padding, in pixels, to exceed before the flip behavior will occur.",
+            ),
+            PropertySchema(
+                name="shift",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Moves the popup along the axis to keep it in view when clipped.",
+            ),
+            PropertySchema(
+                name="shiftBoundary",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The shift boundary describes clipping element(s) that overflow will be checked relative to when shifting. By\ndefault, the boundary includes overflow ancestors that will cause the element to be clipped. If needed, you can\nchange the boundary by passing a reference to one or more elements to this property.",
+            ),
+            PropertySchema(
+                name="shift-padding",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The amount of padding, in pixels, to exceed before the shift behavior will occur.",
+            ),
+            PropertySchema(
+                name="auto-size",
+                kind="enum",
+                choices=("horizontal", "vertical", "both"),
+                default=None,
+                description="When set, this will cause the popup to automatically resize itself to prevent it from overflowing.",
+            ),
+            PropertySchema(
+                name="sync",
+                kind="enum",
+                choices=("width", "height", "both"),
+                default=None,
+                description="Syncs the popup's width or height to that of the anchor element.",
+            ),
+            PropertySchema(
+                name="autoSizeBoundary",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The auto-size boundary describes clipping element(s) that overflow will be checked relative to when resizing. By\ndefault, the boundary includes overflow ancestors that will cause the element to be clipped. If needed, you can\nchange the boundary by passing a reference to one or more elements to this property.",
+            ),
+            PropertySchema(
+                name="auto-size-padding",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The amount of padding, in pixels, to exceed before the auto-size behavior will occur.",
+            ),
+            PropertySchema(
+                name="hover-bridge",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description='When a gap exists between the anchor and the popup element, this option will add a "hover bridge" that fills the\ngap using an invisible element. This makes listening for events such as `mouseenter` and `mouseleave` more sane\nbecause the pointer never technically leaves the element. The hover bridge will only be drawn when the popover is\nactive.',
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-reposition",),
+        slots=("", "anchor"),
+    )
 
     def __init__(
         self,
@@ -983,6 +2183,132 @@ class WaColorPicker(Component):
     """Color pickers let users choose a color from a visual palette or by entering a value. They support HEX, RGB, HSL, and HSV formats with optional alpha channel and swatch presets."""
 
     tag = "wa-color-picker"
+    schema = ComponentSchema(
+        tag="wa-color-picker",
+        class_name="WaColorPicker",
+        summary="Color pickers let users choose a color from a visual palette or by entering a value. They support HEX, RGB,\nHSL, and HSV formats with optional alpha channel and swatch presets.",
+        props=(
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The default value of the form control. Primarily used for resetting the form control.",
+            ),
+            PropertySchema(
+                name="with-label",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup\nincludes the label before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup\nincludes the hint before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The color picker's label. This will not be displayed, but it will be announced by assistive devices. If you need to\ndisplay HTML, you can use the `label` slot` instead.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The color picker's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="format",
+                kind="enum",
+                choices=("hex", "rgb", "hsl", "hsv"),
+                default="hex",
+                description="The format to use. If opacity is enabled, these will translate to HEXA, RGBA, HSLA, and HSVA respectively. The color\npicker will accept user input in any format (including CSS color names) and convert it to the desired format.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="Determines the size of the color picker's trigger",
+            ),
+            PropertySchema(
+                name="placement",
+                kind="enum",
+                choices=(
+                    "top",
+                    "top-start",
+                    "top-end",
+                    "bottom",
+                    "bottom-start",
+                    "bottom-end",
+                    "right",
+                    "right-start",
+                    "right-end",
+                    "left",
+                    "left-start",
+                    "left-end",
+                ),
+                default="bottom-start",
+                description="The preferred placement of the color picker's popup. Note that the actual placement will vary as configured to\nkeep the panel inside of the viewport.",
+            ),
+            PropertySchema(
+                name="without-format-toggle",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Removes the button that lets users toggle between format.",
+            ),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the form control, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the color picker."),
+            PropertySchema(
+                name="open",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Indicates whether or not the popup is open. You can toggle this attribute to show and hide the popup, or you\ncan use the `show()` and `hide()` methods and this attribute will reflect the popup's open state.",
+            ),
+            PropertySchema(
+                name="opacity",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Shows the opacity slider. Enabling this will cause the formatted value to be HEXA, RGBA, or HSLA.",
+            ),
+            PropertySchema(
+                name="uppercase",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="By default, values are lowercase. With this attribute, values will be uppercase instead.",
+            ),
+            PropertySchema(
+                name="swatches",
+                kind="json",
+                choices=(),
+                default="",
+                description="One or more predefined color swatches to display as presets in the color picker. Can include any format the color\npicker can parse, including HEX(A), RGB(A), HSL(A), HSV(A), and CSS color names. Each color must be separated by a\nsemicolon (`;`). Alternatively, you can pass an array of color values or an array of `{ color, label }` objects to\nthis property using JavaScript. When using objects with labels, the label will be used for the swatch's accessible\nname instead of the raw color value.",
+            ),
+            PropertySchema(name="required", kind="boolean", choices=(), default="false", description="Makes the color picker a required field."),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("change", "input", "wa-show", "wa-after-show", "wa-hide", "wa-after-hide", "blur", "focus", "wa-invalid"),
+        slots=("label", "hint"),
+    )
 
     def __init__(
         self,
@@ -1057,6 +2383,19 @@ class WaComparison(Component):
     """Comparisons show the visual differences between two pieces of similar content using a draggable divider. Use them for before/after images, design revisions, or side-by-side previews."""
 
     tag = "wa-comparison"
+    schema = ComponentSchema(
+        tag="wa-comparison",
+        class_name="WaComparison",
+        summary="Comparisons show the visual differences between two pieces of similar content using a draggable divider. Use\nthem for before/after images, design revisions, or side-by-side previews.",
+        props=(
+            PropertySchema(name="position", kind="number", choices=(), default="50", description="The position of the divider as a percentage."),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("change",),
+        slots=("before", "after", "handle"),
+    )
 
     def __init__(
         self,
@@ -1085,6 +2424,85 @@ class WaTooltip(Component):
     """Tooltips display brief contextual information when the user hovers, focuses, or taps a target element."""
 
     tag = "wa-tooltip"
+    schema = ComponentSchema(
+        tag="wa-tooltip",
+        class_name="WaTooltip",
+        summary="Tooltips display brief contextual information when the user hovers, focuses, or taps a target element.",
+        props=(
+            PropertySchema(
+                name="placement",
+                kind="enum",
+                choices=(
+                    "top",
+                    "top-start",
+                    "top-end",
+                    "right",
+                    "right-start",
+                    "right-end",
+                    "bottom",
+                    "bottom-start",
+                    "bottom-end",
+                    "left",
+                    "left-start",
+                    "left-end",
+                ),
+                default="top",
+                description="The preferred placement of the tooltip. Note that the actual placement may vary as needed to keep the tooltip\ninside of the viewport.",
+            ),
+            PropertySchema(
+                name="disabled", kind="boolean", choices=(), default="false", description="Disables the tooltip so it won't show when triggered."
+            ),
+            PropertySchema(
+                name="distance",
+                kind="number",
+                choices=(),
+                default="8",
+                description="The distance in pixels from which to offset the tooltip away from its target.",
+            ),
+            PropertySchema(
+                name="open",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Indicates whether or not the tooltip is open. You can use this in lieu of the show/hide methods.",
+            ),
+            PropertySchema(
+                name="skidding",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The distance in pixels from which to offset the tooltip along its target.",
+            ),
+            PropertySchema(
+                name="show-delay",
+                kind="number",
+                choices=(),
+                default="150",
+                description="The amount of time to wait before showing the tooltip when the user mouses in.",
+            ),
+            PropertySchema(
+                name="hide-delay",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The amount of time to wait before hiding the tooltip when the user mouses out.",
+            ),
+            PropertySchema(
+                name="trigger",
+                kind="string",
+                choices=(),
+                default="hover focus",
+                description="Controls how the tooltip is activated. Possible options include `click`, `hover`, `focus`, and `manual`. Multiple\noptions can be passed by separating them with a space. When manual is used, the tooltip must be activated\nprogrammatically.",
+            ),
+            PropertySchema(name="without-arrow", kind="boolean", choices=(), default="false", description="Removes the arrow from the tooltip."),
+            PropertySchema(name="for", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide"),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -1145,6 +2563,65 @@ class WaCopyButton(Component):
     """Copy buttons copy text to the clipboard when the user activates them. They provide built-in success and error feedback so users know the copy worked."""
 
     tag = "wa-copy-button"
+    schema = ComponentSchema(
+        tag="wa-copy-button",
+        class_name="WaCopyButton",
+        summary="Copy buttons copy text to the clipboard when the user activates them. They provide built-in success and\nerror feedback so users know the copy worked.",
+        props=(
+            PropertySchema(name="value", kind="string", choices=(), default="", description="The text value to copy."),
+            PropertySchema(
+                name="from",
+                kind="string",
+                choices=(),
+                default="",
+                description='An id that references an element in the same document from which data will be copied. If both this and `value` are\npresent, this value will take precedence. By default, the target element\'s `textContent` will be copied. To copy an\nattribute, append the attribute name wrapped in square brackets, e.g. `from="el[value]"`. To copy a property,\nappend a dot and the property name, e.g. `from="el.value"`.',
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the copy button."),
+            PropertySchema(
+                name="copy-label",
+                kind="string",
+                choices=(),
+                default="",
+                description="A custom label to use as the accessible name and tooltip text in the default copy state.",
+            ),
+            PropertySchema(
+                name="success-label", kind="string", choices=(), default="", description="A custom label to show in the tooltip after copying."
+            ),
+            PropertySchema(
+                name="error-label",
+                kind="string",
+                choices=(),
+                default="",
+                description="A custom label to show in the tooltip when a copy error occurs.",
+            ),
+            PropertySchema(
+                name="feedback-duration",
+                kind="number",
+                choices=(),
+                default="1000",
+                description="The length of time to show feedback before restoring the default trigger.",
+            ),
+            PropertySchema(
+                name="tooltip-placement",
+                kind="enum",
+                choices=("top", "right", "bottom", "left"),
+                default="top",
+                description="The preferred placement of the tooltip.",
+            ),
+            PropertySchema(
+                name="tooltip",
+                kind="enum",
+                choices=("full", "copy", "none"),
+                default="full",
+                description="Controls the built-in tooltip. `full` (default) shows the tooltip on hover and focus and during copy feedback.\n`copy` keeps the tooltip silent on hover/focus and only shows it briefly to confirm a successful or failed copy.\n`none` disables the tooltip entirely. Applies to both the default and custom triggers.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-copy", "wa-error"),
+        slots=("", "copy-icon", "success-icon", "error-icon"),
+    )
 
     def __init__(
         self,
@@ -1189,6 +2666,50 @@ class WaDetails(Component):
     """Details display a brief summary and expand to reveal additional content. Use them to progressively disclose information, group related FAQs, or hide advanced options."""
 
     tag = "wa-details"
+    schema = ComponentSchema(
+        tag="wa-details",
+        class_name="WaDetails",
+        summary="Details display a brief summary and expand to reveal additional content. Use them to progressively disclose\ninformation, group related FAQs, or hide advanced options.",
+        props=(
+            PropertySchema(
+                name="open",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Indicates whether or not the details is open. You can toggle this attribute to show and hide the details, or you\ncan use the `show()` and `hide()` methods and this attribute will reflect the details' open state.",
+            ),
+            PropertySchema(
+                name="summary",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The summary to show in the header. If you need to display HTML, use the `summary` slot instead.",
+            ),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="Groups related details elements. When one opens, others with the same name will close.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the details so it can't be toggled."),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("filled", "outlined", "filled-outlined", "plain"),
+                default="outlined",
+                description="The element's visual appearance.",
+            ),
+            PropertySchema(
+                name="icon-placement", kind="enum", choices=("start", "end"), default="end", description="The location of the expand/collapse icon."
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide"),
+        slots=("", "summary", "expand-icon", "collapse-icon"),
+    )
 
     def __init__(
         self,
@@ -1227,6 +2748,53 @@ class WaDialog(Component):
     """Dialogs appear above the page and require the user's immediate attention. Use them for confirmations, forms, or focused tasks that interrupt the main flow."""
 
     tag = "wa-dialog"
+    schema = ComponentSchema(
+        tag="wa-dialog",
+        class_name="WaDialog",
+        summary="Dialogs appear above the page and require the user's immediate attention. Use them for confirmations, forms,\nor focused tasks that interrupt the main flow.",
+        props=(
+            PropertySchema(
+                name="open",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Indicates whether or not the dialog is open. Toggle this attribute to show and hide the dialog.",
+            ),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The dialog's label as displayed in the header. You should always include a relevant label, as it is required for\nproper accessibility. If you need to display HTML, use the `label` slot instead.",
+            ),
+            PropertySchema(
+                name="without-header",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Disables the header. This will also remove the default close button.",
+            ),
+            PropertySchema(
+                name="light-dismiss",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="When enabled, the dialog will be closed when the user clicks outside of it.",
+            ),
+            PropertySchema(
+                name="with-footer",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `footer` element so the server-rendered markup\nincludes the footer before the component hydrates on the client.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide"),
+        slots=("", "label", "header-actions", "footer"),
+    )
 
     def __init__(
         self,
@@ -1263,6 +2831,25 @@ class WaDivider(Component):
     """Dividers visually separate or group adjacent elements with a horizontal or vertical line. Use them to establish rhythm and hierarchy within menus, toolbars, and layouts."""
 
     tag = "wa-divider"
+    schema = ComponentSchema(
+        tag="wa-divider",
+        class_name="WaDivider",
+        summary="Dividers visually separate or group adjacent elements with a horizontal or vertical line. Use them to\nestablish rhythm and hierarchy within menus, toolbars, and layouts.",
+        props=(
+            PropertySchema(
+                name="orientation",
+                kind="enum",
+                choices=("horizontal", "vertical"),
+                default="horizontal",
+                description="Sets the divider's orientation.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -1291,6 +2878,60 @@ class WaDrawer(Component):
     """Drawers slide in from the edge of a container to expose additional options and information without navigating away. Useful for navigation menus, filters, and secondary content."""
 
     tag = "wa-drawer"
+    schema = ComponentSchema(
+        tag="wa-drawer",
+        class_name="WaDrawer",
+        summary="Drawers slide in from the edge of a container to expose additional options and information without\nnavigating away. Useful for navigation menus, filters, and secondary content.",
+        props=(
+            PropertySchema(
+                name="open",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Indicates whether or not the drawer is open. Toggle this attribute to show and hide the drawer.",
+            ),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The drawer's label as displayed in the header. You should always include a relevant label, as it is required for\nproper accessibility. If you need to display HTML, use the `label` slot instead.",
+            ),
+            PropertySchema(
+                name="placement",
+                kind="enum",
+                choices=("top", "end", "bottom", "start"),
+                default="end",
+                description="The direction from which the drawer will open.",
+            ),
+            PropertySchema(
+                name="without-header",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Disables the header. This will also remove the default close button.",
+            ),
+            PropertySchema(
+                name="light-dismiss",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="When enabled, the drawer will be closed when the user clicks outside of it.",
+            ),
+            PropertySchema(
+                name="with-footer",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `footer` element so the server-rendered markup\nincludes the footer before the component hydrates on the client.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide"),
+        slots=("", "label", "header-actions", "footer"),
+    )
 
     def __init__(
         self,
@@ -1329,6 +2970,44 @@ class WaDropdownItem(Component):
     """Dropdown items represent selectable entries within a dropdown menu, including standard actions, checkable items, and submenu triggers."""
 
     tag = "wa-dropdown-item"
+    schema = ComponentSchema(
+        tag="wa-dropdown-item",
+        class_name="WaDropdownItem",
+        summary="Dropdown items represent selectable entries within a dropdown menu, including standard actions, checkable\nitems, and submenu triggers.",
+        props=(
+            PropertySchema(
+                name="variant", kind="enum", choices=("danger", "default"), default="default", description="The type of menu item to render."
+            ),
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="An optional value for the menu item. This is useful for determining which item was selected when listening to the\ndropdown's `wa-select` event.",
+            ),
+            PropertySchema(
+                name="type",
+                kind="enum",
+                choices=("normal", "checkbox"),
+                default="normal",
+                description="Set to `checkbox` to make the item a checkbox.",
+            ),
+            PropertySchema(
+                name="checked",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Set to true to check the dropdown item. Only valid when `type` is `checkbox`.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the dropdown item."),
+            PropertySchema(name="submenuOpen", kind="boolean", choices=(), default="false", description="Whether the submenu is currently open."),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("blur", "focus"),
+        slots=("", "icon", "details", "submenu"),
+    )
 
     def __init__(
         self,
@@ -1367,6 +3046,50 @@ class WaDropdown(Component):
     """Dropdowns display a list of options triggered by a button or other element. They support keyboard navigation, submenus, and checkable items for building menus and context actions."""
 
     tag = "wa-dropdown"
+    schema = ComponentSchema(
+        tag="wa-dropdown",
+        class_name="WaDropdown",
+        summary="Dropdowns display a list of options triggered by a button or other element. They support keyboard\nnavigation, submenus, and checkable items for building menus and context actions.",
+        props=(
+            PropertySchema(name="open", kind="boolean", choices=(), default="false", description="Opens or closes the dropdown."),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The dropdown's size.",
+            ),
+            PropertySchema(
+                name="placement",
+                kind="enum",
+                choices=(
+                    "top",
+                    "top-start",
+                    "top-end",
+                    "bottom",
+                    "bottom-start",
+                    "bottom-end",
+                    "right",
+                    "right-start",
+                    "right-end",
+                    "left",
+                    "left-start",
+                    "left-end",
+                ),
+                default="bottom-start",
+                description="The placement of the dropdown menu in reference to the trigger. The menu will shift to a more optimal location if\nthe preferred placement doesn't have enough room.",
+            ),
+            PropertySchema(
+                name="distance", kind="number", choices=(), default="0", description="The distance of the dropdown menu from its trigger."
+            ),
+            PropertySchema(name="skidding", kind="number", choices=(), default="0", description="The offset of the dropdown menu along its trigger."),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide", "wa-select"),
+        slots=("", "trigger"),
+    )
 
     def __init__(
         self,
@@ -1417,6 +3140,27 @@ class WaFormatBytes(Component):
     """Formats a number of bytes as a human-readable string with the appropriate unit, such as kB, MB, or GB. Supports both byte and bit units with configurable locale."""
 
     tag = "wa-format-bytes"
+    schema = ComponentSchema(
+        tag="wa-format-bytes",
+        class_name="WaFormatBytes",
+        summary="Formats a number of bytes as a human-readable string with the appropriate unit, such as kB, MB, or GB.\nSupports both byte and bit units with configurable locale.",
+        props=(
+            PropertySchema(name="value", kind="number", choices=(), default="0", description="The number to format in bytes."),
+            PropertySchema(name="unit", kind="enum", choices=("byte", "bit"), default="byte", description="The type of unit to display."),
+            PropertySchema(
+                name="display",
+                kind="enum",
+                choices=("long", "short", "narrow"),
+                default="short",
+                description='Determines how to display the result, e.g. "100 bytes", "100 b", or "100b".',
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -1449,6 +3193,54 @@ class WaFormatDate(Component):
     """Formats a date or time for display using the specified locale and options. Powered by the Intl.DateTimeFormat API for consistent, localized output."""
 
     tag = "wa-format-date"
+    schema = ComponentSchema(
+        tag="wa-format-date",
+        class_name="WaFormatDate",
+        summary="Formats a date or time for display using the specified locale and options. Powered by the\nIntl.DateTimeFormat API for consistent, localized output.",
+        props=(
+            PropertySchema(
+                name="date",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The date/time to format. If not set, the current date and time will be used. When passing a string, it's strongly\nrecommended to use the ISO 8601 format to ensure timezones are handled correctly. To convert a date to this format\nin JavaScript, use [`date.toISOString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString).",
+            ),
+            PropertySchema(
+                name="weekday", kind="enum", choices=("narrow", "short", "long"), default=None, description="The format for displaying the weekday."
+            ),
+            PropertySchema(
+                name="era", kind="enum", choices=("narrow", "short", "long"), default=None, description="The format for displaying the era."
+            ),
+            PropertySchema(name="year", kind="enum", choices=("numeric", "2-digit"), default=None, description="The format for displaying the year."),
+            PropertySchema(
+                name="month",
+                kind="enum",
+                choices=("numeric", "2-digit", "narrow", "short", "long"),
+                default=None,
+                description="The format for displaying the month.",
+            ),
+            PropertySchema(name="day", kind="enum", choices=("numeric", "2-digit"), default=None, description="The format for displaying the day."),
+            PropertySchema(name="hour", kind="enum", choices=("numeric", "2-digit"), default=None, description="The format for displaying the hour."),
+            PropertySchema(
+                name="minute", kind="enum", choices=("numeric", "2-digit"), default=None, description="The format for displaying the minute."
+            ),
+            PropertySchema(
+                name="second", kind="enum", choices=("numeric", "2-digit"), default=None, description="The format for displaying the second."
+            ),
+            PropertySchema(
+                name="time-zone-name", kind="enum", choices=("short", "long"), default=None, description="The format for displaying the time."
+            ),
+            PropertySchema(name="time-zone", kind="string", choices=(), default=None, description="The time zone to express the time in."),
+            PropertySchema(
+                name="hour-format", kind="enum", choices=("auto", "12", "24"), default="auto", description="The format for displaying the hour."
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -1499,6 +3291,72 @@ class WaFormatNumber(Component):
     """Formats a number for display using the specified locale and options, including currency, percent, and unit styles. Powered by the Intl.NumberFormat API."""
 
     tag = "wa-format-number"
+    schema = ComponentSchema(
+        tag="wa-format-number",
+        class_name="WaFormatNumber",
+        summary="Formats a number for display using the specified locale and options, including currency, percent, and unit\nstyles. Powered by the Intl.NumberFormat API.",
+        props=(
+            PropertySchema(name="value", kind="number", choices=(), default="0", description="The number to format."),
+            PropertySchema(
+                name="type", kind="enum", choices=("currency", "decimal", "percent"), default="decimal", description="The formatting style to use."
+            ),
+            PropertySchema(name="without-grouping", kind="boolean", choices=(), default="false", description="Turns off grouping separators."),
+            PropertySchema(
+                name="currency",
+                kind="string",
+                choices=(),
+                default="USD",
+                description="The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code to use when formatting.",
+            ),
+            PropertySchema(
+                name="currency-display",
+                kind="enum",
+                choices=("symbol", "narrowSymbol", "code", "name"),
+                default="symbol",
+                description="How to display the currency.",
+            ),
+            PropertySchema(
+                name="minimum-integer-digits",
+                kind="number",
+                choices=(),
+                default=None,
+                description="The minimum number of integer digits to use. Possible values are 1-21.",
+            ),
+            PropertySchema(
+                name="minimum-fraction-digits",
+                kind="number",
+                choices=(),
+                default=None,
+                description="The minimum number of fraction digits to use. Possible values are 0-100.",
+            ),
+            PropertySchema(
+                name="maximum-fraction-digits",
+                kind="number",
+                choices=(),
+                default=None,
+                description="The maximum number of fraction digits to use. Possible values are 0-100.",
+            ),
+            PropertySchema(
+                name="minimum-significant-digits",
+                kind="number",
+                choices=(),
+                default=None,
+                description="The minimum number of significant digits to use. Possible values are 1-21.",
+            ),
+            PropertySchema(
+                name="maximum-significant-digits",
+                kind="number",
+                choices=(),
+                default=None,
+                description="The maximum number of significant digits to use,. Possible values are 1-21.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -1545,6 +3403,35 @@ class WaInclude(Component):
     """Fetches an external HTML file and embeds its contents inline on the page. Useful for reusing shared markup like headers, footers, and partials across multiple pages."""
 
     tag = "wa-include"
+    schema = ComponentSchema(
+        tag="wa-include",
+        class_name="WaInclude",
+        summary="Fetches an external HTML file and embeds its contents inline on the page. Useful for reusing shared markup\nlike headers, footers, and partials across multiple pages.",
+        props=(
+            PropertySchema(
+                name="src",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The location of the content to include. This can be a URL to an HTML file, a same-page reference to an element's id\n(e.g. `#my-id`), or a URL with a fragment that targets an element's id within the fetched file\n(e.g. `/partials.html#my-id`). When targeting an element by id, its content is cloned. If the target is a\n`<template>`, its child nodes are cloned. Be sure you trust the content you are including as it will be executed as\ncode and can result in XSS attacks.",
+            ),
+            PropertySchema(
+                name="mode", kind="enum", choices=("cors", "no-cors", "same-origin"), default="cors", description="The fetch mode to use."
+            ),
+            PropertySchema(
+                name="allow-scripts",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Allows included scripts to be executed. Be sure you trust the content you are including as it will be executed as\ncode and can result in XSS attacks.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-load", "wa-include-error"),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -1577,6 +3464,48 @@ class WaIntersectionObserver(Component):
     """Tracks immediate child elements and fires events as they move in and out of view. Useful for lazy loading, scroll-triggered animations, and viewport-aware interactions."""
 
     tag = "wa-intersection-observer"
+    schema = ComponentSchema(
+        tag="wa-intersection-observer",
+        class_name="WaIntersectionObserver",
+        summary="Tracks immediate child elements and fires events as they move in and out of view. Useful for lazy loading,\nscroll-triggered animations, and viewport-aware interactions.",
+        props=(
+            PropertySchema(
+                name="root", kind="string", choices=(), default=None, description="Element ID to define the viewport boundaries for tracked targets."
+            ),
+            PropertySchema(
+                name="root-margin",
+                kind="string",
+                choices=(),
+                default="0px",
+                description="Offset space around the root boundary. Accepts values like CSS margin syntax.",
+            ),
+            PropertySchema(
+                name="threshold",
+                kind="string",
+                choices=(),
+                default="0",
+                description="One or more space-separated values representing visibility percentages that trigger the observer callback.",
+            ),
+            PropertySchema(
+                name="intersect-class",
+                kind="string",
+                choices=(),
+                default="",
+                description="CSS class applied to elements during intersection. Automatically removed when elements leave\nthe viewport, enabling pure CSS styling based on visibility state.",
+            ),
+            PropertySchema(
+                name="once", kind="boolean", choices=(), default="false", description="If enabled, observation ceases after initial intersection."
+            ),
+            PropertySchema(
+                name="disabled", kind="boolean", choices=(), default="false", description="Deactivates the intersection observer functionality."
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-intersect",),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -1615,6 +3544,73 @@ class WaKnownDate(Component):
     """Known dates let users enter dates they already know - birthdays, expirations, document dates - through three separate day, month, and year fields shown in the locale's natural order."""
 
     tag = "wa-known-date"
+    schema = ComponentSchema(
+        tag="wa-known-date",
+        class_name="WaKnownDate",
+        summary="Known dates let users enter dates they already know - birthdays, expirations, document\ndates - through three separate day, month, and year fields shown in the locale's natural order.",
+        props=(
+            PropertySchema(name="name", kind="string", choices=(), default="", description="The name submitted with form data."),
+            PropertySchema(name="value", kind="string", choices=(), default=None, description="The default value used for form reset."),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the known date."),
+            PropertySchema(
+                name="required", kind="boolean", choices=(), default="false", description="Makes the known date required for form submission."
+            ),
+            PropertySchema(name="readonly", kind="boolean", choices=(), default="false", description="Makes the fields non-editable."),
+            PropertySchema(name="size", kind="json", choices=(), default="m", description="The known date's size."),
+            PropertySchema(name="appearance", kind="json", choices=(), default="outlined", description="The known date's visual appearance."),
+            PropertySchema(name="pill", kind="boolean", choices=(), default="false", description="Draws pill-style fields with rounded edges."),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The known date's label. If you need to display HTML, use the `label` slot instead.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The known date's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="autocomplete",
+                kind="string",
+                choices=(),
+                default="",
+                description="Browser autofill family. When set to `bday`, the three fields receive `bday-day`, `bday-month`, and\n`bday-year` respectively. The field-agnostic directives `off` and `on` are applied to all three fields.\nAny other value is forwarded only to the year field.",
+            ),
+            PropertySchema(name="min", kind="string", choices=(), default="", description="Earliest selectable date as `YYYY-MM-DD`."),
+            PropertySchema(name="max", kind="string", choices=(), default="", description="Latest selectable date as `YYYY-MM-DD`."),
+            PropertySchema(
+                name="locale",
+                kind="string",
+                choices=(),
+                default="",
+                description="BCP-47 locale override. When empty, the inherited `lang` attribute is used.",
+            ),
+            PropertySchema(
+                name="with-label",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `label` element.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element.",
+            ),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("input", "change", "blur", "focus", "wa-invalid"),
+        slots=("label", "hint"),
+    )
 
     def __init__(
         self,
@@ -1675,6 +3671,25 @@ class WaMarkdown(Component):
     """Markdown elements render markdown content as HTML directly in the browser, making it easy to display user-generated content or documentation without a server-side build step."""
 
     tag = "wa-markdown"
+    schema = ComponentSchema(
+        tag="wa-markdown",
+        class_name="WaMarkdown",
+        summary="Markdown elements render markdown content as HTML directly in the browser, making it easy to display\nuser-generated content or documentation without a server-side build step.",
+        props=(
+            PropertySchema(
+                name="tab-size",
+                kind="number",
+                choices=(),
+                default="4",
+                description="The tab stop width used when converting leading tabs to spaces during whitespace normalization.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -1703,6 +3718,50 @@ class WaMutationObserver(Component):
     """Mutation observers watch for changes to an element's DOM tree and emit an event when they occur. Provides a thin, declarative interface to the browser's MutationObserver API."""
 
     tag = "wa-mutation-observer"
+    schema = ComponentSchema(
+        tag="wa-mutation-observer",
+        class_name="WaMutationObserver",
+        summary="Mutation observers watch for changes to an element's DOM tree and emit an event when they occur. Provides a\nthin, declarative interface to the browser's MutationObserver API.",
+        props=(
+            PropertySchema(
+                name="attr",
+                kind="string",
+                choices=(),
+                default=None,
+                description='Watches for changes to attributes. To watch only specific attributes, separate them by a space, e.g.\n`attr="class id title"`. To watch all attributes, use `*`.',
+            ),
+            PropertySchema(
+                name="attr-old-value",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Indicates whether or not the attribute's previous value should be recorded when monitoring changes.",
+            ),
+            PropertySchema(
+                name="char-data",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Watches for changes to the character data contained within the node.",
+            ),
+            PropertySchema(
+                name="char-data-old-value",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Indicates whether or not the previous value of the node's text should be recorded.",
+            ),
+            PropertySchema(
+                name="child-list", kind="boolean", choices=(), default="false", description="Watches for the addition or removal of new child nodes."
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the observer."),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-mutation",),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -1741,6 +3800,119 @@ class WaNumberInput(Component):
     """Number inputs let users enter and edit numeric values, with optional stepper buttons for incrementing and decrementing. Use them for quantities, measurements, and other numeric form fields."""
 
     tag = "wa-number-input"
+    schema = ComponentSchema(
+        tag="wa-number-input",
+        class_name="WaNumberInput",
+        summary="Number inputs let users enter and edit numeric values, with optional stepper buttons for incrementing and\ndecrementing. Use them for quantities, measurements, and other numeric form fields.",
+        props=(
+            PropertySchema(name="title", kind="string", choices=(), default="", description=None),
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The default value of the form control. Primarily used for resetting the form control.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The input's size.",
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("filled", "outlined", "filled-outlined"),
+                default="outlined",
+                description="The input's visual appearance.",
+            ),
+            PropertySchema(name="pill", kind="boolean", choices=(), default="false", description="Draws a pill-style input with rounded edges."),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The input's label. If you need to display HTML, use the `label` slot instead.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The input's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="placeholder", kind="string", choices=(), default="", description="Placeholder text to show as a hint when the input is empty."
+            ),
+            PropertySchema(name="readonly", kind="boolean", choices=(), default="false", description="Makes the input readonly."),
+            PropertySchema(name="required", kind="boolean", choices=(), default="false", description="Makes the input a required field."),
+            PropertySchema(name="min", kind="number", choices=(), default=None, description="The input's minimum value."),
+            PropertySchema(name="max", kind="number", choices=(), default=None, description="The input's maximum value."),
+            PropertySchema(
+                name="step",
+                kind="json",
+                choices=(),
+                default="1",
+                description="Specifies the granularity that the value must adhere to, or the special value `any` which means no stepping is\nimplied, allowing any numeric value.",
+            ),
+            PropertySchema(
+                name="without-steppers", kind="boolean", choices=(), default="false", description="Hides the increment/decrement stepper buttons."
+            ),
+            PropertySchema(
+                name="autocomplete",
+                kind="string",
+                choices=(),
+                default=None,
+                description="Specifies what permission the browser has to provide assistance in filling out form field values. Refer to\n[this page on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) for available values.",
+            ),
+            PropertySchema(
+                name="autofocus", kind="boolean", choices=(), default=None, description="Indicates that the input should receive focus on page load."
+            ),
+            PropertySchema(
+                name="enterkeyhint",
+                kind="enum",
+                choices=("enter", "done", "go", "next", "previous", "search", "send"),
+                default=None,
+                description="Used to customize the label or icon of the Enter key on virtual keyboards.",
+            ),
+            PropertySchema(
+                name="inputmode",
+                kind="enum",
+                choices=("numeric", "decimal"),
+                default="numeric",
+                description="Tells the browser what type of data will be entered by the user, allowing it to display the appropriate virtual\nkeyboard on supportive devices.",
+            ),
+            PropertySchema(
+                name="with-label",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup\nincludes the label before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup\nincludes the hint before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the input, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the form control."),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("input", "change", "blur", "focus", "beforeinput", "wa-invalid"),
+        slots=("label", "start", "end", "increment-icon", "decrement-icon", "hint"),
+    )
 
     def __init__(
         self,
@@ -1813,6 +3985,39 @@ class WaTag(Component):
     """Tags label, categorize, or represent selections with a compact visual marker. Use them for status indicators, filters, or removable chips."""
 
     tag = "wa-tag"
+    schema = ComponentSchema(
+        tag="wa-tag",
+        class_name="WaTag",
+        summary="Tags label, categorize, or represent selections with a compact visual marker. Use them for status\nindicators, filters, or removable chips.",
+        props=(
+            PropertySchema(
+                name="variant",
+                kind="enum",
+                choices=("brand", "neutral", "success", "warning", "danger"),
+                default="neutral",
+                description="The tag's theme variant. Defaults to `neutral` if not within another element with a variant.",
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("accent", "filled", "outlined", "filled-outlined"),
+                default="filled-outlined",
+                description="The tag's visual appearance.",
+            ),
+            PropertySchema(
+                name="size", kind="enum", choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"), default="m", description="The tag's size."
+            ),
+            PropertySchema(name="pill", kind="boolean", choices=(), default="false", description="Draws a pill-style tag with rounded edges."),
+            PropertySchema(
+                name="with-remove", kind="boolean", choices=(), default="false", description="Makes the tag removable and shows a remove button."
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-remove",),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -1849,6 +4054,40 @@ class WaOption(Component):
     """Options represent the individual choices inside a select or similar form control. Each option holds a value and the label shown to the user."""
 
     tag = "wa-option"
+    schema = ComponentSchema(
+        tag="wa-option",
+        class_name="WaOption",
+        summary="Options represent the individual choices inside a select or similar form control. Each option holds a value\nand the label shown to the user.",
+        props=(
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default="",
+                description="The option's value. When selected, the containing form control will receive this value. The value must be unique\nfrom other options in the same group. Values may not contain spaces, as spaces are used as delimiters when listing\nmultiple values.",
+            ),
+            PropertySchema(
+                name="disabled",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Draws the option in a disabled state, preventing selection.",
+            ),
+            PropertySchema(name="selected", kind="boolean", choices=(), default="false", description="Selects an option initially."),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The option’s plain text label.\nUsually automatically generated, but can be useful to provide manually for cases involving complex content.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("", "start", "end"),
+    )
 
     def __init__(
         self,
@@ -1883,6 +4122,106 @@ class WaSelect(Component):
     """Selects let users choose one or more values from a dropdown list of predefined options. Use them in forms when a fixed set of choices needs to fit in limited space."""
 
     tag = "wa-select"
+    schema = ComponentSchema(
+        tag="wa-select",
+        class_name="WaSelect",
+        summary="Selects let users choose one or more values from a dropdown list of predefined options. Use them in forms\nwhen a fixed set of choices needs to fit in limited space.",
+        props=(
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default="",
+                description="The name of the select, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(
+                name="value",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The select's value. This will be a string for single select or an array for multi-select.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The select's size.",
+            ),
+            PropertySchema(
+                name="placeholder", kind="string", choices=(), default="", description="Placeholder text to show as a hint when the select is empty."
+            ),
+            PropertySchema(name="multiple", kind="boolean", choices=(), default="false", description="Allows more than one option to be selected."),
+            PropertySchema(
+                name="max-options-visible",
+                kind="number",
+                choices=(),
+                default="3",
+                description='The maximum number of selected options to show when `multiple` is true. After the maximum, "+n" will be shown to\nindicate the number of additional items that are selected. Set to 0 to remove the limit.',
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the select control."),
+            PropertySchema(
+                name="with-clear", kind="boolean", choices=(), default="false", description="Adds a clear button when the select is not empty."
+            ),
+            PropertySchema(
+                name="open",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Indicates whether or not the select is open. You can toggle this attribute to show and hide the menu, or you can\nuse the `show()` and `hide()` methods and this attribute will reflect the select's open state.",
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("filled", "outlined", "filled-outlined"),
+                default="outlined",
+                description="The select's visual appearance.",
+            ),
+            PropertySchema(name="pill", kind="boolean", choices=(), default="false", description="Draws a pill-style select with rounded edges."),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The select's label. If you need to display HTML, use the `label` slot instead.",
+            ),
+            PropertySchema(
+                name="placement",
+                kind="enum",
+                choices=("top", "bottom"),
+                default="bottom",
+                description="The preferred placement of the select's menu. Note that the actual placement may vary as needed to keep the listbox\ninside of the viewport.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The select's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="with-label",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup\nincludes the label before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup\nincludes the hint before the component hydrates on the client.",
+            ),
+            PropertySchema(name="required", kind="boolean", choices=(), default="false", description="The select's required attribute."),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("input", "change", "focus", "blur", "wa-clear", "wa-show", "wa-after-show", "wa-hide", "wa-after-hide", "wa-invalid"),
+        slots=("", "label", "start", "end", "clear-icon", "expand-icon", "hint"),
+    )
 
     def __init__(
         self,
@@ -1945,6 +4284,131 @@ class WaOtpInput(Component):
     """OTP inputs collect one-time passcodes, PINs, and other fixed-length codes, one character per segment. Use them for SMS verification, two-factor authentication, and invite codes."""
 
     tag = "wa-otp-input"
+    schema = ComponentSchema(
+        tag="wa-otp-input",
+        class_name="WaOtpInput",
+        summary="OTP inputs collect one-time passcodes, PINs, and other fixed-length codes, one character per segment.\nUse them for SMS verification, two-factor authentication, and invite codes.",
+        props=(
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The default value. Used to restore the field on form reset. Reflects the `value` HTML attribute.",
+            ),
+            PropertySchema(
+                name="length",
+                kind="number",
+                choices=(),
+                default="6",
+                description="Number of character segments to display. Overridden by `format` when set.",
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("outlined", "filled", "filled-outlined", "contained"),
+                default="outlined",
+                description="Visual appearance of the segments.",
+            ),
+            PropertySchema(
+                name="type", kind="enum", choices=("numeric", "alpha", "alphanumeric"), default="numeric", description="Allowed character class."
+            ),
+            PropertySchema(
+                name="mask",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="When true, entered characters are displayed as `--mask-char` instead of their real value.",
+            ),
+            PropertySchema(
+                name="case",
+                kind="enum",
+                choices=("preserve", "upper", "lower"),
+                default="preserve",
+                description="Case transformation applied to entered characters.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The size of each segment.",
+            ),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="A label shown above the segments. Use the `label` slot for HTML content.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="Hint text shown below the segments. Use the `hint` slot for HTML content.",
+            ),
+            PropertySchema(
+                name="format",
+                kind="string",
+                choices=(),
+                default="",
+                description="Segment format string using `#` as a segment placeholder and any other character as a literal separator.\nSetting `format` overrides `length` (the segment count is derived from the number of `#` characters).",
+            ),
+            PropertySchema(
+                name="autocomplete",
+                kind="string",
+                choices=(),
+                default="one-time-code",
+                description="The `autocomplete` attribute forwarded to the underlying input.",
+            ),
+            PropertySchema(
+                name="required",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Makes the field required. A partially-filled field is always invalid regardless of this attribute.",
+            ),
+            PropertySchema(
+                name="readonly",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Makes the field readonly — the value displays but cannot be edited by the user.",
+            ),
+            PropertySchema(
+                name="autosubmit",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="When true, the form is submitted automatically once all segments are filled.",
+            ),
+            PropertySchema(
+                name="autofocus", kind="boolean", choices=(), default="false", description="Automatically focuses the field when the page loads."
+            ),
+            PropertySchema(
+                name="with-mask",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="When true, empty segments show `--mask-char` as a hint instead of appearing blank, similar to\nhow a password field communicates its expected length before anything is typed.",
+            ),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the input, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the form control."),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("input", "change", "focus", "blur", "wa-complete", "wa-clear", "wa-invalid"),
+        slots=("label", "hint"),
+    )
 
     def __init__(
         self,
@@ -2009,6 +4473,69 @@ class WaPage(Component):
     """Pages scaffold an entire application layout with header, navigation, sidebar, main content, aside, and footer regions. Use them to structure full pages with minimal markup and responsive behavior built in."""
 
     tag = "wa-page"
+    schema = ComponentSchema(
+        tag="wa-page",
+        class_name="WaPage",
+        summary="Pages scaffold an entire application layout with header, navigation, sidebar, main content, aside, and\nfooter regions. Use them to structure full pages with minimal markup and responsive behavior built in.",
+        props=(
+            PropertySchema(
+                name="view",
+                kind="enum",
+                choices=("mobile", "desktop"),
+                default="desktop",
+                description='The view is a reflection of the "mobileBreakpoint", when the page is larger than the `mobile-breakpoint` (768px by\ndefault), it is considered to be a "desktop" view. The view is merely a way to distinguish when to show/hide the\nnavigation. You can use additional media queries to make other adjustments to content as necessary.\nThe default is "desktop" because the "mobile navigation drawer" isn\'t accessible via SSR due to drawer requiring JS.',
+            ),
+            PropertySchema(
+                name="nav-open",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description='Whether or not the navigation drawer is open. Note, the navigation drawer is only "open" on mobile views.',
+            ),
+            PropertySchema(
+                name="mobile-breakpoint",
+                kind="string",
+                choices=(),
+                default="768px",
+                description='At what page width to hide the "navigation" slot and collapse into a hamburger button.\nAccepts both numbers (interpreted as px) and CSS lengths (e.g. `50em`), which are resolved based on the root element.',
+            ),
+            PropertySchema(
+                name="navigation-placement",
+                kind="enum",
+                choices=("start", "end"),
+                default="start",
+                description="Where to place the navigation when in the mobile viewport.",
+            ),
+            PropertySchema(
+                name="disable-navigation-toggle",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Determines whether or not to hide the default hamburger button.\nThis will automatically flip to \"true\" if you add an element with `data-toggle-nav` anywhere in the element light DOM.\nGenerally this will be set for you and you don't need to do anything, unless you're using SSR, in which case you should set this manually for initial page loads.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=(
+            "",
+            "banner",
+            "header",
+            "subheader",
+            "menu",
+            "navigation-header",
+            "navigation",
+            "navigation-footer",
+            "navigation-toggle",
+            "navigation-toggle-icon",
+            "main-header",
+            "main-footer",
+            "aside",
+            "skip-to-content",
+            "footer",
+        ),
+    )
 
     def __init__(
         self,
@@ -2045,6 +4572,74 @@ class WaPagination(Component):
     """Pagination splits long lists of content into pages, letting users navigate between them."""
 
     tag = "wa-pagination"
+    schema = ComponentSchema(
+        tag="wa-pagination",
+        class_name="WaPagination",
+        summary="Pagination splits long lists of content into pages, letting users navigate between them.",
+        props=(
+            PropertySchema(name="total", kind="number", choices=(), default="0", description="The total number of items to paginate."),
+            PropertySchema(name="page-size", kind="number", choices=(), default="10", description="The number of items shown per page."),
+            PropertySchema(name="page", kind="number", choices=(), default="1", description="The current page, starting at 1."),
+            PropertySchema(
+                name="sibling-count",
+                kind="number",
+                choices=(),
+                default="2",
+                description="The number of pages to show on each side of the current page.",
+            ),
+            PropertySchema(
+                name="boundary-count", kind="number", choices=(), default="1", description="The number of pages to always show at the start and end."
+            ),
+            PropertySchema(name="without-nav", kind="boolean", choices=(), default="false", description="Hides the previous and next buttons."),
+            PropertySchema(
+                name="with-edges", kind="boolean", choices=(), default="false", description="Shows buttons that jump to the first and last pages."
+            ),
+            PropertySchema(
+                name="with-summary",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description='Shows a summary of the items on the current page, e.g. "1–10 of 237".',
+            ),
+            PropertySchema(
+                name="format",
+                kind="enum",
+                choices=("standard", "compact"),
+                default="standard",
+                description='The pagination\'s layout. The default `standard` format shows the full page list with ellipses; `compact` collapses\nit into a short "1 of 5" label flanked by the previous and next buttons, useful in tight spaces like toolbars and\ncards.',
+            ),
+            PropertySchema(
+                name="href-template",
+                kind="json",
+                choices=(),
+                default="",
+                description="A URL template used to render page items as links instead of buttons. When set, items render as `<a>` elements for\nSSR, SEO, and no-JS support. Provide a string with `{page}` as a placeholder for the page number, e.g.\n`/products?page={page}`. In JavaScript, you can also assign a function that receives the page number and returns\nthe URL, e.g. `el.hrefTemplate = page => \\`/products?page=${page}\\``.",
+            ),
+            PropertySchema(
+                name="hide-single-page", kind="boolean", choices=(), default="false", description="Renders nothing when there's only one page."
+            ),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="A label that describes the pagination to assistive devices. This won't be shown on the screen, but it will be\nannounced by screen readers. Especially useful when more than one pagination control exists on the same page.",
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("outlined", "filled", "plain"),
+                default="outlined",
+                description="The pagination's visual appearance.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the pagination."),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-before-page-change", "wa-page-change"),
+        slots=("previous-icon", "next-icon", "first-icon", "last-icon"),
+    )
 
     def __init__(
         self,
@@ -2099,6 +4694,61 @@ class WaPopover(Component):
     """Popovers display contextual content and interactive elements in a floating panel anchored to a trigger. Use them for rich tooltips, menus, or any content that appears on demand without navigating away."""
 
     tag = "wa-popover"
+    schema = ComponentSchema(
+        tag="wa-popover",
+        class_name="WaPopover",
+        summary="Popovers display contextual content and interactive elements in a floating panel anchored to a trigger. Use\nthem for rich tooltips, menus, or any content that appears on demand without navigating away.",
+        props=(
+            PropertySchema(
+                name="placement",
+                kind="enum",
+                choices=(
+                    "top",
+                    "top-start",
+                    "top-end",
+                    "right",
+                    "right-start",
+                    "right-end",
+                    "bottom",
+                    "bottom-start",
+                    "bottom-end",
+                    "left",
+                    "left-start",
+                    "left-end",
+                ),
+                default="top",
+                description="The preferred placement of the popover. Note that the actual placement may vary as needed to keep the popover\ninside of the viewport.",
+            ),
+            PropertySchema(name="open", kind="boolean", choices=(), default="false", description="Shows or hides the popover."),
+            PropertySchema(
+                name="distance",
+                kind="number",
+                choices=(),
+                default="8",
+                description="The distance in pixels from which to offset the popover away from its target.",
+            ),
+            PropertySchema(
+                name="skidding",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The distance in pixels from which to offset the popover along its target.",
+            ),
+            PropertySchema(
+                name="for",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The ID of the popover's anchor element. This must be an interactive/focusable element such as a button.",
+            ),
+            PropertySchema(name="without-arrow", kind="boolean", choices=(), default="false", description="Removes the arrow from the popover."),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide"),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -2151,6 +4801,27 @@ class WaProgressBar(Component):
     """Progress bars show how far along an ongoing operation is as a horizontal fill. Use them for file uploads, multi-step flows, or any task with measurable progress."""
 
     tag = "wa-progress-bar"
+    schema = ComponentSchema(
+        tag="wa-progress-bar",
+        class_name="WaProgressBar",
+        summary="Progress bars show how far along an ongoing operation is as a horizontal fill. Use them for file uploads,\nmulti-step flows, or any task with measurable progress.",
+        props=(
+            PropertySchema(name="value", kind="number", choices=(), default="0", description="The current progress as a percentage, 0 to 100."),
+            PropertySchema(
+                name="indeterminate",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="When true, percentage is ignored, the label is hidden, and the progress bar is drawn in an indeterminate state.",
+            ),
+            PropertySchema(name="label", kind="string", choices=(), default="", description="A custom label for assistive devices."),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -2183,6 +4854,20 @@ class WaProgressRing(Component):
     """Progress rings show how far along a determinate operation is using a circular indicator. Use them as a compact alternative to progress bars when horizontal space is limited."""
 
     tag = "wa-progress-ring"
+    schema = ComponentSchema(
+        tag="wa-progress-ring",
+        class_name="WaProgressRing",
+        summary="Progress rings show how far along a determinate operation is using a circular indicator. Use them as a\ncompact alternative to progress bars when horizontal space is limited.",
+        props=(
+            PropertySchema(name="value", kind="number", choices=(), default="0", description="The current progress as a percentage, 0 to 100."),
+            PropertySchema(name="label", kind="string", choices=(), default="", description="A custom label for assistive devices."),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -2213,6 +4898,55 @@ class WaQrCode(Component):
     """QR codes encode a URL or other short text into a scannable image, rendered client-side using the Canvas API. Use them to share links, contact info, or Wi-Fi credentials that visitors can scan with a phone."""
 
     tag = "wa-qr-code"
+    schema = ComponentSchema(
+        tag="wa-qr-code",
+        class_name="WaQrCode",
+        summary="QR codes encode a URL or other short text into a scannable image, rendered client-side using the Canvas API.\nUse them to share links, contact info, or Wi-Fi credentials that visitors can scan with a phone.",
+        props=(
+            PropertySchema(name="value", kind="string", choices=(), default="", description="The QR code's value."),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The label for assistive devices to announce. If unspecified, the value will be used instead.",
+            ),
+            PropertySchema(name="size", kind="number", choices=(), default="128", description="The size of the QR code, in pixels."),
+            PropertySchema(
+                name="fill",
+                kind="string",
+                choices=(),
+                default="",
+                description="The fill color. This can be any valid CSS color, but not a CSS custom property.",
+            ),
+            PropertySchema(
+                name="background",
+                kind="string",
+                choices=(),
+                default="",
+                description="The background color. This can be any valid CSS color or `transparent`. It cannot be a CSS custom property.",
+            ),
+            PropertySchema(
+                name="radius", kind="number", choices=(), default="0", description="The edge radius of each module. Must be between 0 and 0.5."
+            ),
+            PropertySchema(
+                name="error-correction",
+                kind="enum",
+                choices=("L", "M", "Q", "H"),
+                default="H",
+                description="The level of error correction to use. [Learn more](https://www.qrcode.com/en/about/error_correction.html)",
+            ),
+            PropertySchema(name="image", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="image-background", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="image-coverage", kind="number", choices=(), default=None, description=None),
+            PropertySchema(name="image-padding", kind="number", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -2261,6 +4995,44 @@ class WaRadio(Component):
     """Radios represent a single option within a mutually exclusive set. Use them inside a radio group when users must pick exactly one choice from a small list."""
 
     tag = "wa-radio"
+    schema = ComponentSchema(
+        tag="wa-radio",
+        class_name="WaRadio",
+        summary="Radios represent a single option within a mutually exclusive set. Use them inside a radio group when users\nmust pick exactly one choice from a small list.",
+        props=(
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The radio's value. When selected, the radio group will receive this value.",
+            ),
+            PropertySchema(
+                name="appearance", kind="enum", choices=("default", "button"), default="default", description="The radio's visual appearance."
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default=None,
+                description="The radio's size. When used inside a radio group, the size will be determined by the radio group's size, which will\noverride this attribute.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the radio."),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the input, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("blur", "focus"),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -2299,6 +5071,85 @@ class WaRadioGroup(Component):
     """Radio groups wrap a set of radios so they function as a single form control with one shared value. They handle keyboard navigation, labeling, and validation for the group as a whole."""
 
     tag = "wa-radio-group"
+    schema = ComponentSchema(
+        tag="wa-radio-group",
+        class_name="WaRadioGroup",
+        summary="Radio groups wrap a set of radios so they function as a single form control with one shared value. They\nhandle keyboard navigation, labeling, and validation for the group as a whole.",
+        props=(
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The radio group's label. Required for proper accessibility. If you need to display HTML, use the `label` slot\ninstead.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The radio groups's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the radio group, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(
+                name="disabled", kind="boolean", choices=(), default="false", description="Disables the radio group and all child radios."
+            ),
+            PropertySchema(
+                name="orientation",
+                kind="enum",
+                choices=("horizontal", "vertical"),
+                default="vertical",
+                description="The orientation in which to show radio items.",
+            ),
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The default value of the form control. Primarily used for resetting the form control.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default=None,
+                description="The radio group's size. When present, this size will be applied to all `<wa-radio>` items inside.",
+            ),
+            PropertySchema(
+                name="required",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Ensures a child radio is checked before allowing the containing form to submit.",
+            ),
+            PropertySchema(
+                name="with-label",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup\nincludes the label before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup\nincludes the hint before the component hydrates on the client.",
+            ),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("input", "change", "wa-invalid"),
+        slots=("", "label", "hint"),
+    )
 
     def __init__(
         self,
@@ -2347,6 +5198,47 @@ class WaRandomContent(Component):
     """Selects one or more child elements at random and displays them, hiding the rest."""
 
     tag = "wa-random-content"
+    schema = ComponentSchema(
+        tag="wa-random-content",
+        class_name="WaRandomContent",
+        summary="Selects one or more child elements at random and displays them, hiding the rest.",
+        props=(
+            PropertySchema(
+                name="items",
+                kind="number",
+                choices=(),
+                default="1",
+                description="Number of children to show simultaneously. Clamped to [1, childCount].",
+            ),
+            PropertySchema(
+                name="mode",
+                kind="enum",
+                choices=("random", "unique", "sequence"),
+                default="unique",
+                description="Selection strategy: `unique` (default), `random`, or `sequence`.",
+            ),
+            PropertySchema(
+                name="autoplay",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Rotate the content automatically. Set the cadence with `autoplay-interval`.",
+            ),
+            PropertySchema(name="autoplay-interval", kind="number", choices=(), default="3000", description="Autoplay cadence in milliseconds."),
+            PropertySchema(
+                name="animation",
+                kind="enum",
+                choices=("none", "fade", "fade-up", "fade-down", "fade-left", "fade-right"),
+                default="none",
+                description="Entrance animation for newly shown children.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-content-change",),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -2383,6 +5275,63 @@ class WaRating(Component):
     """Ratings display a numeric score as a row of selectable symbols, typically stars. Use them to capture quick feedback or show an average rating for a product or piece of content."""
 
     tag = "wa-rating"
+    schema = ComponentSchema(
+        tag="wa-rating",
+        class_name="WaRating",
+        summary="Ratings display a numeric score as a row of selectable symbols, typically stars. Use them to capture quick\nfeedback or show an average rating for a product or piece of content.",
+        props=(
+            PropertySchema(name="role", kind="string", choices=(), default="slider", description=None),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the rating, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(
+                name="label", kind="string", choices=(), default="", description="A label that describes the rating to assistive devices."
+            ),
+            PropertySchema(name="value", kind="number", choices=(), default="0", description="The current rating."),
+            PropertySchema(
+                name="default-value",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The default value of the form control. Used to reset the rating to its initial value.",
+            ),
+            PropertySchema(name="max", kind="number", choices=(), default="5", description="The highest rating to show."),
+            PropertySchema(
+                name="precision",
+                kind="number",
+                choices=(),
+                default="1",
+                description="The precision at which the rating will increase and decrease. For example, to allow half-star ratings, set this\nattribute to `0.5`.",
+            ),
+            PropertySchema(name="readonly", kind="boolean", choices=(), default="false", description="Makes the rating readonly."),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the rating."),
+            PropertySchema(name="required", kind="boolean", choices=(), default="false", description="Makes the rating a required field."),
+            PropertySchema(
+                name="getSymbol",
+                kind="json",
+                choices=(),
+                default=None,
+                description="A function that customizes the symbol to be rendered. The first and only argument is the rating's current value.\nThe function should return a string containing trusted HTML of the symbol to render at the specified value. Works\nwell with `<wa-icon>` elements.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The component's size.",
+            ),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("change", "wa-hover", "wa-invalid"),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -2435,6 +5384,38 @@ class WaRelativeTime(Component):
     """Relative times display a date as a localized phrase relative to now, such as "3 hours ago" or "in 2 days". The phrase updates automatically as time passes and respects the user's locale."""
 
     tag = "wa-relative-time"
+    schema = ComponentSchema(
+        tag="wa-relative-time",
+        class_name="WaRelativeTime",
+        summary='Relative times display a date as a localized phrase relative to now, such as "3 hours ago" or "in 2 days".\nThe phrase updates automatically as time passes and respects the user\'s locale.',
+        props=(
+            PropertySchema(
+                name="date",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The date from which to calculate time from. If not set, the current date and time will be used. When passing a\nstring, it's strongly recommended to use the ISO 8601 format to ensure timezones are handled correctly. To convert\na date to this format in JavaScript, use [`date.toISOString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString).",
+            ),
+            PropertySchema(
+                name="format", kind="enum", choices=("long", "short", "narrow"), default="long", description="The formatting style to use."
+            ),
+            PropertySchema(
+                name="numeric",
+                kind="enum",
+                choices=("always", "auto"),
+                default="auto",
+                description='When `auto`, values such as "yesterday" and "tomorrow" will be shown when possible. When `always`, values such as\n"1 day ago" and "in 1 day" will be shown.',
+            ),
+            PropertySchema(
+                name="sync", kind="boolean", choices=(), default="false", description="Keep the displayed value up to date as time passes."
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -2469,6 +5450,19 @@ class WaResizeObserver(Component):
     """Resize observers watch their slotted elements for size changes and emit an event when they occur. Provides a thin, declarative interface to the browser's ResizeObserver API."""
 
     tag = "wa-resize-observer"
+    schema = ComponentSchema(
+        tag="wa-resize-observer",
+        class_name="WaResizeObserver",
+        summary="Resize observers watch their slotted elements for size changes and emit an event when they occur. Provides a\nthin, declarative interface to the browser's ResizeObserver API.",
+        props=(
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the observer."),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-resize",),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -2497,6 +5491,23 @@ class WaScroller(Component):
     """Scrollers wrap overflowing content in an accessible container with visual cues that help users recognize and navigate scrollable regions."""
 
     tag = "wa-scroller"
+    schema = ComponentSchema(
+        tag="wa-scroller",
+        class_name="WaScroller",
+        summary="Scrollers wrap overflowing content in an accessible container with visual cues that help users recognize and\nnavigate scrollable regions.",
+        props=(
+            PropertySchema(
+                name="orientation", kind="enum", choices=("horizontal", "vertical"), default="horizontal", description="The scroller's orientation."
+            ),
+            PropertySchema(name="without-scrollbar", kind="boolean", choices=(), default="false", description="Removes the visible scrollbar."),
+            PropertySchema(name="without-shadow", kind="boolean", choices=(), default="false", description="Removes the shadows."),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -2529,6 +5540,25 @@ class WaSkeleton(Component):
     """Skeletons show placeholder shapes where content will appear once it finishes loading, reducing perceived wait time and preventing layout shift."""
 
     tag = "wa-skeleton"
+    schema = ComponentSchema(
+        tag="wa-skeleton",
+        class_name="WaSkeleton",
+        summary="Skeletons show placeholder shapes where content will appear once it finishes loading, reducing perceived\nwait time and preventing layout shift.",
+        props=(
+            PropertySchema(
+                name="effect",
+                kind="enum",
+                choices=("pulse", "sheen", "none"),
+                default="none",
+                description="Determines which effect the skeleton will use.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=(),
+    )
 
     def __init__(
         self,
@@ -2557,6 +5587,137 @@ class WaSlider(Component):
     """Sliders let users choose a numeric value within a defined range by dragging a thumb along a track."""
 
     tag = "wa-slider"
+    schema = ComponentSchema(
+        tag="wa-slider",
+        class_name="WaSlider",
+        summary="Sliders let users choose a numeric value within a defined range by dragging a thumb along a track.",
+        props=(
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The slider's label. If you need to provide HTML in the label, use the `label` slot instead.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The slider hint. If you need to display HTML, use the hint slot instead.",
+            ),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the slider. This will be submitted with the form as a name/value pair.",
+            ),
+            PropertySchema(
+                name="min-value",
+                kind="number",
+                choices=(),
+                default="0",
+                description="The minimum value of a range selection. Used only when range attribute is set.",
+            ),
+            PropertySchema(
+                name="max-value",
+                kind="number",
+                choices=(),
+                default="50",
+                description="The maximum value of a range selection. Used only when range attribute is set.",
+            ),
+            PropertySchema(
+                name="value",
+                kind="number",
+                choices=(),
+                default=None,
+                description="The default value of the form control. Primarily used for resetting the form control.",
+            ),
+            PropertySchema(
+                name="range", kind="boolean", choices=(), default="false", description="Converts the slider to a range slider with two thumbs."
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the slider."),
+            PropertySchema(name="readonly", kind="boolean", choices=(), default="false", description="Makes the slider a read-only field."),
+            PropertySchema(
+                name="orientation",
+                kind="enum",
+                choices=("horizontal", "vertical"),
+                default="horizontal",
+                description="The orientation of the slider.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The slider's size.",
+            ),
+            PropertySchema(
+                name="indicator-offset",
+                kind="number",
+                choices=(),
+                default=None,
+                description="The starting value from which to draw the slider's fill, which is based on its current value.",
+            ),
+            PropertySchema(name="min", kind="number", choices=(), default="0", description="The minimum value allowed."),
+            PropertySchema(name="max", kind="number", choices=(), default="100", description="The maximum value allowed."),
+            PropertySchema(
+                name="step",
+                kind="number",
+                choices=(),
+                default="1",
+                description="The granularity the value must adhere to when incrementing and decrementing.",
+            ),
+            PropertySchema(
+                name="autofocus",
+                kind="boolean",
+                choices=(),
+                default=None,
+                description="Tells the browser to focus the slider when the page loads or a dialog is shown.",
+            ),
+            PropertySchema(
+                name="tooltip-distance", kind="number", choices=(), default="8", description="The distance of the tooltip from the slider's thumb."
+            ),
+            PropertySchema(
+                name="tooltip-placement",
+                kind="enum",
+                choices=("top", "right", "bottom", "left"),
+                default="top",
+                description="The placement of the tooltip in reference to the slider's thumb.",
+            ),
+            PropertySchema(
+                name="with-markers", kind="boolean", choices=(), default="false", description="Draws markers at each step along the slider."
+            ),
+            PropertySchema(
+                name="with-tooltip",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Draws a tooltip above the thumb when the control has focus or is dragged.",
+            ),
+            PropertySchema(
+                name="with-label",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup\nincludes the label before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup\nincludes the hint before the component hydrates on the client.",
+            ),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("change", "blur", "focus", "input", "wa-invalid"),
+        slots=("label", "hint", "reference"),
+    )
 
     def __init__(
         self,
@@ -2629,6 +5790,67 @@ class WaSplitPanel(Component):
     """Split panels display two adjacent panels separated by a draggable divider, letting users resize each side to suit their workflow."""
 
     tag = "wa-split-panel"
+    schema = ComponentSchema(
+        tag="wa-split-panel",
+        class_name="WaSplitPanel",
+        summary="Split panels display two adjacent panels separated by a draggable divider, letting users resize each side to\nsuit their workflow.",
+        props=(
+            PropertySchema(
+                name="position",
+                kind="number",
+                choices=(),
+                default="50",
+                description="The current position of the divider from the primary panel's edge as a percentage 0-100. Defaults to 50% of the\ncontainer's initial size.",
+            ),
+            PropertySchema(
+                name="position-in-pixels",
+                kind="number",
+                choices=(),
+                default=None,
+                description="The current position of the divider from the primary panel's edge in pixels.",
+            ),
+            PropertySchema(
+                name="orientation",
+                kind="enum",
+                choices=("horizontal", "vertical"),
+                default="horizontal",
+                description="Sets the split panel's orientation.",
+            ),
+            PropertySchema(
+                name="disabled",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Disables resizing. Note that the position may still change as a result of resizing the host element.",
+            ),
+            PropertySchema(
+                name="primary",
+                kind="enum",
+                choices=("start", "end"),
+                default=None,
+                description="If no primary panel is designated, both panels will resize proportionally when the host element is resized. If a\nprimary panel is designated, it will maintain its size and the other panel will grow or shrink as needed when the\nhost element is resized.",
+            ),
+            PropertySchema(
+                name="snap",
+                kind="string",
+                choices=(),
+                default=None,
+                description='One or more space-separated values at which the divider should snap. Values can be in pixels or percentages, e.g.\n`"100px 50%"`.',
+            ),
+            PropertySchema(
+                name="snap-threshold",
+                kind="number",
+                choices=(),
+                default="12",
+                description="How close the divider must be to a snap point until snapping occurs.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-reposition",),
+        slots=("start", "end", "divider"),
+    )
 
     def __init__(
         self,
@@ -2669,6 +5891,64 @@ class WaSwitch(Component):
     """Switches toggle a single setting on or off and apply the change immediately, without requiring a form submission."""
 
     tag = "wa-switch"
+    schema = ComponentSchema(
+        tag="wa-switch",
+        class_name="WaSwitch",
+        summary="Switches toggle a single setting on or off and apply the change immediately, without requiring a form\nsubmission.",
+        props=(
+            PropertySchema(name="title", kind="string", choices=(), default="", description=None),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the switch, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The value of the switch, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The switch's size.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the switch."),
+            PropertySchema(
+                name="checked",
+                kind="boolean",
+                choices=(),
+                default=None,
+                description="The default value of the form control. Primarily used for resetting the form control.",
+            ),
+            PropertySchema(name="required", kind="boolean", choices=(), default="false", description="Makes the switch a required field."),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The switch's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup\nincludes the hint before the component hydrates on the client.",
+            ),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("change", "input", "blur", "focus", "wa-invalid"),
+        slots=("", "hint"),
+    )
 
     def __init__(
         self,
@@ -2715,6 +5995,21 @@ class WaTabPanel(Component):
     """Tab panels hold the content shown for a single tab inside a tab group."""
 
     tag = "wa-tab-panel"
+    schema = ComponentSchema(
+        tag="wa-tab-panel",
+        class_name="WaTabPanel",
+        summary="Tab panels hold the content shown for a single tab inside a tab group.",
+        props=(
+            PropertySchema(name="name", kind="string", choices=(), default="", description="The tab panel's name."),
+            PropertySchema(name="active", kind="boolean", choices=(), default="false", description="When true, the tab panel will be shown."),
+            PropertySchema(name="role", kind="string", choices=(), default="tabpanel", description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -2747,6 +6042,27 @@ class WaTab(Component):
     """Tabs label and activate an individual panel inside a tab group."""
 
     tag = "wa-tab"
+    schema = ComponentSchema(
+        tag="wa-tab",
+        class_name="WaTab",
+        summary="Tabs label and activate an individual panel inside a tab group.",
+        props=(
+            PropertySchema(
+                name="panel",
+                kind="string",
+                choices=(),
+                default="",
+                description="The name of the tab panel this tab is associated with. The panel must be located in the same tab group.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the tab and prevents selection."),
+            PropertySchema(name="role", kind="string", choices=(), default="tab", description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -2779,6 +6095,36 @@ class WaTabGroup(Component):
     """Tab groups organize related content into a single container that displays one panel at a time, with tabs for switching between them."""
 
     tag = "wa-tab-group"
+    schema = ComponentSchema(
+        tag="wa-tab-group",
+        class_name="WaTabGroup",
+        summary="Tab groups organize related content into a single container that displays one panel at a time, with tabs for\nswitching between them.",
+        props=(
+            PropertySchema(name="active", kind="string", choices=(), default="", description="Sets the active tab."),
+            PropertySchema(
+                name="placement", kind="enum", choices=("top", "bottom", "start", "end"), default="top", description="The placement of the tabs."
+            ),
+            PropertySchema(
+                name="activation",
+                kind="enum",
+                choices=("auto", "manual"),
+                default="auto",
+                description="When set to auto, navigating tabs with the arrow keys will instantly show the corresponding tab panel. When set to\nmanual, the tab will receive focus but will not show until the user presses spacebar or enter.",
+            ),
+            PropertySchema(
+                name="without-scroll-controls",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Disables the scroll arrows that appear when tabs overflow.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-tab-show", "wa-tab-hide"),
+        slots=("", "nav"),
+    )
 
     def __init__(
         self,
@@ -2813,6 +6159,142 @@ class WaTextarea(Component):
     """Textareas collect multi-line text input from the user, with optional resizing and character counting."""
 
     tag = "wa-textarea"
+    schema = ComponentSchema(
+        tag="wa-textarea",
+        class_name="WaTextarea",
+        summary="Textareas collect multi-line text input from the user, with optional resizing and character counting.",
+        props=(
+            PropertySchema(name="title", kind="string", choices=(), default="", description=None),
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The name of the textarea, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(
+                name="value",
+                kind="string",
+                choices=(),
+                default=None,
+                description="The default value of the form control. Primarily used for resetting the form control.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The textarea's size.",
+            ),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("filled", "outlined", "filled-outlined"),
+                default="outlined",
+                description="The textarea's visual appearance.",
+            ),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The textarea's label. If you need to display HTML, use the `label` slot instead.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The textarea's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="placeholder", kind="string", choices=(), default="", description="Placeholder text to show as a hint when the input is empty."
+            ),
+            PropertySchema(name="rows", kind="number", choices=(), default="4", description="The number of rows to display by default."),
+            PropertySchema(
+                name="resize",
+                kind="enum",
+                choices=("none", "vertical", "horizontal", "both", "auto"),
+                default="vertical",
+                description="Controls how the textarea can be resized.",
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the textarea."),
+            PropertySchema(name="readonly", kind="boolean", choices=(), default="false", description="Makes the textarea readonly."),
+            PropertySchema(name="required", kind="boolean", choices=(), default="false", description="Makes the textarea a required field."),
+            PropertySchema(
+                name="minlength", kind="number", choices=(), default=None, description="The minimum length of input that will be considered valid."
+            ),
+            PropertySchema(
+                name="maxlength", kind="number", choices=(), default=None, description="The maximum length of input that will be considered valid."
+            ),
+            PropertySchema(
+                name="autocapitalize",
+                kind="enum",
+                choices=("off", "none", "on", "sentences", "words", "characters"),
+                default=None,
+                description="Controls whether and how text input is automatically capitalized as it is entered by the user.",
+            ),
+            PropertySchema(
+                name="autocorrect",
+                kind="boolean",
+                choices=(),
+                default=None,
+                description='Indicates whether the browser\'s autocorrect feature is on or off. When set as an attribute, use `"off"` or `"on"`.\nWhen set as a property, use `true` or `false`.',
+            ),
+            PropertySchema(
+                name="autocomplete",
+                kind="string",
+                choices=(),
+                default=None,
+                description="Specifies what permission the browser has to provide assistance in filling out form field values. Refer to\n[this page on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) for available values.",
+            ),
+            PropertySchema(
+                name="autofocus", kind="boolean", choices=(), default=None, description="Indicates that the input should receive focus on page load."
+            ),
+            PropertySchema(
+                name="enterkeyhint",
+                kind="enum",
+                choices=("enter", "done", "go", "next", "previous", "search", "send"),
+                default=None,
+                description="Used to customize the label or icon of the Enter key on virtual keyboards.",
+            ),
+            PropertySchema(name="spellcheck", kind="boolean", choices=(), default="true", description="Enables spell checking on the textarea."),
+            PropertySchema(
+                name="inputmode",
+                kind="enum",
+                choices=("none", "text", "decimal", "numeric", "tel", "search", "email", "url"),
+                default=None,
+                description="Tells the browser what type of data will be entered by the user, allowing it to display the appropriate virtual\nkeyboard on supportive devices.",
+            ),
+            PropertySchema(
+                name="with-label",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup\nincludes the label before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup\nincludes the hint before the component hydrates on the client.",
+            ),
+            PropertySchema(
+                name="with-count",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Shows a character count below the textarea. When `maxlength` is set, shows remaining characters instead.",
+            ),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("blur", "change", "focus", "input", "wa-invalid"),
+        slots=("label", "hint"),
+    )
 
     def __init__(
         self,
@@ -2891,6 +6373,117 @@ class WaTimeInput(Component):
     """Time pickers let users enter a time through a segmented field or select one visually from a popup column picker. They support 12- and 24-hour formats, optional seconds, and locale-aware segment order."""
 
     tag = "wa-time-input"
+    schema = ComponentSchema(
+        tag="wa-time-input",
+        class_name="WaTimeInput",
+        summary="Time pickers let users enter a time through a segmented field or select one visually from a popup column\npicker. They support 12- and 24-hour formats, optional seconds, and locale-aware segment order.",
+        props=(
+            PropertySchema(
+                name="name",
+                kind="string",
+                choices=(),
+                default="",
+                description="The time picker's name, submitted as a name/value pair with form data.",
+            ),
+            PropertySchema(
+                name="value", kind="string", choices=(), default=None, description="The default value of the form control. Used for form reset."
+            ),
+            PropertySchema(name="disabled", kind="boolean", choices=(), default="false", description="Disables the time picker."),
+            PropertySchema(
+                name="required", kind="boolean", choices=(), default="false", description="Makes the time picker required for form submission."
+            ),
+            PropertySchema(
+                name="readonly",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Makes the input non-editable. The popup still opens for browsing.",
+            ),
+            PropertySchema(name="size", kind="json", choices=(), default="m", description="The time picker's size."),
+            PropertySchema(
+                name="appearance",
+                kind="enum",
+                choices=("filled", "outlined", "filled-outlined"),
+                default="outlined",
+                description="The time picker's visual appearance.",
+            ),
+            PropertySchema(
+                name="pill", kind="boolean", choices=(), default="false", description="Draws a pill-style time picker with rounded edges."
+            ),
+            PropertySchema(
+                name="label",
+                kind="string",
+                choices=(),
+                default="",
+                description="The time picker's label. If you need to display HTML, use the `label` slot instead.",
+            ),
+            PropertySchema(
+                name="hint",
+                kind="string",
+                choices=(),
+                default="",
+                description="The time picker's hint. If you need to display HTML, use the `hint` slot instead.",
+            ),
+            PropertySchema(
+                name="autocomplete",
+                kind="string",
+                choices=(),
+                default="",
+                description="Forwarded to the hidden form input to enable browser autofill (`on`/`off`/custom tokens).",
+            ),
+            PropertySchema(
+                name="with-clear", kind="boolean", choices=(), default="false", description="Shows a clear button when the time picker has a value."
+            ),
+            PropertySchema(name="with-now", kind="boolean", choices=(), default="false", description='Renders a "Now" button in the popup footer.'),
+            PropertySchema(
+                name="with-label",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `label` element.",
+            ),
+            PropertySchema(
+                name="with-hint",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in a `hint` element.",
+            ),
+            PropertySchema(
+                name="min",
+                kind="string",
+                choices=(),
+                default="",
+                description='The earliest selectable time in wire format. May be later than `max` to represent an overnight range. The picker\ndelegates reversed-range semantics to the mirrored native `<input type="time">`.',
+            ),
+            PropertySchema(name="max", kind="string", choices=(), default="", description="The latest selectable time in wire format."),
+            PropertySchema(
+                name="step",
+                kind="json",
+                choices=(),
+                default="60",
+                description="The granularity, in seconds, matching HTML `<input type=\"time\">`. Default `60` hides the seconds segment.\nValues below 60 reveal the seconds segment. `'any'` disables `stepMismatch` enforcement.",
+            ),
+            PropertySchema(
+                name="hour-format",
+                kind="json",
+                choices=(),
+                default="auto",
+                description="Whether the UI uses a 12-hour or 24-hour clock. `auto` follows the resolved locale.",
+            ),
+            PropertySchema(name="open", kind="boolean", choices=(), default="false", description="Whether the popup is open."),
+            PropertySchema(name="placement", kind="json", choices=(), default="bottom-start", description="Preferred popup placement."),
+            PropertySchema(
+                name="distance", kind="number", choices=(), default="0", description="Distance in pixels between the popup and the input."
+            ),
+            PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("input", "change", "focus", "blur", "wa-clear", "wa-show", "wa-after-show", "wa-hide", "wa-after-hide", "wa-invalid"),
+        slots=("label", "hint", "start", "end", "clear-icon", "expand-icon", "footer"),
+    )
 
     def __init__(
         self,
@@ -2963,6 +6556,46 @@ class WaToastItem(Component):
     """Toast items are individual notifications displayed within a toast container."""
 
     tag = "wa-toast-item"
+    schema = ComponentSchema(
+        tag="wa-toast-item",
+        class_name="WaToastItem",
+        summary="Toast items are individual notifications displayed within a toast container.",
+        props=(
+            PropertySchema(
+                name="variant",
+                kind="enum",
+                choices=("brand", "success", "warning", "danger", "neutral"),
+                default="neutral",
+                description="The toast item's variant.",
+            ),
+            PropertySchema(
+                name="size",
+                kind="enum",
+                choices=("xs", "s", "m", "l", "xl", "small", "medium", "large"),
+                default="m",
+                description="The toast item's size.",
+            ),
+            PropertySchema(
+                name="duration",
+                kind="number",
+                choices=(),
+                default="5000",
+                description="The length of time in milliseconds before the toast item is automatically dismissed. Set to 0 to keep the toast\nitem open until the user dismisses it.",
+            ),
+            PropertySchema(
+                name="with-icon",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Only required for SSR. Set to `true` if you're slotting in an `icon` element so the server-rendered markup\nincludes the icon before the component hydrates on the client.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide"),
+        slots=("", "icon"),
+    )
 
     def __init__(
         self,
@@ -2997,6 +6630,25 @@ class WaToast(Component):
     """Toasts display brief, non-blocking notifications that appear temporarily above the page content."""
 
     tag = "wa-toast"
+    schema = ComponentSchema(
+        tag="wa-toast",
+        class_name="WaToast",
+        summary="Toasts display brief, non-blocking notifications that appear temporarily above the page content.",
+        props=(
+            PropertySchema(
+                name="placement",
+                kind="enum",
+                choices=("top-start", "top-center", "top-end", "bottom-start", "bottom-center", "bottom-end"),
+                default="top-end",
+                description="The placement of the toast stack on the screen.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=(),
+        slots=("",),
+    )
 
     def __init__(
         self,
@@ -3025,6 +6677,27 @@ class WaTree(Component):
     """Trees allow you to display a hierarchical list of selectable tree items. Items with children can be expanded and collapsed as desired by the user."""
 
     tag = "wa-tree"
+    schema = ComponentSchema(
+        tag="wa-tree",
+        class_name="WaTree",
+        summary="Trees allow you to display a hierarchical list of selectable tree items. Items with children can be expanded\nand collapsed as desired by the user.",
+        props=(
+            PropertySchema(
+                name="selection",
+                kind="enum",
+                choices=("single", "multiple", "leaf", "leaf-multiple"),
+                default="single",
+                description="The selection behavior of the tree. Single selection allows only one node to be selected at a time. Multiple\ndisplays checkboxes and allows more than one node to be selected. Leaf allows only leaf nodes to be selected.\nLeaf-multiple allows multiple leaf nodes to be selected while parent nodes only expand and collapse.",
+            ),
+            PropertySchema(name="tabindex", kind="number", choices=(), default="0", description=None),
+            PropertySchema(name="role", kind="string", choices=(), default="tree", description=None),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("wa-selection-change",),
+        slots=("", "expand-icon", "collapse-icon"),
+    )
 
     def __init__(
         self,
@@ -3057,6 +6730,43 @@ class WaZoomableFrame(Component):
     """Zoomable frames embed iframe content with built-in controls for zooming, panning, and managing interaction."""
 
     tag = "wa-zoomable-frame"
+    schema = ComponentSchema(
+        tag="wa-zoomable-frame",
+        class_name="WaZoomableFrame",
+        summary="Zoomable frames embed iframe content with built-in controls for zooming, panning, and managing interaction.",
+        props=(
+            PropertySchema(name="src", kind="string", choices=(), default=None, description="The URL of the content to display."),
+            PropertySchema(name="srcdoc", kind="string", choices=(), default=None, description="Inline HTML to display."),
+            PropertySchema(name="allowfullscreen", kind="boolean", choices=(), default="false", description="Allows fullscreen mode."),
+            PropertySchema(name="loading", kind="enum", choices=("eager", "lazy"), default="eager", description="Controls iframe loading behavior."),
+            PropertySchema(name="referrerpolicy", kind="string", choices=(), default=None, description="Controls referrer information."),
+            PropertySchema(name="sandbox", kind="string", choices=(), default=None, description="Security restrictions for the iframe."),
+            PropertySchema(
+                name="zoom", kind="number", choices=(), default="1", description="The current zoom of the frame, e.g. 0 = 0% and 1 = 100%."
+            ),
+            PropertySchema(
+                name="zoom-levels",
+                kind="string",
+                choices=(),
+                default="25% 50% 75% 100% 125% 150% 175% 200%",
+                description="The zoom levels to step through when using zoom controls. This does not restrict programmatic changes to the zoom.",
+            ),
+            PropertySchema(name="without-controls", kind="boolean", choices=(), default="false", description="Removes the zoom controls."),
+            PropertySchema(name="without-interaction", kind="boolean", choices=(), default="false", description="Disables interaction when present."),
+            PropertySchema(
+                name="with-theme-sync",
+                kind="boolean",
+                choices=(),
+                default="false",
+                description="Enables automatic theme syncing (light/dark mode and theme selector classes) from the host document to the iframe.",
+            ),
+            PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        events=("load", "error"),
+        slots=("zoom-in-icon", "zoom-out-icon"),
+    )
 
     def __init__(
         self,

@@ -38,4 +38,5 @@ is a slug of the label.
 1. `cdn/index.js`
 
 The CSS maps WebAwesome theme colors onto core `--spa-*` shell tokens. The JavaScript bundle registers
-the full component catalog.
+the full component catalog. `package.components` contains every generated component class;
+`package.catalog` returns their property, event, and slot schemas.

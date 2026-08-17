@@ -43,6 +43,9 @@ def test_tabs_build_linked_headers_and_panels():
 
 def test_package_drives_bootstrap_asset_urls():
     html = bootstrap(packages=[package])
+    tags = {schema.tag for schema in package.catalog}
+    assert {"wa-button", "wa-card", "wa-input"} <= tags
+    assert len(tags) == len(package.catalog)
     assert 'href="/components/webawesome/css/webawesome.css"' in html
     assert 'src="/components/webawesome/cdn/index.js"' in html
 
