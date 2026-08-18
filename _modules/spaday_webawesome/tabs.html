@@ -233,7 +233,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for spaday_webawesome.tabs</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;WebAwesome tab-group convenience component.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""WebAwesome tab-group convenience component."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
@@ -243,35 +243,35 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_tab_name</span><span class="p">(</span><span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="k">return</span> <span class="s2">&quot;-&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot; &quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">label</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="ow">or</span> <span class="s2">&quot;tab&quot;</span>
+    <span class="k">return</span> <span class="s2">"-"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="k">else</span> <span class="s2">" "</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">label</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="ow">or</span> <span class="s2">"tab"</span>
 
 
 <div class="viewcode-block" id="Tabs">
 <a class="viewcode-back" href="../../docs/src/reference.html#spaday_webawesome.Tabs">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Tabs</span><span class="p">(</span><span class="n">Component</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A ``wa-tab-group`` built from labelled content panels.</span>
+<span class="w">    </span><span class="sd">"""A ``wa-tab-group`` built from labelled content panels.</span>
 
 <span class="sd">    Bind ``active`` two-way to keep application state synchronized with user tab selection.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;wa-tab-group&quot;</span>
+    <span class="n">tag</span> <span class="o">=</span> <span class="s2">"wa-tab-group"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">active</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">placement</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">props</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">props</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;active&quot;</span><span class="p">:</span> <span class="n">active</span><span class="p">,</span> <span class="s2">&quot;placement&quot;</span><span class="p">:</span> <span class="n">placement</span><span class="p">},</span> <span class="o">**</span><span class="n">props</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">props</span><span class="o">=</span><span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="n">active</span><span class="p">,</span> <span class="s2">"placement"</span><span class="p">:</span> <span class="n">placement</span><span class="p">},</span> <span class="o">**</span><span class="n">props</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Tabs.tab">
 <a class="viewcode-back" href="../../docs/src/reference.html#spaday_webawesome.Tabs.tab">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">tab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">content</span><span class="p">:</span> <span class="n">Child</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Tabs&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add linked ``wa-tab`` and ``wa-tab-panel`` children.&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">content</span><span class="p">:</span> <span class="n">Child</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"Tabs"</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add linked ``wa-tab`` and ``wa-tab-panel`` children."""</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">_tab_name</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">child_in</span><span class="p">(</span><span class="s2">&quot;nav&quot;</span><span class="p">,</span> <span class="n">WaTab</span><span class="p">(</span><span class="n">panel</span><span class="o">=</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">child_in</span><span class="p">(</span><span class="s2">"nav"</span><span class="p">,</span> <span class="n">WaTab</span><span class="p">(</span><span class="n">panel</span><span class="o">=</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">WaTabPanel</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="o">*</span><span class="n">content</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 </div>
 
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Tabs&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Tabs"</span><span class="p">]</span>
 </pre></div>
         </article>
       </div>

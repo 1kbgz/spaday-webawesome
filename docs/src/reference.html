@@ -249,7 +249,7 @@ maps to <code class="docutils literal notranslate"><span class="pre">&lt;wa-inpu
 <p>All generated names are re-exported from <code class="docutils literal notranslate"><span class="pre">spaday_webawesome</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">spaday_webawesome</span><span class="w"> </span><span class="kn">import</span> <span class="n">WaButton</span>
 
-<span class="n">WaButton</span><span class="p">(</span><span class="n">variant</span><span class="o">=</span><span class="s2">&quot;brand&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;small&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Save&quot;</span><span class="p">)</span>
+<span class="n">WaButton</span><span class="p">(</span><span class="n">variant</span><span class="o">=</span><span class="s2">"brand"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">"small"</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">"Save"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -317,7 +317,8 @@ is a slug of the label.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">cdn/index.js</span></code></p></li>
 </ol>
 <p>The CSS maps WebAwesome theme colors onto core <code class="docutils literal notranslate"><span class="pre">--spa-*</span></code> shell tokens. The JavaScript bundle registers
-the full component catalog.</p>
+the full component catalog. <code class="docutils literal notranslate"><span class="pre">package.components</span></code> contains every generated component class;
+<code class="docutils literal notranslate"><span class="pre">package.catalog</span></code> returns their property, event, and slot schemas.</p>
 </section>
 </section>
 
