@@ -1,4 +1,9 @@
-# spaday-webawesome
+<a href="https://github.com/1kbgz/spaday-webawesome">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/1kbgz/spaday-webawesome/raw/main/docs/img/logo-dark.png?raw=true">
+    <img alt="spaday-webawesome logo, round rocks aligned vertically" src="https://github.com/1kbgz/spaday-webawesome/raw/main/docs/img/logo-light.png?raw=true" width="1200">
+  </picture>
+</a>
 
 Typed WebAwesome components and self-contained browser assets for spaday.
 
