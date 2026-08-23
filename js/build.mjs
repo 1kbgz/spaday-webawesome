@@ -36,14 +36,26 @@ async function build() {
     force: true,
   });
 
+<<<<<<< before updating
   await bundle_css("src/css/webawesome.css");
+=======
+  // Bundle css
+  await bundle_css();
+>>>>>>> after updating
 
   // Copy HTML
   await cpy("src/html/*", "dist/");
 
   // Copy images
+<<<<<<< before updating
   fs.mkdirSync("dist/img", { recursive: true });
   await cpy("src/img/*", "dist/img");
+=======
+  if (fs.existsSync("src/img")) {
+    fs.mkdirSync("dist/img", { recursive: true });
+    await cpy("src/img/*", "dist/img");
+  }
+>>>>>>> after updating
 
   await Promise.all(BUNDLES.map(bundle)).catch(() => process.exit(1));
 
@@ -56,4 +68,4 @@ async function build() {
   });
 }
 
-build();
+await build();
