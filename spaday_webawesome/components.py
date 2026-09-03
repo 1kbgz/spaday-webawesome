@@ -418,6 +418,12 @@ class WaTreeItem(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(
+            PropertySchema(name="indeterminate", kind="boolean", choices=(), default="false", description=None),
+            PropertySchema(name="isLeaf", kind="boolean", choices=(), default="false", description=None),
+            PropertySchema(name="loading", kind="boolean", choices=(), default="false", description=None),
+            PropertySchema(name="selectable", kind="boolean", choices=(), default="false", description=None),
+        ),
         events=("wa-expand", "wa-after-expand", "wa-collapse", "wa-after-collapse", "wa-lazy-change", "wa-lazy-load"),
         slots=("", "expand-icon", "collapse-icon"),
     )
@@ -629,6 +635,10 @@ class WaButton(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(
+            PropertySchema(name="invalid", kind="boolean", choices=(), default="false", description=None),
+            PropertySchema(name="isIconButton", kind="boolean", choices=(), default="false", description=None),
+        ),
         events=("blur", "focus", "wa-invalid"),
         slots=("", "start", "end"),
     )
@@ -796,6 +806,10 @@ class WaAnimatedImage(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(
+            PropertySchema(name="frozenFrame", kind="string", choices=(), default=None, description=None),
+            PropertySchema(name="isLoaded", kind="boolean", choices=(), default="false", description=None),
+        ),
         events=("wa-load", "wa-error"),
         slots=("play-icon", "pause-icon"),
     )
@@ -912,6 +926,17 @@ class WaAnimation(Component):
             PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        fields=(
+            PropertySchema(name="defaultSlot", kind="json", choices=(), default=None, description=None),
+            PropertySchema(
+                name="keyframes",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The keyframes to use for the animation. If this is set, `name` will be ignored.",
+            ),
+            PropertySchema(name="currentTime", kind="json", choices=(), default=None, description="Gets and sets the current animation time."),
         ),
         events=("wa-cancel", "wa-finish", "wa-start"),
         slots=("",),
@@ -1236,6 +1261,10 @@ class WaButtonGroup(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(
+            PropertySchema(name="disableRole", kind="boolean", choices=(), default="false", description=None),
+            PropertySchema(name="hasOutlined", kind="boolean", choices=(), default="false", description=None),
+        ),
         events=(),
         slots=("",),
     )
@@ -1498,6 +1527,12 @@ class WaCarousel(Component):
             PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        fields=(
+            PropertySchema(name="activeSlide", kind="number", choices=(), default="0", description=None),
+            PropertySchema(name="scrolling", kind="boolean", choices=(), default="false", description=None),
+            PropertySchema(name="dragging", kind="boolean", choices=(), default="false", description=None),
+            PropertySchema(name="awaitingInitialPosition", kind="boolean", choices=(), default="false", description=None),
         ),
         events=("wa-slide-change",),
         slots=("", "next-icon", "previous-icon"),
@@ -2306,6 +2341,7 @@ class WaColorPicker(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(PropertySchema(name="popup", kind="json", choices=(), default=None, description=None),),
         events=("change", "input", "wa-show", "wa-after-show", "wa-hide", "wa-after-hide", "blur", "focus", "wa-invalid"),
         slots=("label", "hint"),
     )
@@ -2500,6 +2536,7 @@ class WaTooltip(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(PropertySchema(name="popup", kind="json", choices=(), default=None, description=None),),
         events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide"),
         slots=("",),
     )
@@ -2619,6 +2656,12 @@ class WaCopyButton(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(
+            PropertySchema(name="shadowTooltip", kind="json", choices=(), default=None, description=None),
+            PropertySchema(name="isCopying", kind="boolean", choices=(), default="false", description=None),
+            PropertySchema(name="status", kind="enum", choices=("rest", "success", "error"), default="rest", description=None),
+            PropertySchema(name="hasCustomTrigger", kind="boolean", choices=(), default="false", description=None),
+        ),
         events=("wa-copy", "wa-error"),
         slots=("", "copy-icon", "success-icon", "error-icon"),
     )
@@ -2707,6 +2750,7 @@ class WaDetails(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(PropertySchema(name="isAnimating", kind="boolean", choices=(), default="false", description=None),),
         events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide"),
         slots=("", "summary", "expand-icon", "collapse-icon"),
     )
@@ -2928,6 +2972,15 @@ class WaDrawer(Component):
             PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        fields=(
+            PropertySchema(
+                name="modal",
+                kind="json",
+                choices=(),
+                default=None,
+                description="Exposes the internal modal utility that controls focus trapping. To temporarily disable focus trapping and allow third-party modals spawned from an active Shoelace modal, call `modal.activateExternal()` when the third-party modal opens. Upon closing, call `modal.deactivateExternal()` to restore Shoelace's focus trapping.",
+            ),
         ),
         events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide"),
         slots=("", "label", "header-actions", "footer"),
@@ -3608,6 +3661,15 @@ class WaKnownDate(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(
+            PropertySchema(
+                name="parts",
+                kind="json",
+                choices=(),
+                default=None,
+                description="The three field strings. Stored verbatim so user-typed digits round-trip faithfully.",
+            ),
+        ),
         events=("input", "change", "blur", "focus", "wa-invalid"),
         slots=("label", "hint"),
     )
@@ -4085,6 +4147,7 @@ class WaOption(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(PropertySchema(name="current", kind="boolean", choices=(), default="false", description=None),),
         events=(),
         slots=("", "start", "end"),
     )
@@ -4218,6 +4281,13 @@ class WaSelect(Component):
             PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
+        ),
+        fields=(
+            PropertySchema(name="popup", kind="json", choices=(), default=None, description=None),
+            PropertySchema(name="displayLabel", kind="string", choices=(), default="", description=None),
+            PropertySchema(name="currentOption", kind="json", choices=(), default=None, description=None),
+            PropertySchema(name="selectedOptions", kind="json", choices=(), default=None, description=None),
+            PropertySchema(name="defaultValue", kind="json", choices=(), default=None, description=None),
         ),
         events=("input", "change", "focus", "blur", "wa-clear", "wa-show", "wa-after-show", "wa-hide", "wa-after-hide", "wa-invalid"),
         slots=("", "label", "start", "end", "clear-icon", "expand-icon", "hint"),
@@ -4517,6 +4587,10 @@ class WaPage(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(
+            PropertySchema(name="navigationDrawer", kind="json", choices=(), default=None, description=None),
+            PropertySchema(name="pageResizeObserver", kind="json", choices=(), default=None, description=None),
+        ),
         events=(),
         slots=(
             "",
@@ -4746,6 +4820,7 @@ class WaPopover(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(PropertySchema(name="popup", kind="json", choices=(), default=None, description=None),),
         events=("wa-show", "wa-after-show", "wa-hide", "wa-after-hide"),
         slots=("",),
     )
@@ -4865,6 +4940,7 @@ class WaProgressRing(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(PropertySchema(name="indicatorOffset", kind="string", choices=(), default=None, description=None),),
         events=(),
         slots=("",),
     )
@@ -5030,6 +5106,7 @@ class WaRadio(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(PropertySchema(name="checked", kind="boolean", choices=(), default="false", description=None),),
         events=("blur", "focus"),
         slots=("",),
     )
@@ -5505,6 +5582,7 @@ class WaScroller(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(PropertySchema(name="canScroll", kind="boolean", choices=(), default="false", description=None),),
         events=(),
         slots=("",),
     )
@@ -5715,6 +5793,7 @@ class WaSlider(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(PropertySchema(name="tooltip", kind="json", choices=(), default=None, description=None),),
         events=("change", "blur", "focus", "input", "wa-invalid"),
         slots=("label", "hint", "reference"),
     )
@@ -6481,6 +6560,7 @@ class WaTimeInput(Component):
             PropertySchema(name="lang", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="did-ssr", kind="json", choices=(), default=None, description=None),
         ),
+        fields=(PropertySchema(name="popup", kind="json", choices=(), default=None, description=None),),
         events=("input", "change", "focus", "blur", "wa-clear", "wa-show", "wa-after-show", "wa-hide", "wa-after-hide", "wa-invalid"),
         slots=("label", "hint", "start", "end", "clear-icon", "expand-icon", "footer"),
     )
