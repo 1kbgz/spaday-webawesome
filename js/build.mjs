@@ -17,6 +17,20 @@ const catalog = fs
 const layoutFixes =
   '\nif (typeof document !== "undefined" && !document.querySelector("style[data-spaday-webawesome]")) { const s = document.createElement("style"); s.dataset.spadayWebawesome = ""; s.textContent = "wa-input::part(base),wa-select::part(combobox){box-sizing:border-box}wa-button{display:inline-flex}"; document.head.appendChild(s); }\n';
 
+// The served bundle registers every WebAwesome element, so it needs the same define-guard the
+// hand-written entry point uses: an application shipping its own copy of WebAwesome registers the
+// same tags, and without this whichever bundle loses the race throws and takes its whole catalog
+// with it. The guard import must come before the component imports; `restoreDefine()` runs after.
+const defineGuard = 'import { restoreDefine } from "./src/ts/define-guard";\n';
+const restore = "\nrestoreDefine();\n";
+
+// Publish the version actually bundled (read from the resolved dependency, not the declared range)
+// so a page holding a second copy can compare and refuse rather than half-work.
+const version = JSON.parse(
+  fs.readFileSync("node_modules/@awesome.me/webawesome/package.json", "utf8"),
+).version;
+const publishVersion = `\nglobalThis.__spadayWebawesome = Object.freeze({ version: ${JSON.stringify(version)} });\n`;
+
 const BUNDLES = [
   {
     entryPoints: ["src/ts/index.ts"],
@@ -24,7 +38,11 @@ const BUNDLES = [
     outfile: "dist/esm/index.js",
   },
   {
-    stdin: { contents: catalog + layoutFixes, resolveDir: ".", loader: "js" },
+    stdin: {
+      contents: defineGuard + catalog + restore + layoutFixes + publishVersion,
+      resolveDir: ".",
+      loader: "js",
+    },
     outfile: "dist/cdn/index.js",
   },
 ];
