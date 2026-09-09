@@ -38,3 +38,44 @@ test("runs the Python console with live metrics and order preview", async ({
     "Previewed 25 MSFT shares",
   );
 });
+
+test("survives an application that already registered a WebAwesome element", async ({
+  page,
+}) => {
+  // the fatal case: an app shipping its own copy of WebAwesome registers `wa-button` first. Without
+  // the define-guard this bundle throws from `customElements.define` and registers nothing at all,
+  // so the page renders zero components rather than one wrong one.
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.addInitScript(() => {
+    customElements.define(
+      "wa-button",
+      class extends HTMLElement {
+        connectedCallback() {
+          this.dataset.theirs = "1";
+        }
+      },
+    );
+  });
+
+  await page.goto("/dist/index.html");
+  expect(errors).toEqual([]);
+  // first registration wins, so `wa-button` stays theirs...
+  expect(
+    await page.evaluate(() => !!document.createElement("wa-button").shadowRoot),
+  ).toBe(false);
+  // ...but the rest of the catalog still registered, which is the difference between a degraded
+  // page and a blank one
+  expect(await page.evaluate(() => !!customElements.get("wa-card"))).toBe(true);
+  expect(
+    await page.evaluate(() => !!customElements.get("wa-zoomable-frame")),
+  ).toBe(true);
+});
+
+test("publishes the WebAwesome version it bundles", async ({ page }) => {
+  // a page holding a second copy can compare and refuse rather than half-work
+  await page.goto("/dist/index.html");
+  expect(
+    await page.evaluate(() => globalThis.__spadayWebawesome?.version),
+  ).toMatch(/^\d+\.\d+\.\d+/);
+});
