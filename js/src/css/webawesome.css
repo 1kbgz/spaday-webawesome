@@ -1,8 +1,18 @@
 @import "../../node_modules/@awesome.me/webawesome/dist/styles/webawesome.css";
 
+/* WebAwesome is the design system, so it drives the shell palette rather than deferring to it:
+ * every --spa-* token spaday and its component packages read is mapped onto the WebAwesome token
+ * that owns it. An application restyles WebAwesome (its own --wa-* tokens, a theme, a color
+ * variant) and the shell, the graphs, the tables and the trees follow. WebAwesome has no separate
+ * "info" semantic — brand carries it. */
 :root {
   --spa-border: var(--wa-color-surface-border);
   --spa-surface: var(--wa-color-surface-default);
   --spa-surface-2: var(--wa-color-surface-lowered);
   --spa-muted: var(--wa-color-text-quiet);
+  --spa-accent: var(--wa-color-brand-fill-loud);
+  --spa-info: var(--wa-color-brand-fill-loud);
+  --spa-success: var(--wa-color-success-fill-loud);
+  --spa-warning: var(--wa-color-warning-fill-loud);
+  --spa-danger: var(--wa-color-danger-fill-loud);
 }
