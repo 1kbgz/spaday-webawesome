@@ -49,3 +49,23 @@ class Settings(BaseModel):
 
 Use `exclude={"field_name"}` to omit fields and `overrides={...}` for call-site-specific changes.
 Refer to the [API reference](reference.md) for exported helpers.
+
+## Share WebAwesome with your own library
+
+WebAwesome registers global custom element names, so a second copy on the page throws from
+`customElements.define`. If your library uses WebAwesome, import it by its bare specifiers and leave
+those imports out of your bundle:
+
+```js
+// esbuild
+await esbuild.build({
+  entryPoints: ["src/index.js"],
+  bundle: true,
+  format: "esm",
+  external: ["@awesome.me/webawesome"], // and every path under it
+});
+```
+
+Serve your bundle as a module next to `packages=["webawesome"]`. The page's import map resolves
+`@awesome.me/webawesome/dist/components/button/button.js` and friends to the copy this package
+already loaded, so your `import WaButton from "..."` is the registered class and nothing registers twice.
