@@ -636,12 +636,7 @@ class WaButton(Component):
                 description="Used to override the form owner's `novalidate` attribute.",
             ),
             PropertySchema(
-                name="formtarget",
-                kind="json",
-                choices=(),
-                type_text="'_self' | '_blank' | '_parent' | '_top' | string",
-                default=None,
-                description="Used to override the form owner's `target` attribute.",
+                name="formtarget", kind="string", choices=(), default=None, description="Used to override the form owner's `target` attribute."
             ),
             PropertySchema(name="custom-error", kind="string", choices=(), default=None, description=None),
             PropertySchema(name="dir", kind="string", choices=(), default=None, description=None),
@@ -681,7 +676,7 @@ class WaButton(Component):
         formenctype: Literal["application/x-www-form-urlencoded", "multipart/form-data", "text/plain"] | None = None,
         formmethod: Literal["post", "get"] | None = None,
         formnovalidate: bool | None = None,
-        formtarget: Any = None,
+        formtarget: str | None = None,
         custom_error: str | None = None,
         dir: str | None = None,
         lang: str | None = None,

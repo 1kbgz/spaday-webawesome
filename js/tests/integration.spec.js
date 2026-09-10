@@ -95,3 +95,16 @@ test("the downstream bundle satisfies the Python surface it is bound to", async 
   await expect(page.locator("#metric wa-card")).toBeAttached();
   expect(await page.evaluate(script)).toEqual([]);
 });
+
+test("the package's own bundle satisfies its generated catalog", async ({
+  page,
+}) => {
+  // a substitute bundle asserts an empty result against this catalog, which it can only do if the
+  // bundle the catalog was generated for does too
+  await page.goto(PAGE);
+  const script = await (
+    await page.request.get(`${PAGE}/conformance-webawesome.js`)
+  ).text();
+  await expect(page.locator("#to-success")).toBeAttached();
+  expect(await page.evaluate(script)).toEqual([]);
+});
