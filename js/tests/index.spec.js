@@ -79,3 +79,23 @@ test("publishes the WebAwesome version it bundles", async ({ page }) => {
     await page.evaluate(() => globalThis.__spadayWebawesome?.version),
   ).toMatch(/^\d+\.\d+\.\d+/);
 });
+
+test("warns, naming what it serves, when another copy registered its elements first", async ({
+  page,
+}) => {
+  // the page keeps the first registration, so the loser says which elements are not its own
+  const warnings = [];
+  page.on("console", (message) => {
+    if (message.type() === "warning") warnings.push(message.text());
+  });
+  await page.addInitScript(() => {
+    customElements.define("wa-button", class extends HTMLElement {});
+  });
+  await page.goto("/dist/index.html");
+  await expect
+    .poll(() => warnings.find((text) => text.includes("<wa-button>")))
+    .toMatch(/ \d+\.\d+\.\d+\S*: another copy on the page already registered /);
+  expect(warnings.find((text) => text.includes("<wa-button>"))).toContain(
+    "@awesome.me/webawesome ",
+  );
+});
