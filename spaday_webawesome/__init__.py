@@ -8,7 +8,7 @@ from .components import __all__ as _component_names
 from .form import FormField, form
 from .tabs import Tabs
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 package = ComponentPackage(
     name="webawesome",
