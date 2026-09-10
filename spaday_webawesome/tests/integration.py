@@ -18,13 +18,12 @@ bundle really implements the components its Python side declares.
 from pathlib import Path
 
 import uvicorn
-from spaday import Component, ComponentPackage, ComponentSchema, PropertySchema, SetField, check_script, element, field
+from spaday import Component, ComponentPackage, ComponentSchema, PropertySchema, SetField, check_script, element
 from spaday.backends.starlette import serve
 from starlette.responses import PlainTextResponse
 from starlette.routing import Route
 
-from spaday_webawesome import WaButton, WaCallout, WaCard
-from spaday_webawesome import package as webawesome_package
+from spaday_webawesome import WaButton, WaCallout, WaCard, package as webawesome_package
 
 
 class DemoMetricCard(Component):
