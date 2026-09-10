@@ -2,8 +2,9 @@
 
 The integration this exercises end to end:
 
-* the downstream library builds a component *out of* WebAwesome's elements rather than importing
-  WebAwesome, so the page holds one copy of a catalog that registers global custom element names;
+* the downstream library builds a component out of WebAwesome's elements and imports WebAwesome by
+  its bare specifiers, which the page's import map resolves to spaday-webawesome's copy, so the page
+  holds one copy of a catalog that registers global custom element names;
 * it has no Python of its own, binding through spaday's package surface instead: a
   :class:`~spaday.Component` carrying a schema plus a :class:`~spaday.ComponentPackage` serving its
   bundle, selected with ``packages=[...]`` alongside the first-party one;

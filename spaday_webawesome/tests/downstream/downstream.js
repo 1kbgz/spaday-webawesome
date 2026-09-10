@@ -1,14 +1,19 @@
 /* A stand-in for a downstream component library built on WebAwesome.
  *
- * It composes WebAwesome's elements into a component of its own rather than importing WebAwesome:
- * spaday-webawesome already registered the whole catalog on this page, so the tags are simply
- * there. Not importing is what keeps the page to one copy -- a second copy registering the same
- * tag names is the collision this arrangement exists to avoid.
+ * It imports WebAwesome the way a library built on it does, by WebAwesome's own bare specifiers,
+ * left as imports in its bundle rather than inlined. spaday-webawesome publishes its copy under
+ * those specifiers in the page's import map, so they resolve to the modules that already registered
+ * the catalog: the page keeps one copy, and there is no second registration of the same tag names
+ * to collide with.
  *
  * It has no Python of its own. Its Python binding is a spaday Component carrying a schema plus a
  * ComponentPackage that serves this file, so an application authors it exactly like a first-party
  * component and spaday's props, bindings and actions reach it unchanged.
  */
+
+import "@awesome.me/webawesome/dist/components/badge/badge.js";
+import WaButton from "@awesome.me/webawesome/dist/components/button/button.js";
+import "@awesome.me/webawesome/dist/components/card/card.js";
 
 const TONES = new Set(["neutral", "brand", "success", "warning", "danger"]);
 
@@ -69,7 +74,8 @@ class DemoMetricCard extends HTMLElement {
     const value = document.createElement("strong");
     value.className = "demo-metric-value";
 
-    const action = document.createElement("wa-button");
+    // constructed from the imported class, which throws unless it is the registered one
+    const action = new WaButton();
     action.setAttribute("size", "small");
     action.textContent = "Details";
     action.addEventListener("click", () => {

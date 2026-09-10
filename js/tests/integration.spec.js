@@ -2,9 +2,9 @@ import { expect, test } from "@playwright/test";
 
 /* A downstream component library on the same page as spaday-webawesome's generated catalog.
  *
- * The library composes WebAwesome's elements into a component of its own rather than importing
- * WebAwesome, and binds from Python through spaday's package surface. These check the whole
- * arrangement in a browser: one catalog, two libraries, wired together by spaday's own state.
+ * The library imports WebAwesome by its bare specifiers, which the page's import map resolves to
+ * spaday-webawesome's copy, and binds from Python through spaday's package surface. These check the
+ * whole arrangement in a browser: one catalog, two libraries, wired together by spaday's own state.
  * See spaday_webawesome/tests/integration.py.
  */
 
