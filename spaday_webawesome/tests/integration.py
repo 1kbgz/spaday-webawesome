@@ -13,7 +13,8 @@ The integration this exercises end to end:
   bound to, so the two libraries are not merely coexisting but talking to each other.
 
 Served for the browser tests; ``/conformance.js`` hands back the check that asserts the downstream
-bundle really implements the components its Python side declares.
+bundle really implements the components its Python side declares, and ``/conformance-webawesome.js``
+the same check for spaday-webawesome's own bundle against its generated catalog.
 """
 
 from pathlib import Path
@@ -75,10 +76,15 @@ async def conformance(request) -> PlainTextResponse:
     return PlainTextResponse(check_script([downstream_package]), media_type="text/plain")
 
 
+async def own_conformance(request) -> PlainTextResponse:
+    """The same check for this package's own bundle, which a substitute bundle is measured against."""
+    return PlainTextResponse(check_script([webawesome_package]), media_type="text/plain")
+
+
 app = serve(
     page,
     packages=PACKAGES,
-    routes=[Route("/conformance.js", conformance)],
+    routes=[Route("/conformance.js", conformance), Route("/conformance-webawesome.js", own_conformance)],
     store={"tone": "neutral"},
     title="spaday-webawesome downstream integration",
 )
