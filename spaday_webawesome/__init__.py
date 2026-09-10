@@ -15,6 +15,12 @@ package = ComponentPackage(
     assets_dir=Path(__file__).parent / "extension",
     assets=(("css", "css/webawesome.css"), ("js", "cdn/index.js")),
     components=tuple(getattr(_components, name) for name in _component_names),
+    # WebAwesome's modules under its own bare specifiers: a library on the page that imports
+    # WebAwesome resolves to this copy instead of registering the same tags a second time
+    imports=(
+        ("@awesome.me/webawesome", "vendor/@awesome.me/webawesome/dist/webawesome.js"),
+        ("@awesome.me/webawesome/dist/", "vendor/@awesome.me/webawesome/dist/"),
+    ),
 )
 
 #: ``css()`` kwarg → (CSS custom property, what it controls), in the shape of

@@ -50,6 +50,19 @@ def test_package_drives_bootstrap_asset_urls():
     assert 'src="/components/webawesome/cdn/index.js"' in html
 
 
+def test_package_publishes_webawesome_under_its_own_specifiers():
+    html = bootstrap(packages=[package])
+    assert '"@awesome.me/webawesome/dist/": "/components/webawesome/vendor/@awesome.me/webawesome/dist/"' in html
+    # the bundle's own imports resolve through the map, so it must come first
+    assert html.index('type="importmap"') < html.index('src="/components/webawesome/cdn/index.js"')
+
+
+def test_published_imports_are_served():
+    for specifier, path in package.imports:
+        target = package.assets_dir / path
+        assert target.is_dir() if path.endswith("/") else target.is_file(), f"{specifier} maps to {path}, which the build did not produce"
+
+
 def test_generated_catalog_is_current():
     root = Path(__file__).parent.parent
     fresh = generate(str(root / "custom-elements.json"))

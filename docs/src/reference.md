@@ -40,3 +40,14 @@ is a slug of the label.
 The CSS maps WebAwesome theme colors onto core `--spa-*` shell tokens. The JavaScript bundle registers
 the full component catalog. `package.components` contains every generated component class;
 `package.catalog` returns their property, event, and slot schemas.
+
+`package.imports` publishes WebAwesome's own ES modules under its bare specifiers, which spaday emits
+as the page's import map:
+
+| Specifier                      | Served from                                        |
+| ------------------------------ | -------------------------------------------------- |
+| `@awesome.me/webawesome`       | `vendor/@awesome.me/webawesome/dist/webawesome.js` |
+| `@awesome.me/webawesome/dist/` | `vendor/@awesome.me/webawesome/dist/`              |
+
+The bundle imports the catalog through those specifiers too, so any other module on the page that
+imports them gets the same copy.
