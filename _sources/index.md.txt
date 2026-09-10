@@ -19,8 +19,8 @@ docs/src/explanation.md
 
 <a href="https://github.com/1kbgz/spaday-webawesome">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/1kbgz/spaday-webawesome/raw/main/docs/img/logo-dark.png?raw=true">
-    <img alt="spaday-webawesome logo, round rocks aligned vertically" src="https://github.com/1kbgz/spaday-webawesome/raw/main/docs/img/logo-light.png?raw=true" width="1200">
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/1kbgz/spaday-webawesome/raw/main/docs/img/logo-dark.webp?raw=true">
+    <img alt="spaday-webawesome logo, round rocks aligned vertically" src="https://github.com/1kbgz/spaday-webawesome/raw/main/docs/img/logo-light.webp?raw=true" width="1200">
   </picture>
 </a>
 
@@ -30,6 +30,8 @@ Typed WebAwesome components and self-contained browser assets for spaday.
 [![codecov](https://codecov.io/gh/1kbgz/spaday-webawesome/branch/main/graph/badge.svg)](https://codecov.io/gh/1kbgz/spaday-webawesome)
 [![License](https://img.shields.io/github/license/1kbgz/spaday-webawesome)](https://github.com/1kbgz/spaday-webawesome)
 [![PyPI](https://img.shields.io/pypi/v/spaday-webawesome.svg)](https://pypi.python.org/pypi/spaday-webawesome)
+
+[![Preview of webawesome components](https://raw.githubusercontent.com/1kbgz/spaday-webawesome/main/docs/img/preview.webp)](./spaday_webawesome/example.py)
 
 ## Documentation
 
@@ -63,3 +65,6 @@ Open `http://127.0.0.1:8012` to inspect the [complete operations-console example
 server-updated metrics, tabs, inputs, selects, switches, progress, badges, responsive layout, and an order
 preview that round-trips to Python. It passes the local package descriptor directly, so it does not install
 or resolve the integration from GitHub.
+
+> [!NOTE]
+> This library was generated using [copier](https://copier.readthedocs.io/en/stable/) from the [Base Python Project Template repository](https://github.com/python-project-templates/base).
