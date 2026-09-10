@@ -12,6 +12,8 @@ Typed WebAwesome components and self-contained browser assets for spaday.
 [![License](https://img.shields.io/github/license/1kbgz/spaday-webawesome)](https://github.com/1kbgz/spaday-webawesome)
 [![PyPI](https://img.shields.io/pypi/v/spaday-webawesome.svg)](https://pypi.python.org/pypi/spaday-webawesome)
 
+[![Preview of webawesome components](https://raw.githubusercontent.com/1kbgz/spaday-webawesome/main/docs/img/preview.webp)](./spaday_webawesome/example.py)
+
 ## Documentation
 
 - [Build an interactive WebAwesome page](docs/src/tutorial.md) — guided first page.
@@ -44,3 +46,6 @@ Open `http://127.0.0.1:8012` to inspect the [complete operations-console example
 server-updated metrics, tabs, inputs, selects, switches, progress, badges, responsive layout, and an order
 preview that round-trips to Python. It passes the local package descriptor directly, so it does not install
 or resolve the integration from GitHub.
+
+> [!NOTE]
+> This library was generated using [copier](https://copier.readthedocs.io/en/stable/) from the [Base Python Project Template repository](https://github.com/python-project-templates/base).
