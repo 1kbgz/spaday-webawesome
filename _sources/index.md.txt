@@ -24,7 +24,7 @@ docs/src/explanation.md
   </picture>
 </a>
 
-Typed WebAwesome components and self-contained browser assets for spaday.
+Typed [WebAwesome components](https://webawesome.com/docs/components) and self-contained browser assets for [spaday](https://1kbgz.github.io/spaday/)
 
 [![Build Status](https://github.com/1kbgz/spaday-webawesome/actions/workflows/build.yaml/badge.svg?branch=main&event=push)](https://github.com/1kbgz/spaday-webawesome/actions/workflows/build.yaml)
 [![codecov](https://codecov.io/gh/1kbgz/spaday-webawesome/branch/main/graph/badge.svg)](https://codecov.io/gh/1kbgz/spaday-webawesome)
@@ -55,6 +55,8 @@ The package also exports `Tabs`, plus `form()` and `FormField` for generating bo
 Installing the package does not inject assets. Select it explicitly with `packages=["webawesome"]` or pass the exported `package` descriptor.
 
 ## Run the local example
+
+[Run the complete example in your browser](https://1kbgz.github.io/spaday-webawesome/lite/) — Python runs locally through Pyodide; no install or server required.
 
 ```bash
 python -m pip install -e ".[examples]"
