@@ -193,6 +193,14 @@ styles = """
 </style>
 """
 
+initial_store = {
+    "symbol": "AAPL",
+    "side": "buy",
+    "quantity": "100",
+    "limit_order": True,
+    "preview": {"body": {"message": "Waiting for server preview"}},
+}
+
 app = serve(
     page,
     packages=[package],
@@ -202,13 +210,7 @@ app = serve(
         Route("/api/orders/preview", preview_order, methods=["POST"]),
     ],
     background=[transports.autosync(server), update_overview()],
-    store={
-        "symbol": "AAPL",
-        "side": "buy",
-        "quantity": "100",
-        "limit_order": True,
-        "preview": {"body": {"message": "Waiting for server preview"}},
-    },
+    store=initial_store,
     head=styles,
     title="spaday-webawesome example",
 )

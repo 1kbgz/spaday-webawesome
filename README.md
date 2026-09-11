@@ -37,6 +37,8 @@ Installing the package does not inject assets. Select it explicitly with `packag
 
 ## Run the local example
 
+[Run the complete example in your browser](https://1kbgz.github.io/spaday-webawesome/lite/) — Python runs locally through Pyodide; no install or server required.
+
 ```bash
 python -m pip install -e ".[examples]"
 python -m spaday_webawesome.example
