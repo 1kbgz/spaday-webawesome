@@ -5,7 +5,7 @@
   </picture>
 </a>
 
-Typed WebAwesome components and self-contained browser assets for spaday.
+Typed [WebAwesome components](https://webawesome.com/docs/components) and self-contained browser assets for [spaday](https://1kbgz.github.io/spaday/)
 
 [![Build Status](https://github.com/1kbgz/spaday-webawesome/actions/workflows/build.yaml/badge.svg?branch=main&event=push)](https://github.com/1kbgz/spaday-webawesome/actions/workflows/build.yaml)
 [![codecov](https://codecov.io/gh/1kbgz/spaday-webawesome/branch/main/graph/badge.svg)](https://codecov.io/gh/1kbgz/spaday-webawesome)
