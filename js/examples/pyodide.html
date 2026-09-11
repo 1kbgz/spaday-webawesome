@@ -51,6 +51,11 @@
       import * as transports from "./runtime/spaday/transports/cdn/index.js";
 
       const status = document.querySelector("#pyodide-status");
+      const exampleName =
+        new URL(location.href).searchParams.get("example") === "gallery"
+          ? "gallery"
+          : "example";
+      document.title = `spaday-webawesome ${exampleName} in Pyodide`;
       const pendingEndpoints = new Map();
       let nextEndpointId = 0;
       let receiveWires = () => {};
@@ -63,22 +68,28 @@
       }
 
       try {
-        await Promise.all([
-          init({ module_or_path: "./runtime/spaday/pkg/spaday_bg.wasm" }),
-          transports.wasm.default({
+        await init({ module_or_path: "./runtime/spaday/pkg/spaday_bg.wasm" });
+        if (exampleName === "example") {
+          await transports.wasm.default({
             module_or_path:
               "./runtime/spaday/transports/pkg/transports_bg.wasm",
-          }),
-        ]);
+          });
+        }
 
-        const worker = new Worker("./pyodide-worker.js", { type: "module" });
+        const worker = new Worker(
+          `./pyodide-worker.js?example=${exampleName}`,
+          { type: "module" },
+        );
         const nativeFetch = globalThis.fetch.bind(globalThis);
         globalThis.fetch = async (input, options = {}) => {
           const url = new URL(
             input instanceof Request ? input.url : input,
             location.href,
           );
-          if (url.pathname !== "/api/orders/preview")
+          if (
+            exampleName !== "example" ||
+            url.pathname !== "/api/orders/preview"
+          )
             return nativeFetch(input, options);
 
           const id = ++nextEndpointId;
@@ -116,27 +127,30 @@
               tree,
               style,
               store: initialStore,
+              wire,
               wires,
             } = event.data.payload;
             document.head.insertAdjacentHTML("beforeend", style);
             const store = new Store(initialStore);
-            const client = new transports.Client();
-            const link = connectStore(
-              store,
-              client,
-              (frame) => worker.postMessage({ type: "wire", frame }),
-              transports,
-            );
-            receiveWires = (frames) => {
-              for (const frame of frames) link.receive(frame);
-            };
-            receiveWires(wires);
+            if (wire) {
+              const client = new transports.Client();
+              const link = connectStore(
+                store,
+                client,
+                (frame) => worker.postMessage({ type: "wire", frame }),
+                transports,
+              );
+              receiveWires = (frames) => {
+                for (const frame of frames) link.receive(frame);
+              };
+              receiveWires(wires);
+              window.setInterval(
+                () => worker.postMessage({ type: "flush" }),
+                100,
+              );
+            }
             mount(document.querySelector("#example-root"), tree, store);
-            window.setInterval(
-              () => worker.postMessage({ type: "flush" }),
-              100,
-            );
-            status.textContent = "Ready · Python model running in this browser";
+            status.textContent = `Ready · Python ${exampleName} running in this browser`;
             document.documentElement.dataset.ready = "true";
           }
         });

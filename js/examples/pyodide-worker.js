@@ -1,4 +1,8 @@
 const PYODIDE_VERSION = "314.0.4";
+const requestedExample = new URL(self.location.href).searchParams.get(
+  "example",
+);
+const exampleName = requestedExample === "gallery" ? "gallery" : "example";
 let pyodide;
 
 const ready = (async () => {
@@ -9,7 +13,7 @@ const ready = (async () => {
   pyodide = await loadPyodide();
   await pyodide.loadPackage(["micropip", "anyio"]);
 
-  self.postMessage({ type: "status", message: "Installing example…" });
+  self.postMessage({ type: "status", message: `Installing ${exampleName}…` });
   const response = await fetch(new URL("./wheels.json", self.location.href));
   if (!response.ok)
     throw new Error(`wheel manifest returned ${response.status}`);
@@ -21,32 +25,37 @@ const ready = (async () => {
     ]),
   );
   pyodide.globals.set("wheels_json", JSON.stringify(urls));
+  pyodide.globals.set("example_name", exampleName);
   return pyodide.runPythonAsync(`
 import asyncio
+import importlib
 import json
 import micropip
 
 wheels = json.loads(wheels_json)
-await micropip.install([
-    wheels["spaday"],
-    wheels["transports"],
-    "starlette",
-    "uvicorn",
-])
+requirements = [wheels["spaday"], "starlette"]
+if example_name == "example":
+    requirements.extend([wheels["transports"], "uvicorn"])
+await micropip.install(requirements)
 await micropip.install(wheels["webawesome"], deps=False)
 
-from spaday_webawesome import example
+example = importlib.import_module(f"spaday_webawesome.{example_name}")
 
 connection = "browser"
+server = getattr(example, "server", None)
 
 def local_wires(messages):
     return list(messages.get(connection, []))
 
 def receive_wire(frame):
-    return json.dumps(local_wires(example.server.recv(connection, frame)))
+    if server is None:
+        return "[]"
+    return json.dumps(local_wires(server.recv(connection, frame)))
 
 def flush_server():
-    return json.dumps(local_wires(example.server.flush()))
+    if server is None:
+        return "[]"
+    return json.dumps(local_wires(server.flush()))
 
 class LocalRequest:
     def __init__(self, body):
@@ -60,17 +69,19 @@ async def call_endpoint(body_json):
     return json.dumps({
         "status": response.status_code,
         "body": json.loads(bytes(response.body).decode()),
-        "wires": local_wires(example.server.flush()),
+        "wires": local_wires(server.flush()),
     })
 
-opening = example.server.open(connection, "json")
-asyncio.create_task(example.update_overview())
+opening = server.open(connection, "json") if server is not None else []
+if hasattr(example, "update_overview"):
+    asyncio.create_task(example.update_overview())
 
 json.dumps({
     "tree": example.page.to_node(),
     "style": example.styles,
-    "store": example.initial_store,
+    "store": getattr(example, "initial_store", {}),
     "wires": opening,
+    "wire": server is not None,
 })
 `);
 })();
