@@ -6,6 +6,7 @@ from spaday import ComponentPackage
 from . import components as _components
 from .components import *
 from .components import __all__ as _component_names
+from .design import DESIGN
 from .form import FormField, form
 from .tabs import Tabs
 
@@ -26,6 +27,8 @@ package = ComponentPackage(
         ("@awesome.me/webawesome/dist/", "vendor/@awesome.me/webawesome/dist/"),
     ),
     provides=json.loads(_VERSIONS.read_text(encoding="utf-8")) if _VERSIONS.exists() else {},
+    # how the generic controls of spaday.ui render here (see design.py)
+    design=DESIGN,
 )
 
 #: ``css()`` kwarg → (CSS custom property, what it controls), in the shape of
@@ -51,4 +54,4 @@ TOKENS = {
     "wa_color_danger_fill_loud": ("--wa-color-danger-fill-loud", "drives --spa-danger"),
 }
 
-__all__ = [*_component_names, "FormField", "TOKENS", "Tabs", "form", "package"]  # noqa: PLE0604
+__all__ = [*_component_names, "DESIGN", "FormField", "TOKENS", "Tabs", "form", "package"]  # noqa: PLE0604

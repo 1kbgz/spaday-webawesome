@@ -29,6 +29,13 @@ export default defineConfig({
       timeout: 120 * 1000,
     },
     {
+      // spaday's generic-control conformance page, rendered with this package's design
+      command: "python -m spaday.ui.conformance 8029 --package webawesome",
+      url: "http://127.0.0.1:8029",
+      reuseExistingServer: !process.env.CI,
+      timeout: 120 * 1000,
+    },
+    {
       command: "python -m spaday_webawesome.example",
       url: "http://127.0.0.1:8012",
       reuseExistingServer: !process.env.CI,

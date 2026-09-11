@@ -35,6 +35,15 @@ The package also exports `Tabs`, plus `form()` and `FormField` for generating bo
 
 Installing the package does not inject assets. Select it explicitly with `packages=["webawesome"]` or pass the exported `package` descriptor.
 
+## Generic controls
+
+spaday's generic controls (`spaday.ui`: `Button`, `TextInput`, `Checkbox`, `Switch`, `Select`,
+`Dialog`) render as WebAwesome elements on a page that selects this package — `intent="primary"`
+becomes `variant="brand"`, a bound `value` reaches `checked` on a checkbox, a `Dialog` follows its
+`open` field and reports a close it does itself. The mapping is `DESIGN`, plain data; `for_design(
+"webawesome", pill=True)` sets a WebAwesome prop on one control. spaday's conformance page runs
+against it in the browser tests.
+
 ## Run the local example
 
 ```bash
