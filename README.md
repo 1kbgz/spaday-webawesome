@@ -12,7 +12,7 @@ Typed WebAwesome components and self-contained browser assets for spaday.
 [![License](https://img.shields.io/github/license/1kbgz/spaday-webawesome)](https://github.com/1kbgz/spaday-webawesome)
 [![PyPI](https://img.shields.io/pypi/v/spaday-webawesome.svg)](https://pypi.python.org/pypi/spaday-webawesome)
 
-[![Preview of webawesome components](https://raw.githubusercontent.com/1kbgz/spaday-webawesome/main/docs/img/preview.webp)](./spaday_webawesome/example.py)
+[![Preview of the spaday-webawesome example](https://raw.githubusercontent.com/1kbgz/spaday-webawesome/main/docs/img/preview.webp)](https://1kbgz.github.io/spaday-webawesome/lite/)
 
 ## Documentation
 
@@ -35,19 +35,24 @@ The package also exports `Tabs`, plus `form()` and `FormField` for generating bo
 
 Installing the package does not inject assets. Select it explicitly with `packages=["webawesome"]` or pass the exported `package` descriptor.
 
-## Run the local example
+## Browser examples
 
-[Run the complete example in your browser](https://1kbgz.github.io/spaday-webawesome/lite/) — Python runs locally through Pyodide; no install or server required.
+- [Open the standard app](https://1kbgz.github.io/spaday-webawesome/lite/) ([source](spaday_webawesome/example.py)).
+- [Open the complete component gallery](https://1kbgz.github.io/spaday-webawesome/lite/?example=gallery) ([source](spaday_webawesome/gallery.py)).
+
+Both run Python locally through Pyodide; no install or server is required.
+
+## Run examples locally
 
 ```bash
 python -m pip install -e ".[examples]"
 python -m spaday_webawesome.example
+python -m spaday_webawesome.gallery
 ```
 
-Open `http://127.0.0.1:8012` to inspect the [complete operations-console example](spaday_webawesome/example.py): cards,
-server-updated metrics, tabs, inputs, selects, switches, progress, badges, responsive layout, and an order
-preview that round-trips to Python. It passes the local package descriptor directly, so it does not install
-or resolve the integration from GitHub.
+Open `http://127.0.0.1:8012` for the standard operations-console app or `http://127.0.0.1:8013` for the component gallery. The standard app includes server-updated metrics and an order preview that round-trips to Python. The gallery includes every generated Web Awesome component and a highlighted Python snippet for each component family.
+
+Both pass the local package descriptor directly, so they do not install or resolve the integration from GitHub.
 
 > [!NOTE]
 > This library was generated using [copier](https://copier.readthedocs.io/en/stable/) from the [Base Python Project Template repository](https://github.com/python-project-templates/base).

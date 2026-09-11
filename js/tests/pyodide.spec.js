@@ -32,3 +32,25 @@ test("runs the complete example in Pyodide", async ({ page }) => {
     "Previewed 25 MSFT shares",
   );
 });
+
+test("runs the component gallery in Pyodide", async ({ page }) => {
+  test.skip(!built, "run `make pyodide-example` first");
+  test.setTimeout(180_000);
+
+  await page.goto("/dist/lite/?example=gallery");
+  await page.waitForFunction(
+    () =>
+      document.documentElement.dataset.ready === "true" ||
+      document.querySelector("#pyodide-status")?.textContent ===
+        "Unable to start",
+    undefined,
+    { timeout: 150_000 },
+  );
+  await expect(page.locator("html")).toHaveAttribute("data-ready", "true");
+  await expect(page.locator("h1")).toHaveText("Component gallery");
+  expect(await page.locator("wa-card.gallery-card").count()).toBeGreaterThan(
+    40,
+  );
+  await expect(page.locator("wa-zoomable-frame")).toBeVisible();
+  await expect(page.locator(".token-keyword").first()).toHaveText("from");
+});

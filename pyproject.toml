@@ -104,6 +104,7 @@ branch = true
 omit = [
     "spaday_webawesome/components.py",
     "spaday_webawesome/example.py",
+    "spaday_webawesome/gallery.py",
     "spaday_webawesome/tests/*",
 ]
 
