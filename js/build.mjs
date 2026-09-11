@@ -32,7 +32,6 @@ const layoutFixes =
 // It is a module of its own rather than inlined: the component imports stay imports, and every
 // import evaluates before the importing module's body, so an inlined guard would install too late.
 const defineGuard = 'import { restoreDefine } from "./define-guard.js";\n';
-const restore = "\nrestoreDefine();\n";
 
 const keepImports = {
   name: "keep-imports",
@@ -49,6 +48,13 @@ const keepImports = {
 const version = JSON.parse(
   fs.readFileSync("node_modules/@awesome.me/webawesome/package.json", "utf8"),
 ).version;
+// the elements this bundle serves: the define-guard warns about any that another copy registered first
+const TAGS = JSON.parse(
+  fs.readFileSync("../spaday_webawesome/custom-elements.json", "utf8"),
+)
+  .modules.flatMap((mod) => mod.declarations.map((decl) => decl.tagName))
+  .filter(Boolean);
+const restore = `\nrestoreDefine(${JSON.stringify(`@awesome.me/webawesome ${version}`)}, ${JSON.stringify(TAGS)});\n`;
 const publishVersion = `\nglobalThis.__spadayWebawesome = Object.freeze({ version: ${JSON.stringify(version)} });\n`;
 
 const BUNDLES = [
@@ -98,6 +104,23 @@ async function build() {
     ["**/*.js", "!react/**", "!ssr/**", "!webawesome.ssr-loader.js"],
     path.resolve(VENDOR),
     { cwd: UPSTREAM },
+  );
+
+  // the exact version of every library this package serves, read by the Python package as its
+  // ComponentPackage.provides, so spaday can reconcile it with the other packages on a page
+  const { dependencies = {} } = JSON.parse(
+    fs.readFileSync("package.json", "utf8"),
+  );
+  const served = Object.fromEntries(
+    Object.keys(dependencies).map((name) => [
+      name,
+      JSON.parse(fs.readFileSync(`node_modules/${name}/package.json`, "utf8"))
+        .version,
+    ]),
+  );
+  fs.writeFileSync(
+    "dist/versions.json",
+    `${JSON.stringify(served, null, 2)}\n`,
   );
 
   // Copy servable assets to python extension (exclude esm/)

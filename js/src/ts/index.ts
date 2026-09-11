@@ -2,4 +2,4 @@
 import { restoreDefine } from "./define-guard";
 import "@awesome.me/webawesome";
 
-restoreDefine();
+restoreDefine("@awesome.me/webawesome");

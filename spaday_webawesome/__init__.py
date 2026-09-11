@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from spaday import ComponentPackage
@@ -10,6 +11,9 @@ from .tabs import Tabs
 
 __version__ = "0.4.0"
 
+# the exact version of each JS library the package serves, written by its JS build
+_VERSIONS = Path(__file__).parent / "extension" / "versions.json"
+
 package = ComponentPackage(
     name="webawesome",
     assets_dir=Path(__file__).parent / "extension",
@@ -21,6 +25,7 @@ package = ComponentPackage(
         ("@awesome.me/webawesome", "vendor/@awesome.me/webawesome/dist/webawesome.js"),
         ("@awesome.me/webawesome/dist/", "vendor/@awesome.me/webawesome/dist/"),
     ),
+    provides=json.loads(_VERSIONS.read_text(encoding="utf-8")) if _VERSIONS.exists() else {},
 )
 
 #: ``css()`` kwarg → (CSS custom property, what it controls), in the shape of
