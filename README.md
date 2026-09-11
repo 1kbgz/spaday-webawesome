@@ -35,6 +35,12 @@ The package also exports `Tabs`, plus `form()` and `FormField` for generating bo
 
 Installing the package does not inject assets. Select it explicitly with `packages=["webawesome"]` or pass the exported `package` descriptor.
 
+## Generic controls
+
+spaday's generic controls render as Web Awesome elements when a page selects this package. The
+mapping is exported as `DESIGN`; `for_design("webawesome", pill=True)` sets a Web Awesome prop on
+one control. The shared conformance page exercises the mapping in the browser tests.
+
 ## Browser examples
 
 - [Open the standard app](https://1kbgz.github.io/spaday-webawesome/lite/) ([source](spaday_webawesome/example.py)).
