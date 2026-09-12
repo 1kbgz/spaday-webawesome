@@ -537,8 +537,15 @@ feedback = _section(
     _demo(
         "Tooltip",
         "Explain a control on hover or focus.",
-        _snippet("WaButton, WaTooltip", 'tip = WaTooltip(WaButton().text("Hover me"), placement="top")'),
-        wa.WaTooltip(wa.WaButton().text("Hover me"), placement="top"),
+        _snippet(
+            "WaButton, WaTooltip",
+            'trigger = WaButton(id="help-trigger").text("Hover me")\ntip = WaTooltip("Contextual help", for_="help-trigger", placement="top")',
+        ),
+        element(
+            "div",
+            wa.WaButton(id="gallery-tooltip-trigger").text("Hover me"),
+            wa.WaTooltip("Contextual help", for_="gallery-tooltip-trigger", placement="top"),
+        ),
     ),
 )
 
@@ -661,7 +668,7 @@ helpers = _section(
         "Include",
         "Fetch and insert an HTML fragment.",
         _snippet("WaInclude", 'fragment = WaInclude(src="/partials/status.html", mode="same-origin")'),
-        element("div", wa.WaInclude(), element("span").text("Set src to a same-origin HTML fragment."), class_="helper-placeholder"),
+        wa.WaInclude(src="data:text/html,%3Cstrong%3EIncluded%20content%3C/strong%3E"),
     ),
     _demo(
         "Intersection observer",
