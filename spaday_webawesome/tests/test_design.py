@@ -1,6 +1,6 @@
 import json
 
-from spaday import Alert, Button, Checkbox, DateInput, Dialog, NumberInput, Progress, RadioGroup, Select, Slider, TextArea, TextInput
+from spaday import Alert, Button, Checkbox, DateInput, Dialog, NumberInput, Progress, RadioGroup, Select, Slider, TextArea, TextInput, validate
 from spaday.ui import conformance, resolve
 from spaday.ui.controls import CONTROLS
 from spaday.ui.design import _plain
@@ -76,5 +76,7 @@ def test_wider_generic_controls_render_as_webawesome_elements():
 
 
 def test_the_conformance_page_needs_no_fallback():
-    rendered = json.dumps(resolve(conformance.page().to_node(), DESIGN))
+    node = resolve(conformance.page().to_node(), DESIGN)
+    validate(node)
+    rendered = json.dumps(node)
     assert "ui-" not in rendered and "data-ui-fallback" not in rendered

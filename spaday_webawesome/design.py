@@ -126,6 +126,7 @@ DESIGN = Design(
         ),
         "progress": ControlSpec(
             tag="wa-progress-bar",
+            # Web Awesome exposes a percentage rather than a value/max pair.
             props={"max": None},
         ),
         "dialog": ControlSpec(
