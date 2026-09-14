@@ -37,9 +37,10 @@ Installing the package does not inject assets. Select it explicitly with `packag
 
 ## Generic controls
 
-spaday's generic controls render as Web Awesome elements when a page selects this package. The
-mapping is exported as `DESIGN`; `for_design("webawesome", pill=True)` sets a Web Awesome prop on
-one control. The shared conformance page exercises the mapping in the browser tests.
+All 13 generic controls in `spaday.ui` render as Web Awesome elements when a page selects this
+package. The mapping is exported as `DESIGN`; `for_design("webawesome", pill=True)` sets a Web
+Awesome prop on one control. The shared conformance page checks value updates, options, validation
+state, and dialog behavior in a browser.
 
 ## Browser examples
 

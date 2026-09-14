@@ -1,7 +1,8 @@
 import json
 
-from spaday import Button, Checkbox, Dialog, Select, TextInput
+from spaday import Alert, Button, Checkbox, DateInput, Dialog, NumberInput, Progress, RadioGroup, Select, Slider, TextArea, TextInput
 from spaday.ui import conformance, resolve
+from spaday.ui.controls import CONTROLS
 from spaday.ui.design import _plain
 
 from spaday_webawesome import DESIGN, package
@@ -13,7 +14,7 @@ def _props(node: dict) -> dict:
 
 def test_the_package_publishes_its_design():
     assert package.design is DESIGN
-    assert set(DESIGN.controls) == {"button", "input", "checkbox", "switch", "select", "dialog"}
+    assert set(DESIGN.controls) == set(CONTROLS)
 
 
 def test_generic_controls_render_as_webawesome_elements():
@@ -30,12 +31,48 @@ def test_generic_controls_render_as_webawesome_elements():
     select = resolve(Select(label="Plan", options=["a", {"value": "b", "label": "B"}], placeholder="Pick").to_node(), DESIGN)
     assert select["tag"] == "wa-select" and _props(select)["placeholder"] == "Pick"
     assert [(o["tag"], _props(o)) for o in select["slots"]["default"]] == [
-        ("wa-option", {"value": "a", "textContent": "a"}),
-        ("wa-option", {"value": "b", "textContent": "B"}),
+        ("wa-option", {"value": '"a"', "textContent": "a"}),
+        ("wa-option", {"value": '"b"', "textContent": "B"}),
     ]
     dialog = resolve(Dialog(label="Confirm").bind("open", "open", mode="two-way").to_node(), DESIGN)
     assert dialog["tag"] == "wa-dialog" and _props(dialog) == {"label": "Confirm"}
     assert dialog["bindings"] == {"open": {"field": "open", "mode": "two-way", "event": "wa-after-hide"}}
+
+
+def test_wider_generic_controls_render_as_webawesome_elements():
+    textarea = resolve(TextArea(label="Notes", rows=3, minlength=2, maxlength=20).bind("value", "notes", mode="two-way").to_node(), DESIGN)
+    assert textarea["tag"] == "wa-textarea" and _props(textarea) == {"label": "Notes", "rows": 3, "minlength": 2, "maxlength": 20}
+
+    number = resolve(NumberInput(label="Count", min=0, max=10, step=1).bind("value", "count", mode="two-way").to_node(), DESIGN)
+    assert number["tag"] == "wa-input" and _props(number) == {"type": "number", "label": "Count", "min": 0, "max": 10, "step": 1}
+    assert number["bindings"]["value"]["codec"] == "number"
+
+    date = resolve(DateInput(label="Date", min="2026-01-01", max="2026-12-31").to_node(), DESIGN)
+    assert date["tag"] == "wa-input" and _props(date) == {"type": "date", "label": "Date", "min": "2026-01-01", "max": "2026-12-31"}
+
+    radios = resolve(
+        RadioGroup(label="Priority", options=[1, {"value": 2, "label": "High", "disabled": True}], value=1)
+        .bind("value", "priority", mode="two-way")
+        .to_node(),
+        DESIGN,
+    )
+    assert radios["tag"] == "wa-radio-group" and _props(radios)["value"] == "1"
+    assert radios["bindings"]["value"]["codec"] == "json"
+    assert [(option["tag"], _props(option)) for option in radios["slots"]["default"]] == [
+        ("wa-radio", {"value": "1", "textContent": "1", "checked": True}),
+        ("wa-radio", {"value": "2", "disabled": True, "textContent": "High"}),
+    ]
+
+    slider = resolve(Slider(label="Volume", min=0, max=10, step=1).bind("value", "volume", mode="two-way").to_node(), DESIGN)
+    assert slider["tag"] == "wa-slider" and _props(slider) == {"label": "Volume", "min": 0, "max": 10, "step": 1}
+    assert slider["bindings"]["value"]["codec"] == "number"
+
+    alert = resolve(Alert("Body", label="Portable", intent="info").to_node(), DESIGN)
+    assert alert["tag"] == "wa-callout" and _props(alert) == {"variant": "brand"}
+    assert _props(alert["slots"]["default"][0])["textContent"] == "Portable"
+
+    progress = resolve(Progress(label="Upload", value=25, max=50).to_node(), DESIGN)
+    assert progress["tag"] == "wa-progress-bar" and _props(progress) == {"label": "Upload", "value": 25}
 
 
 def test_the_conformance_page_needs_no_fallback():
