@@ -92,7 +92,7 @@ test("text, number, date, radio and slider values round-trip", async ({
     "|Ready|4|2026-10-01|false|false|basic|2|8|25|false|false",
   );
   await expect(page.locator("#alert")).toContainText("Portable");
-  await expect(page.locator("#progress")).toHaveJSProperty("value", 25);
+  await expect(page.locator("#progress")).toHaveJSProperty("value", 50);
   await expect(
     page.getByRole("radiogroup", { name: "Priority" }),
   ).toBeVisible();
@@ -127,7 +127,7 @@ test("the dialog opens from state, closes from a button and reports its own clos
 
 test("labels, help, errors and disabled state render", async ({ page }) => {
   await page.goto(PAGE);
-  await expect(page.getByText("Your name")).toBeVisible();
+  await expect(page.locator("#name")).toHaveJSProperty("hint", "Your name");
   await expect(page.getByText("Required")).toBeVisible();
   await expect(page.locator("#never")).toHaveJSProperty("disabled", true);
   await expect(page.locator("#save")).toHaveText("Save");

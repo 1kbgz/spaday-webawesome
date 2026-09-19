@@ -27,7 +27,8 @@ def test_generic_controls_render_as_webawesome_elements():
     assert text["bindings"] == {"value": {"field": "name", "mode": "two-way"}}
     box = resolve(Checkbox(label="Agree").bind("value", "agree", mode="two-way").to_node(), DESIGN)
     assert box["tag"] == "wa-checkbox" and _props(box) == {"textContent": "Agree"}
-    assert box["bindings"] == {"checked": {"field": "agree", "mode": "two-way"}}
+    assert box["bindings"]["checked"] == {"field": "agree", "mode": "two-way"}
+    assert box["bindings"]["data-invalid"]["compute"]["test"] == {"expr": "field", "name": "$errors.agree"}
     select = resolve(Select(label="Plan", options=["a", {"value": "b", "label": "B"}], placeholder="Pick").to_node(), DESIGN)
     assert select["tag"] == "wa-select" and _props(select)["placeholder"] == "Pick"
     assert [(o["tag"], _props(o)) for o in select["slots"]["default"]] == [
@@ -72,7 +73,7 @@ def test_wider_generic_controls_render_as_webawesome_elements():
     assert _props(alert["slots"]["default"][0])["textContent"] == "Portable"
 
     progress = resolve(Progress(label="Upload", value=25, max=50).to_node(), DESIGN)
-    assert progress["tag"] == "wa-progress-bar" and _props(progress) == {"label": "Upload", "value": 25}
+    assert progress["tag"] == "wa-progress-bar" and _props(progress) == {"label": "Upload", "value": 50.0}
 
 
 def test_the_conformance_page_needs_no_fallback():
