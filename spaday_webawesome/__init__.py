@@ -10,7 +10,7 @@ from .design import DESIGN
 from .form import FormField, form
 from .tabs import Tabs
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 # the exact version of each JS library the package serves, written by its JS build
 _VERSIONS = Path(__file__).parent / "extension" / "versions.json"
