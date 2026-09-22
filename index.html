@@ -275,6 +275,14 @@
 <p>The package also exports <code class="docutils literal notranslate"><span class="pre">Tabs</span></code>, plus <code class="docutils literal notranslate"><span class="pre">form()</span></code> and <code class="docutils literal notranslate"><span class="pre">FormField</span></code> for generating bound WebAwesome controls from pydantic models or JSON Schema.</p>
 <p>Installing the package does not inject assets. Select it explicitly with <code class="docutils literal notranslate"><span class="pre">packages=[&quot;webawesome&quot;]</span></code> or pass the exported <code class="docutils literal notranslate"><span class="pre">package</span></code> descriptor.</p>
 </section>
+<section id="generic-controls">
+<h1>Generic controls<a class="headerlink" href="#generic-controls" title="Link to this heading">¶</a></h1>
+<p>All 13 generic controls in <code class="docutils literal notranslate"><span class="pre">spaday.ui</span></code> render as Web Awesome elements when a page selects this
+package. The mapping is exported as <code class="docutils literal notranslate"><span class="pre">DESIGN</span></code>; <code class="docutils literal notranslate"><span class="pre">for_design(&quot;webawesome&quot;,</span> <span class="pre">pill=True)</span></code> sets a Web
+Awesome prop on one control. The shared conformance page checks value updates, options, validation
+state, and dialog behavior in a browser. Web Awesome progress bars use percentages, so their generic
+value is normalized against the generic <code class="docutils literal notranslate"><span class="pre">max</span></code>.</p>
+</section>
 <section id="browser-examples">
 <h1>Browser examples<a class="headerlink" href="#browser-examples" title="Link to this heading">¶</a></h1>
 <ul class="simple">
