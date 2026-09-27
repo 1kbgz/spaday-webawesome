@@ -36,3 +36,22 @@ def test_gallery_app_serves_the_component_tree():
     response = asyncio.run(request())
     assert response.status_code == 200
     assert "wa-zoomable-frame" in response.text
+
+
+def test_reactive_tree_uses_direct_repeaters():
+    tree = gallery.page.to_node()
+    repeaters = [value for value in _nodes(tree) if value.get("tag") == "spa-each"]
+
+    assert len(repeaters) == 2
+    assert all(repeater["props"]["direct"] == {"Bool": True} for repeater in repeaters)
+
+
+def _nodes(value):
+    if isinstance(value, dict):
+        if isinstance(value.get("tag"), str):
+            yield value
+        for child in value.values():
+            yield from _nodes(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from _nodes(child)

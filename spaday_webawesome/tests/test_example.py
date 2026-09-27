@@ -43,3 +43,7 @@ def test_example_serves_console_updates_metrics_and_previews_orders(monkeypatch)
     )
     assert response.status_code == 200
     assert response.json() == {"message": "Previewed 25 MSFT shares (buy limit order)"}
+
+    response = asyncio.run(request("POST", "/api/symbols/hint", json={"query": "ms"}))
+    assert response.status_code == 200
+    assert response.json() == {"hint": "MSFT · Microsoft"}

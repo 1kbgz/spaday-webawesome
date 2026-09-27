@@ -13,7 +13,7 @@ authors = [
 description = "Webawesome for spaday"
 readme = "README.md"
 license = { text = "Apache-2.0" }
-version = "0.5.0"
+version = "0.6.0"
 requires-python = ">=3.11"
 keywords = []
 
@@ -31,7 +31,7 @@ classifiers = [
 
 dependencies = [
     "pydantic>=2",
-    "spaday>=0.10.0,<1.0",
+    "spaday>=0.11.3,<1.0",
 ]
 
 [project.entry-points."spaday.component_packages"]
@@ -75,7 +75,7 @@ Repository = "https://github.com/1kbgz/spaday-webawesome"
 Homepage = "https://github.com/1kbgz/spaday-webawesome"
 
 [tool.bumpversion]
-current_version = "0.5.0"
+current_version = "0.6.0"
 commit = true
 tag = true
 commit_args = "-s"

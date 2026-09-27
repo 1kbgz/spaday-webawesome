@@ -47,6 +47,12 @@ export default defineConfig({
             timeout: 120 * 1000,
           },
           {
+            command: "python -m spaday_webawesome.gallery",
+            url: "http://127.0.0.1:8013",
+            reuseExistingServer: !process.env.CI,
+            timeout: 120 * 1000,
+          },
+          {
             // a downstream component library sharing the page with the generated catalog;
             // by path, not `-m`, because the tests directory is not an importable package
             command: "python ../spaday_webawesome/tests/integration.py",

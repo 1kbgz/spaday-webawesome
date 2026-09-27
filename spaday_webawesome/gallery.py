@@ -7,8 +7,9 @@ import keyword
 import textwrap
 import tokenize
 
-from spaday import SetProp, by_id, element
+from spaday import SetProp, by_id, element, item
 from spaday.backends.starlette import serve
+from spaday.components import Each
 
 from . import components as wa, package
 
@@ -446,29 +447,51 @@ navigation = _section(
     ),
     _demo(
         "Tree",
-        "Navigate nested, selectable items.",
+        "Navigate nested, selectable items. Repeated tree items need Each(..., direct=True) because Web Awesome discovers direct light-DOM children.",
         _snippet(
             "WaTree, WaTreeItem",
             """
+            from spaday import element, item
+            from spaday.components import Each
+
             tree = WaTree(
-                WaTreeItem(
-                    "spaday_webawesome",
-                    WaTreeItem().text("gallery.py"),
-                    WaTreeItem().text("example.py"),
-                    expanded=True,
+                Each(
+                    WaTreeItem(
+                        element("span").compute("textContent", item("label")),
+                        Each(
+                            WaTreeItem().compute("textContent", item("label")),
+                            items=item("children"),
+                            key="id",
+                            direct=True,
+                        ),
+                        expanded=True,
+                    ),
+                    field="gallery_tree",
+                    key="id",
+                    direct=True,
                 ),
                 selection="single",
             )
             """,
         ),
         wa.WaTree(
-            wa.WaTreeItem(
-                "spaday_webawesome",
-                wa.WaTreeItem().text("gallery.py"),
-                wa.WaTreeItem().text("example.py"),
-                expanded=True,
+            Each(
+                wa.WaTreeItem(
+                    element("span").compute("textContent", item("label")),
+                    Each(
+                        wa.WaTreeItem().compute("textContent", item("label")),
+                        items=item("children"),
+                        key="id",
+                        direct=True,
+                    ),
+                    expanded=True,
+                ),
+                field="gallery_tree",
+                key="id",
+                direct=True,
             ),
             selection="single",
+            id="reactive-tree",
         ),
     ),
 )
@@ -827,7 +850,20 @@ styles = """
 </style>
 """
 
-app = serve(page, packages=[package], head=styles, title="spaday-webawesome gallery")
+initial_store = {
+    "gallery_tree": [
+        {
+            "id": "package",
+            "label": "spaday_webawesome",
+            "children": [
+                {"id": "gallery", "label": "gallery.py"},
+                {"id": "example", "label": "example.py"},
+            ],
+        }
+    ]
+}
+
+app = serve(page, packages=[package], store=initial_store, head=styles, title="spaday-webawesome gallery")
 
 if __name__ == "__main__":
     import uvicorn

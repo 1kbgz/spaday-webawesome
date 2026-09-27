@@ -64,8 +64,12 @@ class LocalRequest:
     async def json(self):
         return self._body
 
-async def call_endpoint(body_json):
-    response = await example.preview_order(LocalRequest(json.loads(body_json)))
+async def call_endpoint(path, body_json):
+    endpoints = {
+        "/api/orders/preview": example.preview_order,
+        "/api/symbols/hint": example.symbol_hint,
+    }
+    response = await endpoints[path](LocalRequest(json.loads(body_json)))
     return json.dumps({
         "status": response.status_code,
         "body": json.loads(bytes(response.body).decode()),
@@ -101,8 +105,11 @@ async function handle(message) {
     if (wires.length) self.postMessage({ type: "wires", wires });
   } else if (message.type === "endpoint") {
     pyodide.globals.set("body_json", JSON.stringify(message.body));
+    pyodide.globals.set("endpoint_path", message.path);
     const result = JSON.parse(
-      await pyodide.runPythonAsync("await call_endpoint(body_json)"),
+      await pyodide.runPythonAsync(
+        "await call_endpoint(endpoint_path, body_json)",
+      ),
     );
     self.postMessage({ type: "endpoint", id: message.id, ...result });
   }

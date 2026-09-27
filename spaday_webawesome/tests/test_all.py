@@ -1,10 +1,10 @@
 import ast
 from pathlib import Path
 
-from spaday import element, generate
+from spaday import Token, element, generate
 from spaday.bootstrap import bootstrap
 
-from spaday_webawesome import Tabs, WaButton, WaCard, package
+from spaday_webawesome import TOKENS, Tabs, WaButton, WaCard, package
 
 
 def _generated_ast(source: str) -> str:
@@ -61,6 +61,13 @@ def test_published_imports_are_served():
     for specifier, path in package.imports:
         target = package.assets_dir / path
         assert target.is_dir() if path.endswith("/") else target.is_file(), f"{specifier} maps to {path}, which the build did not produce"
+
+
+def test_tokens_are_structured_webawesome_tokens():
+    for kwarg, token in TOKENS.items():
+        assert isinstance(token, Token)
+        prop, description = token
+        assert prop == f"--{kwarg.replace('_', '-')}" and description.startswith("drives --spa-")
 
 
 def test_generated_catalog_is_current():

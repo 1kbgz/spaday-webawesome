@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from spaday import ComponentPackage
+from spaday import ComponentPackage, Token
 
 from . import components as _components
 from .components import *
@@ -10,7 +10,7 @@ from .design import DESIGN
 from .form import FormField, form
 from .tabs import Tabs
 
-__version__ = "0.5.0"
+__version__ = "0.6.0"
 
 # the exact version of each JS library the package serves, written by its JS build
 _VERSIONS = Path(__file__).parent / "extension" / "versions.json"
@@ -44,14 +44,14 @@ package = ComponentPackage(
 #: Every other WebAwesome token works the same way (``css()`` takes arbitrary custom properties);
 #: these are the ones wired to the shell palette.
 TOKENS = {
-    "wa_color_surface_default": ("--wa-color-surface-default", "drives --spa-surface"),
-    "wa_color_surface_lowered": ("--wa-color-surface-lowered", "drives --spa-surface-2"),
-    "wa_color_surface_border": ("--wa-color-surface-border", "drives --spa-border"),
-    "wa_color_text_quiet": ("--wa-color-text-quiet", "drives --spa-muted"),
-    "wa_color_brand_fill_loud": ("--wa-color-brand-fill-loud", "drives --spa-accent and --spa-info"),
-    "wa_color_success_fill_loud": ("--wa-color-success-fill-loud", "drives --spa-success"),
-    "wa_color_warning_fill_loud": ("--wa-color-warning-fill-loud", "drives --spa-warning"),
-    "wa_color_danger_fill_loud": ("--wa-color-danger-fill-loud", "drives --spa-danger"),
+    "wa_color_surface_default": Token("--wa-color-surface-default", "drives --spa-surface"),
+    "wa_color_surface_lowered": Token("--wa-color-surface-lowered", "drives --spa-surface-2"),
+    "wa_color_surface_border": Token("--wa-color-surface-border", "drives --spa-border"),
+    "wa_color_text_quiet": Token("--wa-color-text-quiet", "drives --spa-muted"),
+    "wa_color_brand_fill_loud": Token("--wa-color-brand-fill-loud", "drives --spa-accent and --spa-info"),
+    "wa_color_success_fill_loud": Token("--wa-color-success-fill-loud", "drives --spa-success"),
+    "wa_color_warning_fill_loud": Token("--wa-color-warning-fill-loud", "drives --spa-warning"),
+    "wa_color_danger_fill_loud": Token("--wa-color-danger-fill-loud", "drives --spa-danger"),
 }
 
 __all__ = [*_component_names, "DESIGN", "FormField", "TOKENS", "Tabs", "form", "package"]  # noqa: PLE0604

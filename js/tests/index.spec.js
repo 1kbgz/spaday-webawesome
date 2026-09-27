@@ -32,11 +32,29 @@ test("runs the Python console with live metrics and order preview", async ({
 
   await page.getByText("Order controls", { exact: true }).click();
   await page.getByRole("textbox", { name: "Symbol" }).fill("MSFT");
+  await expect(
+    page.getByText("MSFT · Microsoft", { exact: true }),
+  ).toBeVisible();
   await page.getByRole("spinbutton", { name: "Quantity" }).fill("25");
   await page.getByRole("button", { name: "Preview order" }).click();
   await expect(page.locator("#order-preview")).toContainText(
     "Previewed 25 MSFT shares",
   );
+});
+
+test("renders reactive tree items as direct Web Awesome children", async ({
+  page,
+}) => {
+  await page.goto("http://127.0.0.1:8013");
+  const tree = page.locator("#reactive-tree");
+  const root = tree.locator(":scope > wa-tree-item");
+  const nested = root.locator(":scope > wa-tree-item");
+
+  await expect(root).toHaveCount(1);
+  await expect(nested).toHaveCount(2);
+  await expect(root).toHaveJSProperty("isLeaf", false);
+  await expect(nested.first()).toHaveAttribute("slot", "children");
+  await expect(root).toHaveJSProperty("expanded", true);
 });
 
 test("survives an application that already registered a WebAwesome element", async ({
