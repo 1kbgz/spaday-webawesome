@@ -88,7 +88,7 @@
           );
           if (
             exampleName !== "example" ||
-            url.pathname !== "/api/orders/preview"
+            !["/api/orders/preview", "/api/symbols/hint"].includes(url.pathname)
           )
             return nativeFetch(input, options);
 
@@ -99,6 +99,7 @@
           worker.postMessage({
             type: "endpoint",
             id,
+            path: url.pathname,
             body: options.body ? JSON.parse(String(options.body)) : null,
           });
           return response;

@@ -4,7 +4,7 @@ import logging
 import transports
 import uvicorn
 from pydantic import BaseModel
-from spaday import CallEndpoint, Sequence, SetProp, Toggle, by_id, element, field, obj
+from spaday import CallEndpoint, Sequence, SetProp, Toggle, by_id, element, event_prop, field, obj
 from spaday.backends.starlette import serve
 from starlette.responses import JSONResponse
 from starlette.routing import Route, WebSocketRoute
@@ -40,6 +40,14 @@ session = transports.Session()
 session.host(overview_feed)
 server = transports.Server(session)
 
+SYMBOLS = {
+    "AAPL": "Apple",
+    "AMZN": "Amazon",
+    "GOOGL": "Alphabet",
+    "MSFT": "Microsoft",
+    "NVDA": "NVIDIA",
+}
+
 
 async def update_overview() -> None:
     tick = 0
@@ -61,6 +69,13 @@ async def preview_order(request):
     return JSONResponse({"message": f"Previewed {order['quantity']} {order['symbol']} shares ({order['side']} {order_type} order)"})
 
 
+async def symbol_hint(request):
+    query = str((await request.json()).get("query", "")).strip().upper()
+    symbol = next((symbol for symbol in SYMBOLS if symbol.startswith(query)), None) if query else None
+    hint = f"{symbol} · {SYMBOLS[symbol]}" if symbol else "No matching ticker" if query else "Type a ticker such as AAPL or MSFT"
+    return JSONResponse({"hint": hint})
+
+
 details = element(
     "section",
     WaCallout(
@@ -78,7 +93,18 @@ order_form = element(
     "section",
     element(
         "div",
-        WaInput(label="Symbol", value="AAPL", hint="US-listed ticker", with_clear=True).bind("value", "symbol", mode="two-way"),
+        WaInput(label="Symbol", value="AAPL", autocomplete="off", with_clear=True, id="symbol-input")
+        .compute("hint", field("symbol_hint.body.hint"))
+        .bind("value", "symbol", mode="two-way")
+        .on(
+            "input",
+            CallEndpoint(
+                "POST",
+                "/api/symbols/hint",
+                obj({"query": event_prop("currentTarget.value")}),
+                result="symbol_hint",
+            ),
+        ),
         WaSelect(
             WaOption(value="buy").text("Buy"),
             WaOption(value="sell").text("Sell"),
@@ -199,6 +225,7 @@ initial_store = {
     "quantity": "100",
     "limit_order": True,
     "preview": {"body": {"message": "Waiting for server preview"}},
+    "symbol_hint": {"body": {"hint": "Type a ticker such as AAPL or MSFT"}},
 }
 
 app = serve(
@@ -208,6 +235,7 @@ app = serve(
     routes=[
         WebSocketRoute("/ws", transports.ws_endpoint(server)),
         Route("/api/orders/preview", preview_order, methods=["POST"]),
+        Route("/api/symbols/hint", symbol_hint, methods=["POST"]),
     ],
     background=[transports.autosync(server), update_overview()],
     store=initial_store,
