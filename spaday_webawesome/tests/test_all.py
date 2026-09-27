@@ -69,6 +69,9 @@ def test_tokens_are_structured_webawesome_tokens():
         prop, description = token
         assert prop == f"--{kwarg.replace('_', '-')}" and description.startswith("drives --spa-")
 
+    css = (Path(__file__).parents[2] / "js/src/css/webawesome.css").read_text(encoding="utf-8")
+    assert "--spa-text: var(--wa-color-text-normal);" in css
+
 
 def test_generated_catalog_is_current():
     root = Path(__file__).parent.parent

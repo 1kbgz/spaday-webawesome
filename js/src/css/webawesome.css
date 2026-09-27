@@ -9,6 +9,7 @@
   --spa-border: var(--wa-color-surface-border);
   --spa-surface: var(--wa-color-surface-default);
   --spa-surface-2: var(--wa-color-surface-lowered);
+  --spa-text: var(--wa-color-text-normal);
   --spa-muted: var(--wa-color-text-quiet);
   --spa-accent: var(--wa-color-brand-fill-loud);
   --spa-info: var(--wa-color-brand-fill-loud);
