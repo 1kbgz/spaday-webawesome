@@ -47,6 +47,7 @@ TOKENS = {
     "wa_color_surface_default": Token("--wa-color-surface-default", "drives --spa-surface"),
     "wa_color_surface_lowered": Token("--wa-color-surface-lowered", "drives --spa-surface-2"),
     "wa_color_surface_border": Token("--wa-color-surface-border", "drives --spa-border"),
+    "wa_color_text_normal": Token("--wa-color-text-normal", "drives --spa-text"),
     "wa_color_text_quiet": Token("--wa-color-text-quiet", "drives --spa-muted"),
     "wa_color_brand_fill_loud": Token("--wa-color-brand-fill-loud", "drives --spa-accent and --spa-info"),
     "wa_color_success_fill_loud": Token("--wa-color-success-fill-loud", "drives --spa-success"),
