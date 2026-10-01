@@ -1,9 +1,9 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
 import {
   de_default
-} from "../chunks/chunk.JEFGOKSA.js";
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+} from "../chunks/chunk.FIJUNJG2.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -14,6 +14,7 @@ var translation = {
   ...de_default,
   $code: "de-CH",
   $name: "Deutsch (Schweiz)",
+  allTagsRemoved: "Alle Schlagw\xF6rter entfernt",
   am: "AM",
   autosizeColumn: "Spaltenbreite anpassen",
   captions: "Untertitel",
@@ -150,10 +151,16 @@ var translation = {
   sortColumn: "Spalte sortieren",
   sortDescending: "Absteigend sortieren",
   startDate: "Startdatum",
+  tagAdded: (tag) => `${tag} hinzugef\xFCgt`,
+  tagAlreadyAdded: (tag) => `${tag} ist bereits vorhanden`,
+  tagInputKeyboardHelp: "Dr\xFCcken Sie die R\xFCcktaste oder Entf, um dieses Schlagwort zu entfernen.",
+  tagRemoved: (tag) => `${tag} entfernt`,
   time: "Uhrzeit",
   timeInputKeyboardHelp: "Verwenden Sie die Pfeiltasten, um Werte zu \xE4ndern; dr\xFCcken Sie Alt+Pfeil nach unten, um die Uhrzeitauswahl zu \xF6ffnen.",
   today: "Heute",
   toggleColorFormat: "Farbformat wechseln",
+  tooFewTags: (min) => min === 1 ? "F\xFCgen Sie mindestens 1 Schlagwort hinzu" : `F\xFCgen Sie mindestens ${min} Schlagw\xF6rter hinzu`,
+  tooManyTags: (max) => max === 1 ? "F\xFCgen Sie h\xF6chstens 1 Schlagwort hinzu" : `F\xFCgen Sie h\xF6chstens ${max} Schlagw\xF6rter hinzu`,
   unmute: "Stummschaltung aufheben",
   unpin: "L\xF6sen",
   unpinColumn: "Spalte l\xF6sen",

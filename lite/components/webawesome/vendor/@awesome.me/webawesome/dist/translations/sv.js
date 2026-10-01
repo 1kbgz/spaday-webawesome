@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "sv",
   $name: "Svenska",
   $dir: "ltr",
+  allTagsRemoved: "Alla taggar borttagna",
   am: "FM",
   autosizeColumn: "Anpassa kolumnbredd",
   captions: "Undertexter",
@@ -150,10 +151,16 @@ var translation = {
   sortColumn: "Sortera kolumn",
   sortDescending: "Sortera fallande",
   startDate: "Startdatum",
+  tagAdded: (tag) => `${tag} tillagd`,
+  tagAlreadyAdded: (tag) => `${tag} \xE4r redan tillagd`,
+  tagInputKeyboardHelp: "Tryck p\xE5 Backspace eller Delete f\xF6r att ta bort den h\xE4r taggen.",
+  tagRemoved: (tag) => `${tag} borttagen`,
   time: "Tid",
   timeInputKeyboardHelp: "Anv\xE4nd piltangenterna f\xF6r att \xE4ndra v\xE4rden; tryck Alt+Pil ned f\xF6r att \xF6ppna tidsv\xE4ljaren.",
   today: "Idag",
   toggleColorFormat: "V\xE4xla f\xE4rgformat",
+  tooFewTags: (min) => min === 1 ? "L\xE4gg till minst 1 tagg" : `L\xE4gg till minst ${min} taggar`,
+  tooManyTags: (max) => max === 1 ? "L\xE4gg till h\xF6gst 1 tagg" : `L\xE4gg till h\xF6gst ${max} taggar`,
   unmute: "Sl\xE5 p\xE5 ljud",
   unpin: "Ta bort f\xE4stning",
   unpinColumn: "Ta bort f\xE4st kolumn",

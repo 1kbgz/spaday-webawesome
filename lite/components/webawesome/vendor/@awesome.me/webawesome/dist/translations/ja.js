@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "ja",
   $name: "\u65E5\u672C\u8A9E",
   $dir: "ltr",
+  allTagsRemoved: "\u3059\u3079\u3066\u306E\u30BF\u30B0\u3092\u524A\u9664\u3057\u307E\u3057\u305F",
   am: "\u5348\u524D",
   autosizeColumn: "\u5217\u306E\u5E45\u3092\u81EA\u52D5\u8ABF\u6574",
   captions: "\u5B57\u5E55",
@@ -143,10 +144,16 @@ var translation = {
   sortColumn: "\u5217\u3092\u4E26\u3079\u66FF\u3048",
   sortDescending: "\u964D\u9806\u3067\u4E26\u3079\u66FF\u3048",
   startDate: "\u958B\u59CB\u65E5",
+  tagAdded: (tag) => `${tag} \u3092\u8FFD\u52A0\u3057\u307E\u3057\u305F`,
+  tagAlreadyAdded: (tag) => `${tag} \u306F\u3059\u3067\u306B\u8FFD\u52A0\u3055\u308C\u3066\u3044\u307E\u3059`,
+  tagInputKeyboardHelp: "Backspace \u307E\u305F\u306F Delete \u30AD\u30FC\u3092\u62BC\u3059\u3068\u3001\u3053\u306E\u30BF\u30B0\u3092\u524A\u9664\u3057\u307E\u3059\u3002",
+  tagRemoved: (tag) => `${tag} \u3092\u524A\u9664\u3057\u307E\u3057\u305F`,
   time: "\u6642\u523B",
   timeInputKeyboardHelp: "\u77E2\u5370\u30AD\u30FC\u3067\u5024\u3092\u5909\u66F4\u3057\u3001Alt+\u4E0B\u77E2\u5370\u30AD\u30FC\u3067\u6642\u523B\u9078\u629E\u3092\u958B\u304D\u307E\u3059\u3002",
   today: "\u4ECA\u65E5",
   toggleColorFormat: "\u8272\u306E\u30D5\u30A9\u30FC\u30DE\u30C3\u30C8\u3092\u5207\u308A\u66FF\u3048\u308B",
+  tooFewTags: (min) => `\u30BF\u30B0\u3092${min}\u500B\u4EE5\u4E0A\u8FFD\u52A0\u3057\u3066\u304F\u3060\u3055\u3044`,
+  tooManyTags: (max) => `\u30BF\u30B0\u306F${max}\u500B\u4EE5\u5185\u306B\u3057\u3066\u304F\u3060\u3055\u3044`,
   unmute: "\u30DF\u30E5\u30FC\u30C8\u89E3\u9664",
   unpin: "\u56FA\u5B9A\u3092\u89E3\u9664",
   unpinColumn: "\u5217\u306E\u56FA\u5B9A\u3092\u89E3\u9664",

@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "pl",
   $name: "Polski",
   $dir: "ltr",
+  allTagsRemoved: "Usuni\u0119to wszystkie tagi",
   am: "AM",
   autosizeColumn: "Dopasuj szeroko\u015B\u0107 kolumny",
   captions: "Napisy",
@@ -185,10 +186,28 @@ var translation = {
   sortColumn: "Sortuj kolumn\u0119",
   sortDescending: "Sortuj malej\u0105co",
   startDate: "Data pocz\u0105tkowa",
+  tagAdded: (tag) => `Dodano ${tag}`,
+  tagAlreadyAdded: (tag) => `Tag ${tag} ju\u017C istnieje`,
+  tagInputKeyboardHelp: "Naci\u015Bnij Backspace lub Delete, aby usun\u0105\u0107 ten tag.",
+  tagRemoved: (tag) => `Usuni\u0119to ${tag}`,
   time: "Godzina",
   timeInputKeyboardHelp: "U\u017Cyj klawiszy strza\u0142ek, aby zmieni\u0107 warto\u015Bci; naci\u015Bnij Alt+Strza\u0142ka w d\xF3\u0142, aby otworzy\u0107 selektor godziny.",
   today: "Dzisiaj",
   toggleColorFormat: "Prze\u0142\u0105cz format",
+  tooFewTags: (min) => {
+    if (min === 1) return "Dodaj co najmniej 1 tag";
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodaj co najmniej ${min} tagi`;
+    return `Dodaj co najmniej ${min} tag\xF3w`;
+  },
+  tooManyTags: (max) => {
+    if (max === 1) return "Dodaj nie wi\u0119cej ni\u017C 1 tag";
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodaj nie wi\u0119cej ni\u017C ${max} tagi`;
+    return `Dodaj nie wi\u0119cej ni\u017C ${max} tag\xF3w`;
+  },
   unmute: "W\u0142\u0105cz d\u017Awi\u0119k",
   unpin: "Odepnij",
   unpinColumn: "Odepnij kolumn\u0119",

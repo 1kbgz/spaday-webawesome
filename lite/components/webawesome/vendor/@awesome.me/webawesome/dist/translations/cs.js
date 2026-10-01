@@ -9,6 +9,7 @@ var translation = {
   $code: "cs",
   $name: "\u010Ce\u0161tina",
   $dir: "ltr",
+  allTagsRemoved: "V\u0161echny \u0161t\xEDtky odebr\xE1ny",
   am: "dop.",
   autosizeColumn: "P\u0159izp\u016Fsobit \u0161\xED\u0159ku obsahu",
   captions: "Titulky",
@@ -168,10 +169,24 @@ var translation = {
   sortColumn: "Se\u0159adit sloupec",
   sortDescending: "Se\u0159adit sestupn\u011B",
   startDate: "Datum zah\xE1jen\xED",
+  tagAdded: (tag) => `${tag} p\u0159id\xE1no`,
+  tagAlreadyAdded: (tag) => `\u0160t\xEDtek ${tag} ji\u017E existuje`,
+  tagInputKeyboardHelp: "Stisknut\xEDm Backspace nebo Delete tento \u0161t\xEDtek odeberete.",
+  tagRemoved: (tag) => `${tag} odebr\xE1no`,
   time: "\u010Cas",
   timeInputKeyboardHelp: "Pomoc\xED \u0161ipek zm\u011B\u0148te hodnoty; stisknut\xEDm Alt+\u0160ipka dol\u016F otev\u0159ete v\xFDb\u011Br \u010Dasu.",
   today: "Dnes",
   toggleColorFormat: "P\u0159epnout form\xE1t barvy",
+  tooFewTags: (min) => {
+    if (min === 1) return "P\u0159idejte alespo\u0148 1 \u0161t\xEDtek";
+    if (min >= 2 && min <= 4) return `P\u0159idejte alespo\u0148 ${min} \u0161t\xEDtky`;
+    return `P\u0159idejte alespo\u0148 ${min} \u0161t\xEDtk\u016F`;
+  },
+  tooManyTags: (max) => {
+    if (max === 1) return "P\u0159idejte nejv\xFD\u0161e 1 \u0161t\xEDtek";
+    if (max >= 2 && max <= 4) return `P\u0159idejte nejv\xFD\u0161e ${max} \u0161t\xEDtky`;
+    return `P\u0159idejte nejv\xFD\u0161e ${max} \u0161t\xEDtk\u016F`;
+  },
   unmute: "Zapnout zvuk",
   unpin: "Odepnout",
   unpinColumn: "Odepnout sloupec",

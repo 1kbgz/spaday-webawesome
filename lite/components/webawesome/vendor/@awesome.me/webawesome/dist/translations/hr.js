@@ -9,6 +9,7 @@ var translation = {
   $code: "hr",
   $name: "Hrvatski",
   $dir: "ltr",
+  allTagsRemoved: "Sve oznake uklonjene",
   am: "AM",
   autosizeColumn: "Automatski prilagodi veli\u010Dinu stupca",
   captions: "Titlovi",
@@ -184,10 +185,28 @@ var translation = {
   sortColumn: "Sortiraj stupac",
   sortDescending: "Sortiraj silazno",
   startDate: "Datum po\u010Detka",
+  tagAdded: (tag) => `${tag} dodano`,
+  tagAlreadyAdded: (tag) => `Oznaka ${tag} ve\u0107 postoji`,
+  tagInputKeyboardHelp: "Pritisnite Backspace ili Delete za uklanjanje ove oznake.",
+  tagRemoved: (tag) => `${tag} uklonjeno`,
   time: "Vrijeme",
   timeInputKeyboardHelp: "Strelicama mijenjajte vrijednosti; pritisnite Alt+Strelica dolje za otvaranje bira\u010Da vremena.",
   today: "Danas",
   toggleColorFormat: "Zamijeni format boje",
+  tooFewTags: (min) => {
+    if (min === 1) return "Dodajte najmanje 1 oznaku";
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodajte najmanje ${min} oznake`;
+    return `Dodajte najmanje ${min} oznaka`;
+  },
+  tooManyTags: (max) => {
+    if (max === 1) return "Dodajte najvi\u0161e 1 oznaku";
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodajte najvi\u0161e ${max} oznake`;
+    return `Dodajte najvi\u0161e ${max} oznaka`;
+  },
   unmute: "Uklju\u010Di zvuk",
   unpin: "Otkva\u010Di",
   unpinColumn: "Otkva\u010Di stupac",

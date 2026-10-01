@@ -1,8 +1,8 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
+import "../chunks/chunk.6XPM2MZA.js";
 import {
   en_default
-} from "../chunks/chunk.E2G7AAZ3.js";
+} from "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -13,6 +13,7 @@ var translation = {
   ...en_default,
   $code: "en-GB",
   $name: "English (United Kingdom)",
+  allTagsRemoved: "All tags removed",
   am: "AM",
   autosizeColumn: "Autosize column",
   captions: "Captions",
@@ -149,10 +150,16 @@ var translation = {
   sortColumn: "Sort column",
   sortDescending: "Sort descending",
   startDate: "Start date",
+  tagAdded: (tag) => `${tag} added`,
+  tagAlreadyAdded: (tag) => `${tag} is already added`,
+  tagInputKeyboardHelp: "Press Backspace or Delete to remove this tag.",
+  tagRemoved: (tag) => `${tag} removed`,
   time: "Time",
   timeInputKeyboardHelp: "Use arrow keys to change values; press Alt+Down Arrow to open the time picker.",
   today: "Today",
   toggleColorFormat: "Toggle colour format",
+  tooFewTags: (min) => min === 1 ? "Add at least 1 tag" : `Add at least ${min} tags`,
+  tooManyTags: (max) => max === 1 ? "Add no more than 1 tag" : `Add no more than ${max} tags`,
   unmute: "Unmute",
   unpin: "Unpin",
   unpinColumn: "Unpin column",

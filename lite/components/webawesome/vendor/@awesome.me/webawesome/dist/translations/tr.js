@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "tr",
   $name: "T\xFCrk\xE7e",
   $dir: "ltr",
+  allTagsRemoved: "T\xFCm etiketler kald\u0131r\u0131ld\u0131",
   am: "\xD6\xD6",
   autosizeColumn: "S\xFCtunu otomatik boyutland\u0131r",
   captions: "Altyaz\u0131lar",
@@ -150,10 +151,16 @@ var translation = {
   sortColumn: "S\xFCtunu s\u0131rala",
   sortDescending: "Azalan s\u0131rala",
   startDate: "Ba\u015Flang\u0131\xE7 tarihi",
+  tagAdded: (tag) => `${tag} eklendi`,
+  tagAlreadyAdded: (tag) => `${tag} zaten eklendi`,
+  tagInputKeyboardHelp: "Bu etiketi kald\u0131rmak i\xE7in Backspace veya Delete tu\u015Funa bas\u0131n.",
+  tagRemoved: (tag) => `${tag} kald\u0131r\u0131ld\u0131`,
   time: "Saat",
   timeInputKeyboardHelp: "De\u011Ferleri de\u011Fi\u015Ftirmek i\xE7in ok tu\u015Flar\u0131n\u0131 kullan\u0131n; saat se\xE7iciyi a\xE7mak i\xE7in Alt+A\u015Fa\u011F\u0131 Ok tu\u015Funa bas\u0131n.",
   today: "Bug\xFCn",
   toggleColorFormat: "Renk bi\xE7imini de\u011Fi\u015Ftir",
+  tooFewTags: (min) => `En az ${min} etiket ekleyin`,
+  tooManyTags: (max) => `En fazla ${max} etiket ekleyin`,
   unmute: "Sesi a\xE7",
   unpin: "Sabitlemeyi kald\u0131r",
   unpinColumn: "S\xFCtunun sabitlemesini kald\u0131r",

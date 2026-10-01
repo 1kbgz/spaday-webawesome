@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "hu",
   $name: "Magyar",
   $dir: "ltr",
+  allTagsRemoved: "Minden c\xEDmke elt\xE1vol\xEDtva",
   am: "de.",
   autosizeColumn: "Oszlop m\xE9retez\xE9se a tartalomhoz",
   captions: "Feliratok",
@@ -150,10 +151,16 @@ var translation = {
   sortColumn: "Oszlop rendez\xE9se",
   sortDescending: "Cs\xF6kken\u0151 rendez\xE9s",
   startDate: "Kezd\u0151 d\xE1tum",
+  tagAdded: (tag) => `${tag} hozz\xE1adva`,
+  tagAlreadyAdded: (tag) => `${tag} m\xE1r hozz\xE1 van adva`,
+  tagInputKeyboardHelp: "A c\xEDmke elt\xE1vol\xEDt\xE1s\xE1hoz nyomja meg a Backspace vagy a Delete billenty\u0171t.",
+  tagRemoved: (tag) => `${tag} elt\xE1vol\xEDtva`,
   time: "Id\u0151",
   timeInputKeyboardHelp: "A ny\xEDlbillenty\u0171kkel m\xF3dos\xEDthatja az \xE9rt\xE9keket; az Alt+Lefel\xE9 ny\xEDl megnyitja az id\u0151v\xE1laszt\xF3t.",
   today: "Ma",
   toggleColorFormat: "Sz\xEDnform\xE1tum v\xE1ltoztat\xE1sa",
+  tooFewTags: (min) => `Adjon hozz\xE1 legal\xE1bb ${min} c\xEDmk\xE9t`,
+  tooManyTags: (max) => `Legfeljebb ${max} c\xEDmk\xE9t adjon hozz\xE1`,
   unmute: "Eln\xE9m\xEDt\xE1s felold\xE1sa",
   unpin: "R\xF6gz\xEDt\xE9s felold\xE1sa",
   unpinColumn: "Oszlop r\xF6gz\xEDt\xE9s\xE9nek felold\xE1sa",

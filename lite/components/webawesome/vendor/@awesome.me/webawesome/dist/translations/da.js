@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "da",
   $name: "Dansk",
   $dir: "ltr",
+  allTagsRemoved: "Alle tags fjernet",
   am: "AM",
   autosizeColumn: "Tilpas kolonnebredde automatisk",
   captions: "Undertekster",
@@ -150,10 +151,16 @@ var translation = {
   sortColumn: "Sort\xE9r kolonne",
   sortDescending: "Sort\xE9r faldende",
   startDate: "Startdato",
+  tagAdded: (tag) => `${tag} tilf\xF8jet`,
+  tagAlreadyAdded: (tag) => `${tag} er allerede tilf\xF8jet`,
+  tagInputKeyboardHelp: "Tryk p\xE5 Backspace eller Delete for at fjerne dette tag.",
+  tagRemoved: (tag) => `${tag} fjernet`,
   time: "Klokkesl\xE6t",
   timeInputKeyboardHelp: "Brug piletasterne til at \xE6ndre v\xE6rdier; tryk Alt+Pil ned for at \xE5bne klokkesl\xE6tsv\xE6lgeren.",
   today: "I dag",
   toggleColorFormat: "Skift farveformat",
+  tooFewTags: (min) => min === 1 ? "Tilf\xF8j mindst 1 tag" : `Tilf\xF8j mindst ${min} tags`,
+  tooManyTags: (max) => max === 1 ? "Tilf\xF8j h\xF8jst 1 tag" : `Tilf\xF8j h\xF8jst ${max} tags`,
   unmute: "Sl\xE5 lyd til",
   unpin: "Frig\xF8r",
   unpinColumn: "Frig\xF8r kolonne",

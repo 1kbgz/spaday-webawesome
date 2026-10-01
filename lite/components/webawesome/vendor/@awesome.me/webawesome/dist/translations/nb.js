@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "nb",
   $name: "Norwegian Bokm\xE5l",
   $dir: "ltr",
+  allTagsRemoved: "Alle tagger fjernet",
   am: "AM",
   autosizeColumn: "Tilpass kolonnebredde",
   captions: "Teksting",
@@ -150,10 +151,16 @@ var translation = {
   sortColumn: "Sorter kolonne",
   sortDescending: "Sorter synkende",
   startDate: "Startdato",
+  tagAdded: (tag) => `${tag} lagt til`,
+  tagAlreadyAdded: (tag) => `${tag} er allerede lagt til`,
+  tagInputKeyboardHelp: "Trykk p\xE5 Backspace eller Delete for \xE5 fjerne denne taggen.",
+  tagRemoved: (tag) => `${tag} fjernet`,
   time: "Klokkeslett",
   timeInputKeyboardHelp: "Bruk piltastene for \xE5 endre verdier; trykk Alt+Pil ned for \xE5 \xE5pne tidsvelgeren.",
   today: "I dag",
   toggleColorFormat: "Bytt fargeformat",
+  tooFewTags: (min) => min === 1 ? "Legg til minst 1 tagg" : `Legg til minst ${min} tagger`,
+  tooManyTags: (max) => max === 1 ? "Legg til h\xF8yst 1 tagg" : `Legg til h\xF8yst ${max} tagger`,
   unmute: "Skru p\xE5 lyd",
   unpin: "L\xF8sne",
   unpinColumn: "L\xF8sne kolonne",

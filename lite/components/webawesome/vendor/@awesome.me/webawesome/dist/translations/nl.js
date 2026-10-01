@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "nl",
   $name: "Nederlands",
   $dir: "ltr",
+  allTagsRemoved: "Alle tags verwijderd",
   am: "AM",
   autosizeColumn: "Kolom automatisch passend maken",
   captions: "Ondertiteling",
@@ -150,10 +151,16 @@ var translation = {
   sortColumn: "Kolom sorteren",
   sortDescending: "Aflopend sorteren",
   startDate: "Begindatum",
+  tagAdded: (tag) => `${tag} toegevoegd`,
+  tagAlreadyAdded: (tag) => `${tag} is al toegevoegd`,
+  tagInputKeyboardHelp: "Druk op Backspace of Delete om deze tag te verwijderen.",
+  tagRemoved: (tag) => `${tag} verwijderd`,
   time: "Tijd",
   timeInputKeyboardHelp: "Gebruik de pijltjestoetsen om waarden te wijzigen; druk op Alt+Pijl omlaag om de tijdkiezer te openen.",
   today: "Vandaag",
   toggleColorFormat: "Wissel kleurnotatie",
+  tooFewTags: (min) => min === 1 ? "Voeg minimaal 1 tag toe" : `Voeg minimaal ${min} tags toe`,
+  tooManyTags: (max) => max === 1 ? "Voeg maximaal 1 tag toe" : `Voeg maximaal ${max} tags toe`,
   unmute: "Dempen opheffen",
   unpin: "Losmaken",
   unpinColumn: "Kolom losmaken",

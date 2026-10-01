@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "pt",
   $name: "Portugu\xEAs",
   $dir: "ltr",
+  allTagsRemoved: "Todas as etiquetas foram removidas",
   am: "AM",
   autosizeColumn: "Ajustar largura da coluna",
   captions: "Legendas",
@@ -150,10 +151,16 @@ var translation = {
   sortColumn: "Ordenar coluna",
   sortDescending: "Ordenar descendente",
   startDate: "Data de in\xEDcio",
+  tagAdded: (tag) => `${tag} adicionado`,
+  tagAlreadyAdded: (tag) => `${tag} j\xE1 existe`,
+  tagInputKeyboardHelp: "Pressione Backspace ou Delete para remover esta etiqueta.",
+  tagRemoved: (tag) => `${tag} removido`,
   time: "Hora",
   timeInputKeyboardHelp: "Use as teclas de seta para alterar os valores; pressione Alt+Seta para baixo para abrir o seletor de hora.",
   today: "Hoje",
   toggleColorFormat: "Trocar o formato de cor",
+  tooFewTags: (min) => min === 1 ? "Adicione pelo menos 1 etiqueta" : `Adicione pelo menos ${min} etiquetas`,
+  tooManyTags: (max) => max === 1 ? "Adicione no m\xE1ximo 1 etiqueta" : `Adicione no m\xE1ximo ${max} etiquetas`,
   unmute: "Ativar som",
   unpin: "Desafixar",
   unpinColumn: "Desafixar coluna",

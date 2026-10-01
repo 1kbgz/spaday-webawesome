@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "es",
   $name: "Espa\xF1ol",
   $dir: "ltr",
+  allTagsRemoved: "Se eliminaron todas las etiquetas",
   am: "AM",
   autosizeColumn: "Ajustar el tama\xF1o de la columna al contenido",
   captions: "Subt\xEDtulos",
@@ -156,10 +157,16 @@ var translation = {
   sortColumn: "Ordenar columna",
   sortDescending: "Ordenar de forma descendente",
   startDate: "Fecha de inicio",
+  tagAdded: (tag) => `Se a\xF1adi\xF3 ${tag}`,
+  tagAlreadyAdded: (tag) => `${tag} ya existe`,
+  tagInputKeyboardHelp: "Pulse Retroceso o Suprimir para eliminar esta etiqueta.",
+  tagRemoved: (tag) => `Se elimin\xF3 ${tag}`,
   time: "Hora",
   timeInputKeyboardHelp: "Use las teclas de flecha para cambiar los valores; presione Alt+Flecha abajo para abrir el selector de hora.",
   today: "Hoy",
   toggleColorFormat: "Alternar formato de color",
+  tooFewTags: (min) => min === 1 ? "A\xF1ada al menos 1 etiqueta" : `A\xF1ada al menos ${min} etiquetas`,
+  tooManyTags: (max) => max === 1 ? "A\xF1ada como m\xE1ximo 1 etiqueta" : `A\xF1ada como m\xE1ximo ${max} etiquetas`,
   unmute: "Activar sonido",
   unpin: "Desfijar",
   unpinColumn: "Desfijar columna",

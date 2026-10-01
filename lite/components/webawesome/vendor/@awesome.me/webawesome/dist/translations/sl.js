@@ -9,6 +9,7 @@ var translation = {
   $code: "sl",
   $name: "Slovenski",
   $dir: "ltr",
+  allTagsRemoved: "Vse oznake odstranjene",
   am: "AM",
   autosizeColumn: "Samodejno prilagodi velikost stolpca",
   captions: "Podnapisi",
@@ -186,10 +187,28 @@ var translation = {
   sortColumn: "Razvrsti stolpec",
   sortDescending: "Razvrsti padajo\u010De",
   startDate: "Za\u010Detni datum",
+  tagAdded: (tag) => `${tag} dodano`,
+  tagAlreadyAdded: (tag) => `Oznaka ${tag} \u017Ee obstaja`,
+  tagInputKeyboardHelp: "Pritisnite Backspace ali Delete, da odstranite to oznako.",
+  tagRemoved: (tag) => `${tag} odstranjeno`,
   time: "\u010Cas",
   timeInputKeyboardHelp: "S pu\u0161\u010Di\u010Dnimi tipkami spreminjajte vrednosti; pritisnite Alt+Pu\u0161\u010Dica navzdol za odpiranje izbirnika \u010Dasa.",
   today: "Danes",
   toggleColorFormat: "Preklopi format barve",
+  tooFewTags: (min) => {
+    const mod100 = min % 100;
+    if (mod100 === 1) return `Dodajte vsaj ${min} oznako`;
+    if (mod100 === 2) return `Dodajte vsaj ${min} oznaki`;
+    if (mod100 === 3 || mod100 === 4) return `Dodajte vsaj ${min} oznake`;
+    return `Dodajte vsaj ${min} oznak`;
+  },
+  tooManyTags: (max) => {
+    const mod100 = max % 100;
+    if (mod100 === 1) return `Dodajte najve\u010D ${max} oznako`;
+    if (mod100 === 2) return `Dodajte najve\u010D ${max} oznaki`;
+    if (mod100 === 3 || mod100 === 4) return `Dodajte najve\u010D ${max} oznake`;
+    return `Dodajte najve\u010D ${max} oznak`;
+  },
   unmute: "Vklopi zvok",
   unpin: "Odpni",
   unpinColumn: "Odpni stolpec",

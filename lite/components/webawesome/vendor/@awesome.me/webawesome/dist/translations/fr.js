@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.4QWUDRS5.js";
-import "../chunks/chunk.E2G7AAZ3.js";
+import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.J3AO6HK6.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -11,6 +11,7 @@ var translation = {
   $code: "fr",
   $name: "Fran\xE7ais",
   $dir: "ltr",
+  allTagsRemoved: "Toutes les \xE9tiquettes ont \xE9t\xE9 retir\xE9es",
   am: "AM",
   autosizeColumn: "Ajuster la colonne au contenu",
   captions: "Sous-titres",
@@ -150,10 +151,16 @@ var translation = {
   sortColumn: "Trier la colonne",
   sortDescending: "Trier par ordre d\xE9croissant",
   startDate: "Date de d\xE9but",
+  tagAdded: (tag) => `${tag} ajout\xE9`,
+  tagAlreadyAdded: (tag) => `${tag} existe d\xE9j\xE0`,
+  tagInputKeyboardHelp: "Appuyez sur Retour arri\xE8re ou Suppr pour retirer cette \xE9tiquette.",
+  tagRemoved: (tag) => `${tag} retir\xE9`,
   time: "Heure",
   timeInputKeyboardHelp: `Utilisez les touches fl\xE9ch\xE9es pour modifier les valeurs ; appuyez sur Alt+Fl\xE8che bas pour ouvrir le s\xE9lecteur d'heure.`,
   today: `Aujourd'hui`,
   toggleColorFormat: "Changer le format de couleur",
+  tooFewTags: (min) => min === 1 ? "Ajoutez au moins 1 \xE9tiquette" : `Ajoutez au moins ${min} \xE9tiquettes`,
+  tooManyTags: (max) => max === 1 ? "Ajoutez au plus 1 \xE9tiquette" : `Ajoutez au plus ${max} \xE9tiquettes`,
   unmute: "R\xE9tablir le son",
   unpin: "D\xE9s\xE9pingler",
   unpinColumn: "D\xE9s\xE9pingler la colonne",
