@@ -194,7 +194,7 @@ def _controls_for(fields: Iterator[tuple[str, _FieldSpec]], prefix: str, exclude
         if spec.children is not None and (hint is None or hint.control is None):
             inner = Stack()
             for child in _controls_for(spec.children(), f"{path}.", exclude, overrides):
-                inner = inner.child(child)
+                inner.child(child)
             label = _label(name, hint)
             if hint is not None and hint.group is not None:
                 yield hint.group(label, inner)  # a custom sub-model wrapper (wa-card, wa-drawer, …)
@@ -349,5 +349,5 @@ def form(model: Any, *, exclude: tuple = (), overrides: dict[str, FormField] | N
     overrides = overrides or {}
     stack = Stack()
     for child in _controls_for(_source_fields(model), "", exclude, overrides):
-        stack = stack.child(child)
+        stack.child(child)
     return stack
