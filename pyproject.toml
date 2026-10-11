@@ -54,6 +54,7 @@ develop = [
     "hatchling",
     "httpx",
     "mdformat",
+    "mdformat-frontmatter",
     "mdformat-tables>=1",
     "pytest",
     "pytest-cov",
@@ -106,6 +107,7 @@ omit = [
     "spaday_webawesome/example.py",
     "spaday_webawesome/gallery.py",
     "spaday_webawesome/tests/*",
+    "spaday_webawesome/tests/integration/*",
 ]
 
 [tool.coverage.report]
