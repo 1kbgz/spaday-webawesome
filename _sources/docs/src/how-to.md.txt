@@ -69,3 +69,36 @@ await esbuild.build({
 Serve your bundle as a module next to `packages=["webawesome"]`. The page's import map resolves
 `@awesome.me/webawesome/dist/components/button/button.js` and friends to the copy this package
 already loaded, so your `import WaButton from "..."` is the registered class and nothing registers twice.
+
+## How to size a Perspective grid inside tabs
+
+Give the grid a definite height. A height on `WaTabGroup` alone does not size its tab-panel
+contents; `height: 100%` on the grid can resolve to zero through that chain.
+
+Given an existing Perspective connection and layout in `perspective_config`:
+
+```python
+from spaday import element
+from spaday.backends.starlette import serve
+from spaday_perspective import PerspectivePanel
+from spaday_webawesome import WaTab, WaTabGroup, WaTabPanel
+
+tabs = WaTabGroup(
+    WaTab(panel="summary").text("Summary"),
+    WaTab(panel="trades").text("Trades"),
+    WaTabPanel(element("p").text("Select Trades to show the grid."), name="summary"),
+    WaTabPanel(
+        PerspectivePanel(config=perspective_config).style(
+            height="24rem", width="100%", min_width="0",
+        ),
+        name="trades",
+    ),
+)
+app = serve(tabs, packages=["webawesome", "perspective"])
+```
+
+Keep the default Perspective auto-sizing and auto-pause settings. A sized grid redraws when its
+tab becomes visible; no `wa-tab-show` handler or synthetic window resize is needed. For a
+viewport-relative grid, use a definite height such as `clamp(16rem, 60vh, 40rem)`. For a filling
+flex/grid layout, give every intervening container a resolved height and allow flex/grid items
+to shrink with `min-width: 0; min-height: 0`.
