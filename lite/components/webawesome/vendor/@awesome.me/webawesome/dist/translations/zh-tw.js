@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} \u5DF2\u79FB\u52D5\u81F3\u7B2C ${position} \u500B\u4F4D\u7F6E\uFF0C\u5171 ${total} \u500B`,
   columns: "\u6B04",
   compactPageXOfY: (page, total) => `${page} / ${total}`,
+  completed: "\u5DF2\u5B8C\u6210",
   copied: "\u5DF2\u8907\u88FD",
   copy: "\u8907\u88FD",
   createOption: (value) => `\u5EFA\u7ACB\u300C${value}\u300D`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "\u4E0A\u5348/\u4E0B\u5348",
   decrement: "\u6E1B\u5C11",
   deselectAllRows: "\u53D6\u6D88\u9078\u64C7\u6240\u6709\u5217",
+  disabled: "\u5DF2\u505C\u7528",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "\u7A7A",
@@ -67,6 +69,7 @@ var translation = {
   jumpForwardX: (count) => `\u5411\u5F8C\u8DF3 ${count} \u9801`,
   lastPage: "\u6700\u5F8C\u4E00\u9801",
   loading: "\u8F09\u5165\u4E2D",
+  locked: "\u5DF2\u9396\u5B9A",
   minute: "\u5206\u9418",
   month: "\u6708",
   moreOptions: "\u66F4\u591A\u9078\u9805",
@@ -78,10 +81,16 @@ var translation = {
   nextVideo: "\u4E0B\u4E00\u500B\u5F71\u7247",
   nextYear: "\u4E0B\u4E00\u5E74",
   noData: "\u7121\u8CC7\u6599",
+  noOptions: "\u66AB\u7121\u9078\u9805",
   noResults: "\u7121\u76F8\u7B26\u7684\u7D50\u679C",
+  notCompleted: "\u672A\u5B8C\u6210",
   now: "\u73FE\u5728",
   numCharacters: (num) => `${num}\u500B\u5B57\u5143`,
   numCharactersRemaining: (num) => `\u5269\u9918${num}\u500B\u5B57\u5143`,
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "\u6C92\u6709\u53EF\u7528\u9078\u9805";
+    return `${num} \u500B\u53EF\u7528\u9078\u9805`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "\u672A\u9078\u64C7\u4EFB\u4F55\u9805\u76EE";
     if (num === 1) return "\u5DF2\u9078\u64C7 1 \u500B\u9805\u76EE";
@@ -89,6 +98,8 @@ var translation = {
   },
   numRowsCopied: (num) => `\u5DF2\u8907\u88FD ${num} \u5217`,
   numRowsSelected: (num) => `\u5DF2\u9078\u64C7 ${num} \u5217`,
+  optionPosition: (label, position, total) => `${label}\uFF0C${position} / ${total}`,
+  optionsLoadError: "\u7121\u6CD5\u8F09\u5165\u9078\u9805",
   pageXOfY: (page, total) => `\u7B2C ${page} \u9801\uFF0C\u5171 ${total} \u9801`,
   pagination: "\u5206\u9801",
   pause: "\u66AB\u505C",
@@ -145,6 +156,8 @@ var translation = {
   sortColumn: "\u6392\u5E8F\u6B04",
   sortDescending: "\u964D\u51AA\u6392\u5E8F",
   startDate: "\u958B\u59CB\u65E5\u671F",
+  steps: "\u6B65\u9A5F",
+  stepXOfY: (step, total) => `\u7B2C ${step} \u6B65\uFF0C\u5171 ${total} \u6B65`,
   tagAdded: (tag) => `\u5DF2\u65B0\u589E ${tag}`,
   tagAlreadyAdded: (tag) => `${tag} \u5DF2\u65B0\u589E`,
   tagInputKeyboardHelp: "\u6309 Backspace \u6216 Delete \u9375\u79FB\u9664\u6B64\u6A19\u7C64\u3002",

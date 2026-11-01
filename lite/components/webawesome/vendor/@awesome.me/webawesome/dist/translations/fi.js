@@ -30,6 +30,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} siirretty sijaintiin ${position} / ${total}`,
   columns: "Sarakkeet",
   compactPageXOfY: (page, total) => `${page} / ${total}`,
+  completed: "Valmis",
   copied: "Kopioitu",
   copy: "Kopioi",
   createOption: (value) => `Luo "${value}"`,
@@ -41,6 +42,7 @@ var translation = {
   dayPeriod: "ap./ip.",
   decrement: "V\xE4henn\xE4",
   deselectAllRows: "Poista kaikkien rivien valinta",
+  disabled: "Poistettu k\xE4yt\xF6st\xE4",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Tyhj\xE4",
@@ -65,6 +67,7 @@ var translation = {
   jumpForwardX: (count) => `Siirry ${count} sivua eteenp\xE4in`,
   lastPage: "Viimeinen sivu",
   loading: "Ladataan",
+  locked: "Lukittu",
   minute: "Minuutti",
   month: "Kuukausi",
   moreOptions: "Lis\xE4\xE4 vaihtoehtoja",
@@ -76,7 +79,9 @@ var translation = {
   nextVideo: "Seuraava video",
   nextYear: "Seuraava vuosi",
   noData: "Ei tietoja",
+  noOptions: "Ei vaihtoehtoja",
   noResults: "Ei vastaavia tuloksia",
+  notCompleted: "Ei valmis",
   now: "Nyt",
   numCharacters: (num) => {
     if (num === 1) return "1 merkki";
@@ -86,6 +91,11 @@ var translation = {
     if (num === 1) return "1 merkki j\xE4ljell\xE4";
     return `${num} merkki\xE4 j\xE4ljell\xE4`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Ei vaihtoehtoja saatavilla";
+    if (num === 1) return "Yksi vaihtoehto saatavilla";
+    return `${num} vaihtoehtoa saatavilla`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Ei valittuja vaihtoehtoja";
     if (num === 1) return "Yksi vaihtoehto valittu";
@@ -93,6 +103,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 rivi kopioitu" : `${num} rivi\xE4 kopioitu`,
   numRowsSelected: (num) => num === 1 ? "1 rivi valittu" : `${num} rivi\xE4 valittu`,
+  optionPosition: (label, position, total) => `${label}, ${position} / ${total}`,
+  optionsLoadError: "Vaihtoehtoja ei voitu ladata",
   pageXOfY: (page, total) => `Sivu ${page} / ${total}`,
   pagination: "Sivutus",
   pause: "Keskeyt\xE4",
@@ -149,6 +161,8 @@ var translation = {
   sortColumn: "Lajittele sarake",
   sortDescending: "Lajittele laskevasti",
   startDate: "Alkamisp\xE4iv\xE4",
+  steps: "Vaiheet",
+  stepXOfY: (step, total) => `Vaihe ${step}/${total}`,
   tagAdded: (tag) => `${tag} lis\xE4tty`,
   tagAlreadyAdded: (tag) => `${tag} on jo lis\xE4tty`,
   tagInputKeyboardHelp: "Poista t\xE4m\xE4 tunniste painamalla Backspace tai Delete.",

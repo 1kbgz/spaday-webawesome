@@ -1,9 +1,9 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
 import {
   de_default
-} from "../chunks/chunk.FIJUNJG2.js";
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+} from "../chunks/chunk.M6MK4JNZ.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import "../chunks/chunk.HOKYDFUG.js";
 import "../chunks/chunk.JHZRD2LV.js";
 export {

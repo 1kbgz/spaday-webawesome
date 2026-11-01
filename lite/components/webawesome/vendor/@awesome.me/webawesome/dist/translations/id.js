@@ -30,6 +30,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} dipindahkan ke posisi ${position} dari ${total}`,
   columns: "Kolom",
   compactPageXOfY: (page, total) => `${page} dari ${total}`,
+  completed: "Selesai",
   copied: "Disalin",
   copy: "Salin",
   createOption: (value) => `Buat "${value}"`,
@@ -41,6 +42,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Kurangi",
   deselectAllRows: "Batalkan pilihan semua baris",
+  disabled: "Dinonaktifkan",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Kosong",
@@ -65,6 +67,7 @@ var translation = {
   jumpForwardX: (count) => `Maju ${count} halaman`,
   lastPage: "Halaman terakhir",
   loading: "Memuat",
+  locked: "Terkunci",
   minute: "Menit",
   month: "Bulan",
   moreOptions: "Lebih banyak opsi",
@@ -76,7 +79,9 @@ var translation = {
   nextVideo: "Video berikutnya",
   nextYear: "Tahun berikutnya",
   noData: "Tidak ada data",
+  noOptions: "Tidak ada opsi",
   noResults: "Tidak ada hasil yang cocok",
+  notCompleted: "Belum selesai",
   now: "Sekarang",
   numCharacters: (num) => {
     if (num === 1) return "1 karakter";
@@ -86,6 +91,11 @@ var translation = {
     if (num === 1) return "1 karakter tersisa";
     return `${num} karakter tersisa`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Tidak ada opsi yang tersedia";
+    if (num === 1) return "1 opsi tersedia";
+    return `${num} opsi tersedia`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Tidak ada opsi yang dipilih";
     if (num === 1) return "1 opsi yang dipilih";
@@ -93,6 +103,8 @@ var translation = {
   },
   numRowsCopied: (num) => `${num} baris disalin`,
   numRowsSelected: (num) => `${num} baris dipilih`,
+  optionPosition: (label, position, total) => `${label}, ${position} dari ${total}`,
+  optionsLoadError: "Opsi tidak dapat dimuat",
   pageXOfY: (page, total) => `Halaman ${page} dari ${total}`,
   pagination: "Penomoran halaman",
   pause: "Jeda",
@@ -149,6 +161,8 @@ var translation = {
   sortColumn: "Urutkan kolom",
   sortDescending: "Urutkan menurun",
   startDate: "Tanggal mulai",
+  steps: "Langkah-langkah",
+  stepXOfY: (step, total) => `Langkah ${step} dari ${total}`,
   tagAdded: (tag) => `${tag} ditambahkan`,
   tagAlreadyAdded: (tag) => `${tag} sudah ditambahkan`,
   tagInputKeyboardHelp: "Tekan Backspace atau Delete untuk menghapus tag ini.",

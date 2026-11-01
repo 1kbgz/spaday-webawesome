@@ -30,6 +30,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} premaknjen na polo\u017Eaj ${position} od ${total}`,
   columns: "Stolpci",
   compactPageXOfY: (page, total) => `${page} od ${total}`,
+  completed: "Dokon\u010Dano",
   copied: "Kopirano",
   copy: "Kopiraj",
   createOption: (value) => `Ustvari "${value}"`,
@@ -41,6 +42,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Zmanj\u0161aj",
   deselectAllRows: "Prekli\u010Di izbiro vseh vrstic",
+  disabled: "Onemogo\u010Deno",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Prazno",
@@ -77,6 +79,7 @@ var translation = {
   },
   lastPage: "Zadnja stran",
   loading: "Nalaganje",
+  locked: "Zaklenjeno",
   minute: "Minuta",
   month: "Mesec",
   moreOptions: "Ve\u010D mo\u017Enosti",
@@ -88,7 +91,9 @@ var translation = {
   nextVideo: "Naslednji videoposnetek",
   nextYear: "Naslednje leto",
   noData: "Ni podatkov",
+  noOptions: "Ni mo\u017Enosti",
   noResults: "Ni ustreznih rezultatov",
+  notCompleted: "Ni dokon\u010Dano",
   now: "Zdaj",
   numCharacters: (num) => {
     const mod100 = num % 100;
@@ -103,6 +108,14 @@ var translation = {
     if (mod100 === 2) return `Preostaneta ${num} znaka`;
     if (mod100 === 3 || mod100 === 4) return `Preostanejo ${num} znaki`;
     return `Preostane ${num} znakov`;
+  },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Ni razpolo\u017Eljivih mo\u017Enosti";
+    const mod100 = num % 100;
+    if (mod100 === 1) return `Na voljo je ${num} mo\u017Enost`;
+    if (mod100 === 2) return `Na voljo sta ${num} mo\u017Enosti`;
+    if (mod100 === 3 || mod100 === 4) return `Na voljo so ${num} mo\u017Enosti`;
+    return `Na voljo je ${num} mo\u017Enosti`;
   },
   numOptionsSelected: (num) => {
     if (num === 0) return "Nobena mo\u017Enost ni izbrana";
@@ -125,6 +138,8 @@ var translation = {
     if (mod100 === 3 || mod100 === 4) return `${num} izbrane vrstice`;
     return `${num} izbranih vrstic`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} od ${total}`,
+  optionsLoadError: "Mo\u017Enosti ni bilo mogo\u010De nalo\u017Eiti",
   pageXOfY: (page, total) => `Stran ${page} od ${total}`,
   pagination: "O\u0161tevil\u010Devanje strani",
   pause: "Premor",
@@ -187,6 +202,8 @@ var translation = {
   sortColumn: "Razvrsti stolpec",
   sortDescending: "Razvrsti padajo\u010De",
   startDate: "Za\u010Detni datum",
+  steps: "Koraki",
+  stepXOfY: (step, total) => `Korak ${step} od ${total}`,
   tagAdded: (tag) => `${tag} dodano`,
   tagAlreadyAdded: (tag) => `Oznaka ${tag} \u017Ee obstaja`,
   tagInputKeyboardHelp: "Pritisnite Backspace ali Delete, da odstranite to oznako.",

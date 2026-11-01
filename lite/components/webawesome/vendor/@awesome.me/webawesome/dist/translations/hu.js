@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} \xE1thelyezve a(z) ${total}/${position}. poz\xEDci\xF3ba`,
   columns: "Oszlopok",
   compactPageXOfY: (page, total) => `${total}/${page}`,
+  completed: "K\xE9sz",
   copied: "M\xE1solva",
   copy: "M\xE1sol\xE1s",
   createOption: (value) => `\u201E${value}" l\xE9trehoz\xE1sa`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "de./du.",
   decrement: "Cs\xF6kkent\xE9s",
   deselectAllRows: "\xD6sszes sor kijel\xF6l\xE9s\xE9nek megsz\xFCntet\xE9se",
+  disabled: "Letiltva",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "\xDCres",
@@ -67,6 +69,7 @@ var translation = {
   jumpForwardX: (count) => `Ugr\xE1s ${count} oldallal el\u0151re`,
   lastPage: "Utols\xF3 oldal",
   loading: "Bet\xF6lt\xE9s",
+  locked: "Z\xE1rolva",
   minute: "Perc",
   month: "H\xF3nap",
   moreOptions: "Tov\xE1bbi lehet\u0151s\xE9gek",
@@ -78,7 +81,9 @@ var translation = {
   nextVideo: "K\xF6vetkez\u0151 vide\xF3",
   nextYear: "K\xF6vetkez\u0151 \xE9v",
   noData: "Nincs adat",
+  noOptions: "Nincsenek lehet\u0151s\xE9gek",
   noResults: "Nincs egyez\u0151 tal\xE1lat",
+  notCompleted: "Nincs k\xE9sz",
   now: "Most",
   numCharacters: (num) => {
     if (num === 1) return "1 karakter";
@@ -88,6 +93,11 @@ var translation = {
     if (num === 1) return "1 karakter maradt";
     return `${num} karakter maradt`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Nincs el\xE9rhet\u0151 lehet\u0151s\xE9g";
+    if (num === 1) return "1 lehet\u0151s\xE9g \xE9rhet\u0151 el";
+    return `${num} lehet\u0151s\xE9g \xE9rhet\u0151 el`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Nincsenek kiv\xE1lasztva opci\xF3k";
     if (num === 1) return "1 lehet\u0151s\xE9g kiv\xE1lasztva";
@@ -95,6 +105,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 sor m\xE1solva" : `${num} sor m\xE1solva`,
   numRowsSelected: (num) => num === 1 ? "1 sor kiv\xE1lasztva" : `${num} sor kiv\xE1lasztva`,
+  optionPosition: (label, position, total) => `${label}, ${total}/${position}`,
+  optionsLoadError: "A lehet\u0151s\xE9geket nem siker\xFClt bet\xF6lteni",
   pageXOfY: (page, total) => `${total}/${page}. oldal`,
   pagination: "Lapoz\xE1s",
   pause: "Sz\xFCnet",
@@ -151,6 +163,8 @@ var translation = {
   sortColumn: "Oszlop rendez\xE9se",
   sortDescending: "Cs\xF6kken\u0151 rendez\xE9s",
   startDate: "Kezd\u0151 d\xE1tum",
+  steps: "L\xE9p\xE9sek",
+  stepXOfY: (step, total) => `${step}. l\xE9p\xE9s / ${total}`,
   tagAdded: (tag) => `${tag} hozz\xE1adva`,
   tagAlreadyAdded: (tag) => `${tag} m\xE1r hozz\xE1 van adva`,
   tagInputKeyboardHelp: "A c\xEDmke elt\xE1vol\xEDt\xE1s\xE1hoz nyomja meg a Backspace vagy a Delete billenty\u0171t.",

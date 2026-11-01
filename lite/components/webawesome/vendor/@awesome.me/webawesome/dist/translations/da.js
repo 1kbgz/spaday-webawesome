@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} flyttet til position ${position} af ${total}`,
   columns: "Kolonner",
   compactPageXOfY: (page, total) => `${page} af ${total}`,
+  completed: "Fuldf\xF8rt",
   copied: "Kopieret",
   copy: "Kopier",
   createOption: (value) => `Opret "${value}"`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Formindsk",
   deselectAllRows: "Frav\xE6lg alle r\xE6kker",
+  disabled: "Deaktiveret",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Tom",
@@ -67,6 +69,7 @@ var translation = {
   jumpForwardX: (count) => `Spring ${count} sider frem`,
   lastPage: "Sidste side",
   loading: "Indl\xE6ser",
+  locked: "L\xE5st",
   minute: "Minut",
   month: "M\xE5ned",
   moreOptions: "Flere muligheder",
@@ -78,7 +81,9 @@ var translation = {
   nextVideo: "N\xE6ste video",
   nextYear: "N\xE6ste \xE5r",
   noData: "Ingen data",
+  noOptions: "Ingen muligheder",
   noResults: "Ingen matchende resultater",
+  notCompleted: "Ikke fuldf\xF8rt",
   now: "Nu",
   numCharacters: (num) => {
     if (num === 1) return "1 tegn";
@@ -88,6 +93,11 @@ var translation = {
     if (num === 1) return "1 tegn tilbage";
     return `${num} tegn tilbage`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Ingen tilg\xE6ngelige muligheder";
+    if (num === 1) return "1 mulighed tilg\xE6ngelig";
+    return `${num} muligheder tilg\xE6ngelige`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Ingen valgt";
     if (num === 1) return "1 valgt";
@@ -95,6 +105,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 r\xE6kke kopieret" : `${num} r\xE6kker kopieret`,
   numRowsSelected: (num) => num === 1 ? "1 r\xE6kke valgt" : `${num} r\xE6kker valgt`,
+  optionPosition: (label, position, total) => `${label}, ${position} af ${total}`,
+  optionsLoadError: "Mulighederne kunne ikke indl\xE6ses",
   pageXOfY: (page, total) => `Side ${page} af ${total}`,
   pagination: "Sidenavigation",
   pause: "S\xE6t p\xE5 pause",
@@ -151,6 +163,8 @@ var translation = {
   sortColumn: "Sort\xE9r kolonne",
   sortDescending: "Sort\xE9r faldende",
   startDate: "Startdato",
+  steps: "Trin",
+  stepXOfY: (step, total) => `Trin ${step} af ${total}`,
   tagAdded: (tag) => `${tag} tilf\xF8jet`,
   tagAlreadyAdded: (tag) => `${tag} er allerede tilf\xF8jet`,
   tagInputKeyboardHelp: "Tryk p\xE5 Backspace eller Delete for at fjerne dette tag.",

@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} ${total} konumdan ${position}. konuma ta\u015F\u0131nd\u0131`,
   columns: "S\xFCtunlar",
   compactPageXOfY: (page, total) => `${page} / ${total}`,
+  completed: "Tamamland\u0131",
   copied: "Kopyaland\u0131",
   copy: "Kopya",
   createOption: (value) => `"${value}" olu\u015Ftur`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "\xD6\xD6/\xD6S",
   decrement: "Azalt",
   deselectAllRows: "T\xFCm sat\u0131rlar\u0131n se\xE7imini kald\u0131r",
+  disabled: "Devre d\u0131\u015F\u0131",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Bo\u015F",
@@ -67,6 +69,7 @@ var translation = {
   jumpForwardX: (count) => `${count} sayfa ileri atla`,
   lastPage: "Son sayfa",
   loading: "Y\xFCkleme",
+  locked: "Kilitli",
   minute: "Dakika",
   month: "Ay",
   moreOptions: "Daha fazla se\xE7enek",
@@ -78,7 +81,9 @@ var translation = {
   nextVideo: "Sonraki video",
   nextYear: "Sonraki y\u0131l",
   noData: "Veri yok",
+  noOptions: "Se\xE7enek yok",
   noResults: "E\u015Fle\u015Fen sonu\xE7 yok",
+  notCompleted: "Tamamlanmad\u0131",
   now: "\u015Eimdi",
   numCharacters: (num) => {
     if (num === 1) return "1 karakter";
@@ -88,6 +93,11 @@ var translation = {
     if (num === 1) return "1 karakter kald\u0131";
     return `${num} karakter kald\u0131`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Kullan\u0131labilir se\xE7enek yok";
+    if (num === 1) return "1 se\xE7enek kullan\u0131labilir";
+    return `${num} se\xE7enek kullan\u0131labilir`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Hi\xE7bir se\xE7enek se\xE7ilmedi";
     if (num === 1) return "1 se\xE7enek se\xE7ildi";
@@ -95,6 +105,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 sat\u0131r kopyaland\u0131" : `${num} sat\u0131r kopyaland\u0131`,
   numRowsSelected: (num) => num === 1 ? "1 sat\u0131r se\xE7ildi" : `${num} sat\u0131r se\xE7ildi`,
+  optionPosition: (label, position, total) => `${label}, ${position} / ${total}`,
+  optionsLoadError: "Se\xE7enekler y\xFCklenemedi",
   pageXOfY: (page, total) => `Sayfa ${page} / ${total}`,
   pagination: "Sayfaland\u0131rma",
   pause: "Duraklat",
@@ -151,6 +163,8 @@ var translation = {
   sortColumn: "S\xFCtunu s\u0131rala",
   sortDescending: "Azalan s\u0131rala",
   startDate: "Ba\u015Flang\u0131\xE7 tarihi",
+  steps: "Ad\u0131mlar",
+  stepXOfY: (step, total) => `Ad\u0131m ${step} / ${total}`,
   tagAdded: (tag) => `${tag} eklendi`,
   tagAlreadyAdded: (tag) => `${tag} zaten eklendi`,
   tagInputKeyboardHelp: "Bu etiketi kald\u0131rmak i\xE7in Backspace veya Delete tu\u015Funa bas\u0131n.",

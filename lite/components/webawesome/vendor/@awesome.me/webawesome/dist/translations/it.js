@@ -30,6 +30,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} spostata in posizione ${position} di ${total}`,
   columns: "Colonne",
   compactPageXOfY: (page, total) => `${page} di ${total}`,
+  completed: "Completato",
   copied: "Copiato",
   copy: "Copia",
   createOption: (value) => `Crea "${value}"`,
@@ -41,6 +42,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Diminuisci",
   deselectAllRows: "Deseleziona tutte le righe",
+  disabled: "Disabilitato",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Vuoto",
@@ -65,6 +67,7 @@ var translation = {
   jumpForwardX: (count) => `Avanti di ${count} pagine`,
   lastPage: "Ultima pagina",
   loading: "In caricamento",
+  locked: "Bloccato",
   minute: "Minuto",
   month: "Mese",
   moreOptions: "Altre opzioni",
@@ -76,7 +79,9 @@ var translation = {
   nextVideo: "Video successivo",
   nextYear: "Anno successivo",
   noData: "Nessun dato",
+  noOptions: "Nessuna opzione",
   noResults: "Nessun risultato corrispondente",
+  notCompleted: "Non completato",
   now: "Adesso",
   numCharacters: (num) => {
     if (num === 1) return "1 carattere";
@@ -86,6 +91,11 @@ var translation = {
     if (num === 1) return "1 carattere rimanente";
     return `${num} caratteri rimanenti`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Nessuna opzione disponibile";
+    if (num === 1) return "1 opzione disponibile";
+    return `${num} opzioni disponibili`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Nessuna opzione selezionata";
     if (num === 1) return "1 opzione selezionata";
@@ -93,6 +103,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 riga copiata" : `${num} righe copiate`,
   numRowsSelected: (num) => num === 1 ? "1 riga selezionata" : `${num} righe selezionate`,
+  optionPosition: (label, position, total) => `${label}, ${position} di ${total}`,
+  optionsLoadError: "Impossibile caricare le opzioni",
   pageXOfY: (page, total) => `Pagina ${page} di ${total}`,
   pagination: "Impaginazione",
   pause: "Pausa",
@@ -149,6 +161,8 @@ var translation = {
   sortColumn: "Ordina colonna",
   sortDescending: "Ordina in modo decrescente",
   startDate: "Data di inizio",
+  steps: "Passaggi",
+  stepXOfY: (step, total) => `Passaggio ${step} di ${total}`,
   tagAdded: (tag) => `${tag} aggiunto`,
   tagAlreadyAdded: (tag) => `${tag} \xE8 gi\xE0 presente`,
   tagInputKeyboardHelp: "Premi Backspace o Canc per rimuovere questo tag.",

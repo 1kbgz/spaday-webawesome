@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} d\xE9plac\xE9e \xE0 la position ${position} sur ${total}`,
   columns: "Colonnes",
   compactPageXOfY: (page, total) => `${page} sur ${total}`,
+  completed: "Termin\xE9",
   copied: "Copi\xE9",
   copy: "Copier",
   createOption: (value) => `Cr\xE9er \xAB ${value} \xBB`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Diminuer",
   deselectAllRows: "D\xE9s\xE9lectionner toutes les lignes",
+  disabled: "D\xE9sactiv\xE9",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Vide",
@@ -67,6 +69,7 @@ var translation = {
   jumpForwardX: (count) => `Avancer de ${count} pages`,
   lastPage: "Derni\xE8re page",
   loading: "Chargement",
+  locked: "Verrouill\xE9",
   minute: "Minute",
   month: "Mois",
   moreOptions: "Plus d'options",
@@ -78,7 +81,9 @@ var translation = {
   nextVideo: "Vid\xE9o suivante",
   nextYear: "Ann\xE9e suivante",
   noData: "Aucune donn\xE9e",
+  noOptions: "Aucune option",
   noResults: "Aucun r\xE9sultat correspondant",
+  notCompleted: "Non termin\xE9",
   now: "Maintenant",
   numCharacters: (num) => {
     if (num === 1) return "1 caract\xE8re";
@@ -88,6 +93,11 @@ var translation = {
     if (num === 1) return "1 caract\xE8re restant";
     return `${num} caract\xE8res restants`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Aucune option disponible";
+    if (num === 1) return "1 option disponible";
+    return `${num} options disponibles`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Aucune option s\xE9lectionn\xE9e";
     if (num === 1) return "1 option s\xE9lectionn\xE9e";
@@ -95,6 +105,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 ligne copi\xE9e" : `${num} lignes copi\xE9es`,
   numRowsSelected: (num) => num === 1 ? "1 ligne s\xE9lectionn\xE9e" : `${num} lignes s\xE9lectionn\xE9es`,
+  optionPosition: (label, position, total) => `${label}, ${position} sur ${total}`,
+  optionsLoadError: "Impossible de charger les options",
   pageXOfY: (page, total) => `Page ${page} sur ${total}`,
   pagination: "Pagination",
   pause: "Pause",
@@ -151,6 +163,8 @@ var translation = {
   sortColumn: "Trier la colonne",
   sortDescending: "Trier par ordre d\xE9croissant",
   startDate: "Date de d\xE9but",
+  steps: "\xC9tapes",
+  stepXOfY: (step, total) => `\xC9tape ${step} sur ${total}`,
   tagAdded: (tag) => `${tag} ajout\xE9`,
   tagAlreadyAdded: (tag) => `${tag} existe d\xE9j\xE0`,
   tagInputKeyboardHelp: "Appuyez sur Retour arri\xE8re ou Suppr pour retirer cette \xE9tiquette.",

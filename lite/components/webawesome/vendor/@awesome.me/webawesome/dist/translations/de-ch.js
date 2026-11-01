@@ -1,9 +1,9 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
 import {
   de_default
-} from "../chunks/chunk.FIJUNJG2.js";
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+} from "../chunks/chunk.M6MK4JNZ.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -34,6 +34,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} an Position ${position} von ${total} verschoben`,
   columns: "Spalten",
   compactPageXOfY: (page, total) => `${page} von ${total}`,
+  completed: "Abgeschlossen",
   copied: "Kopiert",
   copy: "Kopieren",
   createOption: (value) => `\u201E${value}" erstellen`,
@@ -45,6 +46,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Verringern",
   deselectAllRows: "Alle Zeilen abw\xE4hlen",
+  disabled: "Deaktiviert",
   dropFileHere: "Datei hier ablegen oder zum Durchsuchen klicken",
   dropFilesHere: "Dateien hier ablegen oder zum Durchsuchen klicken",
   empty: "Leer",
@@ -69,6 +71,7 @@ var translation = {
   jumpForwardX: (count) => `${count} Seiten vorw\xE4rtsspringen`,
   lastPage: "Letzte Seite",
   loading: "Wird geladen",
+  locked: "Gesperrt",
   minute: "Minute",
   month: "Monat",
   moreOptions: "Weitere Optionen",
@@ -80,6 +83,8 @@ var translation = {
   nextVideo: "N\xE4chstes Video",
   nextYear: "N\xE4chstes Jahr",
   noData: "Keine Daten",
+  notCompleted: "Nicht abgeschlossen",
+  noOptions: "Keine Optionen",
   now: "Jetzt",
   numCharacters: (num) => {
     if (num === 1) return "1 Zeichen";
@@ -89,6 +94,11 @@ var translation = {
     if (num === 1) return "1 Zeichen verbleibend";
     return `${num} Zeichen verbleibend`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Keine Optionen verf\xFCgbar";
+    if (num === 1) return "1 Option verf\xFCgbar";
+    return `${num} Optionen verf\xFCgbar`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Keine Optionen ausgew\xE4hlt";
     if (num === 1) return "1 Option ausgew\xE4hlt";
@@ -96,6 +106,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 Zeile kopiert" : `${num} Zeilen kopiert`,
   numRowsSelected: (num) => num === 1 ? "1 Zeile ausgew\xE4hlt" : `${num} Zeilen ausgew\xE4hlt`,
+  optionPosition: (label, position, total) => `${label}, ${position} von ${total}`,
+  optionsLoadError: "Optionen konnten nicht geladen werden",
   pageXOfY: (page, total) => `Seite ${page} von ${total}`,
   pagination: "Seitennavigation",
   pause: "Pausieren",
@@ -151,6 +163,8 @@ var translation = {
   sortColumn: "Spalte sortieren",
   sortDescending: "Absteigend sortieren",
   startDate: "Startdatum",
+  steps: "Schritte",
+  stepXOfY: (step, total) => `Schritt ${step} von ${total}`,
   tagAdded: (tag) => `${tag} hinzugef\xFCgt`,
   tagAlreadyAdded: (tag) => `${tag} ist bereits vorhanden`,
   tagInputKeyboardHelp: "Dr\xFCcken Sie die R\xFCcktaste oder Entf, um dieses Schlagwort zu entfernen.",

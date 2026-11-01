@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} flyttet til posisjon ${position} av ${total}`,
   columns: "Kolonner",
   compactPageXOfY: (page, total) => `${page} av ${total}`,
+  completed: "Fullf\xF8rt",
   copied: "Kopiert",
   copy: "Kopier",
   createOption: (value) => `Opprett "${value}"`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Reduser",
   deselectAllRows: "Fjern valg av alle rader",
+  disabled: "Deaktivert",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Tom",
@@ -67,6 +69,7 @@ var translation = {
   jumpForwardX: (count) => `Hopp ${count} sider fremover`,
   lastPage: "Siste side",
   loading: "Laster",
+  locked: "L\xE5st",
   minute: "Minutt",
   month: "M\xE5ned",
   moreOptions: "Flere alternativer",
@@ -78,7 +81,9 @@ var translation = {
   nextVideo: "Neste video",
   nextYear: "Neste \xE5r",
   noData: "Ingen data",
+  noOptions: "Ingen alternativer",
   noResults: "Ingen samsvarende resultater",
+  notCompleted: "Ikke fullf\xF8rt",
   now: "N\xE5",
   numCharacters: (num) => {
     if (num === 1) return "1 tegn";
@@ -88,6 +93,11 @@ var translation = {
     if (num === 1) return "1 tegn gjenst\xE5r";
     return `${num} tegn gjenst\xE5r`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Ingen tilgjengelige alternativer";
+    if (num === 1) return "Ett alternativ tilgjengelig";
+    return `${num} alternativer tilgjengelige`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Ingen alternativer valgt";
     if (num === 1) return "Ett alternativ valgt";
@@ -95,6 +105,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 rad kopiert" : `${num} rader kopiert`,
   numRowsSelected: (num) => num === 1 ? "1 rad valgt" : `${num} rader valgt`,
+  optionPosition: (label, position, total) => `${label}, ${position} av ${total}`,
+  optionsLoadError: "Alternativene kunne ikke lastes",
   pageXOfY: (page, total) => `Side ${page} av ${total}`,
   pagination: "Paginering",
   pause: "Pause",
@@ -151,6 +163,8 @@ var translation = {
   sortColumn: "Sorter kolonne",
   sortDescending: "Sorter synkende",
   startDate: "Startdato",
+  steps: "Trinn",
+  stepXOfY: (step, total) => `Trinn ${step} av ${total}`,
   tagAdded: (tag) => `${tag} lagt til`,
   tagAlreadyAdded: (tag) => `${tag} er allerede lagt til`,
   tagInputKeyboardHelp: "Trykk p\xE5 Backspace eller Delete for \xE5 fjerne denne taggen.",

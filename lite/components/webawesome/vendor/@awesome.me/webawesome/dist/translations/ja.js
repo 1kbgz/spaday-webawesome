@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} \u3092 ${total} \u5217\u4E2D ${position} \u756A\u76EE\u306B\u79FB\u52D5\u3057\u307E\u3057\u305F`,
   columns: "\u5217",
   compactPageXOfY: (page, total) => `${total} \u4E2D ${page}`,
+  completed: "\u5B8C\u4E86",
   copied: "\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F",
   copy: "\u30B3\u30D4\u30FC",
   createOption: (value) => `\u300C${value}\u300D\u3092\u4F5C\u6210`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "\u5348\u524D/\u5348\u5F8C",
   decrement: "\u6E1B\u3089\u3059",
   deselectAllRows: "\u3059\u3079\u3066\u306E\u884C\u306E\u9078\u629E\u3092\u89E3\u9664",
+  disabled: "\u7121\u52B9",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "\u7A7A",
@@ -67,6 +69,7 @@ var translation = {
   jumpForwardX: (count) => `${count} \u30DA\u30FC\u30B8\u9032\u3080`,
   lastPage: "\u6700\u5F8C\u306E\u30DA\u30FC\u30B8",
   loading: "\u8AAD\u307F\u8FBC\u307F\u4E2D",
+  locked: "\u30ED\u30C3\u30AF\u4E2D",
   minute: "\u5206",
   month: "\u6708",
   moreOptions: "\u305D\u306E\u4ED6\u306E\u30AA\u30D7\u30B7\u30E7\u30F3",
@@ -78,16 +81,24 @@ var translation = {
   nextVideo: "\u6B21\u306E\u52D5\u753B",
   nextYear: "\u7FCC\u5E74",
   noData: "\u30C7\u30FC\u30BF\u304C\u3042\u308A\u307E\u305B\u3093",
+  noOptions: "\u9805\u76EE\u304C\u3042\u308A\u307E\u305B\u3093",
   noResults: "\u4E00\u81F4\u3059\u308B\u7D50\u679C\u304C\u3042\u308A\u307E\u305B\u3093",
+  notCompleted: "\u672A\u5B8C\u4E86",
   now: "\u73FE\u5728",
   numCharacters: (num) => `${num}\u6587\u5B57`,
   numCharactersRemaining: (num) => `\u6B8B\u308A${num}\u6587\u5B57`,
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "\u5229\u7528\u3067\u304D\u308B\u9805\u76EE\u304C\u3042\u308A\u307E\u305B\u3093";
+    return `${num} \u500B\u306E\u9805\u76EE\u304C\u5229\u7528\u3067\u304D\u307E\u3059`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "\u9805\u76EE\u304C\u9078\u629E\u3055\u308C\u3066\u3044\u307E\u305B\u3093";
     return `${num} \u500B\u306E\u9805\u76EE\u304C\u9078\u629E\u3055\u308C\u307E\u3057\u305F`;
   },
   numRowsCopied: (num) => `${num} \u884C\u3092\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F`,
   numRowsSelected: (num) => `${num} \u884C\u3092\u9078\u629E\u4E2D`,
+  optionPosition: (label, position, total) => `${label}\u3001${total} \u4E2D ${position}`,
+  optionsLoadError: "\u9805\u76EE\u3092\u8AAD\u307F\u8FBC\u3081\u307E\u305B\u3093\u3067\u3057\u305F",
   pageXOfY: (page, total) => `${total} \u30DA\u30FC\u30B8\u4E2D ${page} \u30DA\u30FC\u30B8`,
   pagination: "\u30DA\u30FC\u30B8\u9001\u308A",
   pause: "\u4E00\u6642\u505C\u6B62",
@@ -144,6 +155,8 @@ var translation = {
   sortColumn: "\u5217\u3092\u4E26\u3079\u66FF\u3048",
   sortDescending: "\u964D\u9806\u3067\u4E26\u3079\u66FF\u3048",
   startDate: "\u958B\u59CB\u65E5",
+  steps: "\u30B9\u30C6\u30C3\u30D7",
+  stepXOfY: (step, total) => `\u30B9\u30C6\u30C3\u30D7 ${step} / ${total}`,
   tagAdded: (tag) => `${tag} \u3092\u8FFD\u52A0\u3057\u307E\u3057\u305F`,
   tagAlreadyAdded: (tag) => `${tag} \u306F\u3059\u3067\u306B\u8FFD\u52A0\u3055\u308C\u3066\u3044\u307E\u3059`,
   tagInputKeyboardHelp: "Backspace \u307E\u305F\u306F Delete \u30AD\u30FC\u3092\u62BC\u3059\u3068\u3001\u3053\u306E\u30BF\u30B0\u3092\u524A\u9664\u3057\u307E\u3059\u3002",

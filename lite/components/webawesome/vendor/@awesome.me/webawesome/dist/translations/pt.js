@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} movida para a posi\xE7\xE3o ${position} de ${total}`,
   columns: "Colunas",
   compactPageXOfY: (page, total) => `${page} de ${total}`,
+  completed: "Conclu\xEDdo",
   copied: "Copiado",
   copy: "Copiar",
   createOption: (value) => `Criar "${value}"`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Diminuir",
   deselectAllRows: "Desmarcar todas as linhas",
+  disabled: "Desativado",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Vazio",
@@ -67,6 +69,7 @@ var translation = {
   jumpForwardX: (count) => `Avan\xE7ar ${count} p\xE1ginas`,
   lastPage: "\xDAltima p\xE1gina",
   loading: "Carregando",
+  locked: "Bloqueado",
   minute: "Minuto",
   month: "M\xEAs",
   moreOptions: "Mais op\xE7\xF5es",
@@ -78,7 +81,9 @@ var translation = {
   nextVideo: "Pr\xF3ximo v\xEDdeo",
   nextYear: "Pr\xF3ximo ano",
   noData: "Sem dados",
+  noOptions: "Sem op\xE7\xF5es",
   noResults: "Sem resultados correspondentes",
+  notCompleted: "N\xE3o conclu\xEDdo",
   now: "Agora",
   numCharacters: (num) => {
     if (num === 1) return "1 caractere";
@@ -88,6 +93,11 @@ var translation = {
     if (num === 1) return "1 caractere restante";
     return `${num} caracteres restantes`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Nenhuma op\xE7\xE3o dispon\xEDvel";
+    if (num === 1) return "1 op\xE7\xE3o dispon\xEDvel";
+    return `${num} op\xE7\xF5es dispon\xEDveis`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Nenhuma op\xE7\xE3o selecionada";
     if (num === 1) return "1 op\xE7\xE3o selecionada";
@@ -95,6 +105,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 linha copiada" : `${num} linhas copiadas`,
   numRowsSelected: (num) => num === 1 ? "1 linha selecionada" : `${num} linhas selecionadas`,
+  optionPosition: (label, position, total) => `${label}, ${position} de ${total}`,
+  optionsLoadError: "N\xE3o foi poss\xEDvel carregar as op\xE7\xF5es",
   pageXOfY: (page, total) => `P\xE1gina ${page} de ${total}`,
   pagination: "Pagina\xE7\xE3o",
   pause: "Pausar",
@@ -151,6 +163,8 @@ var translation = {
   sortColumn: "Ordenar coluna",
   sortDescending: "Ordenar descendente",
   startDate: "Data de in\xEDcio",
+  steps: "Etapas",
+  stepXOfY: (step, total) => `Etapa ${step} de ${total}`,
   tagAdded: (tag) => `${tag} adicionado`,
   tagAlreadyAdded: (tag) => `${tag} j\xE1 existe`,
   tagInputKeyboardHelp: "Pressione Backspace ou Delete para remover esta etiqueta.",

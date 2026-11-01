@@ -1,8 +1,8 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
+import "../chunks/chunk.DL7HG4WM.js";
 import {
   en_default
-} from "../chunks/chunk.J3AO6HK6.js";
+} from "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -33,6 +33,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} moved to position ${position} of ${total}`,
   columns: "Columns",
   compactPageXOfY: (page, total) => `${page} of ${total}`,
+  completed: "Completed",
   copied: "Copied",
   copy: "Copy",
   createOption: (value) => `Create "${value}"`,
@@ -44,6 +45,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Decrement",
   deselectAllRows: "Deselect all rows",
+  disabled: "Disabled",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Empty",
@@ -68,6 +70,7 @@ var translation = {
   jumpForwardX: (count) => `Jump forward ${count} pages`,
   lastPage: "Last page",
   loading: "Loading",
+  locked: "Locked",
   minute: "Minute",
   month: "Month",
   moreOptions: "More Options",
@@ -79,6 +82,8 @@ var translation = {
   nextVideo: "Next video",
   nextYear: "Next year",
   noData: "No data",
+  notCompleted: "Not completed",
+  noOptions: "No options",
   now: "Now",
   numCharacters: (num) => {
     if (num === 1) return "1 character";
@@ -88,6 +93,11 @@ var translation = {
     if (num === 1) return "1 character remaining";
     return `${num} characters remaining`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "No options available";
+    if (num === 1) return "1 option available";
+    return `${num} options available`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "No options selected";
     if (num === 1) return "1 option selected";
@@ -95,6 +105,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 row copied" : `${num} rows copied`,
   numRowsSelected: (num) => num === 1 ? "1 row selected" : `${num} rows selected`,
+  optionPosition: (label, position, total) => `${label}, ${position} of ${total}`,
+  optionsLoadError: "Options could not be loaded",
   pageXOfY: (page, total) => `Page ${page} of ${total}`,
   pagination: "Pagination",
   pause: "Pause",
@@ -150,6 +162,8 @@ var translation = {
   sortColumn: "Sort column",
   sortDescending: "Sort descending",
   startDate: "Start date",
+  steps: "Steps",
+  stepXOfY: (step, total) => `Step ${step} of ${total}`,
   tagAdded: (tag) => `${tag} added`,
   tagAlreadyAdded: (tag) => `${tag} is already added`,
   tagInputKeyboardHelp: "Press Backspace or Delete to remove this tag.",

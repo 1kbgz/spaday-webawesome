@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} flyttad till position ${position} av ${total}`,
   columns: "Kolumner",
   compactPageXOfY: (page, total) => `${page} av ${total}`,
+  completed: "Slutf\xF6rd",
   copied: "Kopierade",
   copy: "Kopiera",
   createOption: (value) => `Skapa "${value}"`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "FM/EM",
   decrement: "Minska",
   deselectAllRows: "Avmarkera alla rader",
+  disabled: "Inaktiverad",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Tom",
@@ -67,6 +69,7 @@ var translation = {
   jumpForwardX: (count) => `Hoppa fram\xE5t ${count} sidor`,
   lastPage: "Sista sidan",
   loading: "L\xE4ser in",
+  locked: "L\xE5st",
   minute: "Minut",
   month: "M\xE5nad",
   moreOptions: "Fler alternativ",
@@ -78,7 +81,9 @@ var translation = {
   nextVideo: "N\xE4sta video",
   nextYear: "N\xE4sta \xE5r",
   noData: "Inga data",
+  noOptions: "Inga alternativ",
   noResults: "Inga matchande resultat",
+  notCompleted: "Inte slutf\xF6rd",
   now: "Nu",
   numCharacters: (num) => {
     if (num === 1) return "1 tecken";
@@ -88,6 +93,11 @@ var translation = {
     if (num === 1) return "1 tecken kvar";
     return `${num} tecken kvar`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Inga alternativ tillg\xE4ngliga";
+    if (num === 1) return "1 alternativ tillg\xE4ngligt";
+    return `${num} alternativ tillg\xE4ngliga`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "Inga alternativ har valts";
     if (num === 1) return "1 alternativ valt";
@@ -95,6 +105,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 rad kopierad" : `${num} rader kopierade`,
   numRowsSelected: (num) => num === 1 ? "1 rad markerad" : `${num} rader markerade`,
+  optionPosition: (label, position, total) => `${label}, ${position} av ${total}`,
+  optionsLoadError: "Alternativen kunde inte l\xE4sas in",
   pageXOfY: (page, total) => `Sida ${page} av ${total}`,
   pagination: "Paginering",
   pause: "Pausa",
@@ -151,6 +163,8 @@ var translation = {
   sortColumn: "Sortera kolumn",
   sortDescending: "Sortera fallande",
   startDate: "Startdatum",
+  steps: "Steg",
+  stepXOfY: (step, total) => `Steg ${step} av ${total}`,
   tagAdded: (tag) => `${tag} tillagd`,
   tagAlreadyAdded: (tag) => `${tag} \xE4r redan tillagd`,
   tagInputKeyboardHelp: "Tryck p\xE5 Backspace eller Delete f\xF6r att ta bort den h\xE4r taggen.",

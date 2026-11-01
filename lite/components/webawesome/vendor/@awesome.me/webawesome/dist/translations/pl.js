@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `Przeniesiono ${label} na pozycj\u0119 ${position} z ${total}`,
   columns: "Kolumny",
   compactPageXOfY: (page, total) => `${page} z ${total}`,
+  completed: "Uko\u0144czono",
   copied: "Skopiowane",
   copy: "Kopiuj",
   createOption: (value) => `Utw\xF3rz "${value}"`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Zmniejsz",
   deselectAllRows: "Odznacz wszystkie wiersze",
+  disabled: "Wy\u0142\u0105czone",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Puste",
@@ -77,6 +79,7 @@ var translation = {
   },
   lastPage: "Ostatnia strona",
   loading: "\u0141adowanie",
+  locked: "Zablokowano",
   minute: "Minuta",
   month: "Miesi\u0105c",
   moreOptions: "Wi\u0119cej opcji",
@@ -88,7 +91,9 @@ var translation = {
   nextVideo: "Nast\u0119pny film",
   nextYear: "Nast\u0119pny rok",
   noData: "Brak danych",
+  noOptions: "Brak opcji",
   noResults: "Brak pasuj\u0105cych wynik\xF3w",
+  notCompleted: "Nieuko\u0144czono",
   now: "Teraz",
   numCharacters: (num) => {
     if (num === 1) return "1 znak";
@@ -103,6 +108,14 @@ var translation = {
     const mod100 = num % 100;
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Pozosta\u0142y ${num} znaki`;
     return `Pozosta\u0142o ${num} znak\xF3w`;
+  },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Brak dost\u0119pnych opcji";
+    if (num === 1) return "Dost\u0119pna 1 opcja";
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dost\u0119pne ${num} opcje`;
+    return `Dost\u0119pnych ${num} opcji`;
   },
   numOptionsSelected: (num) => {
     if (num === 0) return "Nie wybrano opcji";
@@ -123,6 +136,8 @@ var translation = {
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Wybrano ${num} wiersze`;
     return `Wybrano ${num} wierszy`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} z ${total}`,
+  optionsLoadError: "Nie uda\u0142o si\u0119 wczyta\u0107 opcji",
   pageXOfY: (page, total) => `Strona ${page} z ${total}`,
   pagination: "Paginacja",
   pause: "Wstrzymaj",
@@ -186,6 +201,8 @@ var translation = {
   sortColumn: "Sortuj kolumn\u0119",
   sortDescending: "Sortuj malej\u0105co",
   startDate: "Data pocz\u0105tkowa",
+  steps: "Kroki",
+  stepXOfY: (step, total) => `Krok ${step} z ${total}`,
   tagAdded: (tag) => `Dodano ${tag}`,
   tagAlreadyAdded: (tag) => `Tag ${tag} ju\u017C istnieje`,
   tagInputKeyboardHelp: "Naci\u015Bnij Backspace lub Delete, aby usun\u0105\u0107 ten tag.",

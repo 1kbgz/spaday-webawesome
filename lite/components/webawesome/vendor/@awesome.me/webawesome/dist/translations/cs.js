@@ -30,6 +30,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} p\u0159esunut na pozici ${position} z ${total}`,
   columns: "Sloupce",
   compactPageXOfY: (page, total) => `${page} z ${total}`,
+  completed: "Dokon\u010Deno",
   copied: "Zkop\xEDrov\xE1no",
   copy: "Kop\xEDrovat",
   createOption: (value) => `Vytvo\u0159it "${value}"`,
@@ -41,6 +42,7 @@ var translation = {
   dayPeriod: "dop./odp.",
   decrement: "Sn\xED\u017Eit",
   deselectAllRows: "Zru\u0161it v\xFDb\u011Br v\u0161ech \u0159\xE1dk\u016F",
+  disabled: "Zak\xE1z\xE1no",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Pr\xE1zdn\xE9",
@@ -73,6 +75,7 @@ var translation = {
   },
   lastPage: "Posledn\xED str\xE1nka",
   loading: "Nahr\xE1v\xE1 se",
+  locked: "Uzam\u010Deno",
   minute: "Minuta",
   month: "M\u011Bs\xEDc",
   moreOptions: "Dal\u0161\xED mo\u017Enosti",
@@ -84,7 +87,9 @@ var translation = {
   nextVideo: "Dal\u0161\xED video",
   nextYear: "Dal\u0161\xED rok",
   noData: "\u017D\xE1dn\xE1 data",
+  noOptions: "\u017D\xE1dn\xE9 mo\u017Enosti",
   noResults: "\u017D\xE1dn\xE9 odpov\xEDdaj\xEDc\xED v\xFDsledky",
+  notCompleted: "Nedokon\u010Deno",
   now: "Nyn\xED",
   numCharacters: (num) => {
     if (num === 1) return "1 znak";
@@ -95,6 +100,12 @@ var translation = {
     if (num === 1) return "1 zb\xFDvaj\xEDc\xED znak";
     if (num >= 2 && num <= 4) return `${num} zb\xFDvaj\xEDc\xED znaky`;
     return `${num} zb\xFDvaj\xEDc\xEDch znak\u016F`;
+  },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "Nejsou k dispozici \u017E\xE1dn\xE9 mo\u017Enosti";
+    if (num === 1) return "K dispozici je 1 mo\u017Enost";
+    if (num >= 2 && num <= 4) return `K dispozici jsou ${num} mo\u017Enosti`;
+    return `K dispozici je ${num} mo\u017Enost\xED`;
   },
   numOptionsSelected: (num) => {
     if (num === 0) return "Nejsou vybr\xE1ny \u017E\xE1dn\xE9 mo\u017Enosti";
@@ -111,6 +122,8 @@ var translation = {
     if (num >= 2 && num <= 4) return `Jsou vybr\xE1ny ${num} \u0159\xE1dky`;
     return `Je vybr\xE1no ${num} \u0159\xE1dk\u016F`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} z ${total}`,
+  optionsLoadError: "Mo\u017Enosti se nepoda\u0159ilo na\u010D\xEDst",
   pageXOfY: (page, total) => `Str\xE1nka ${page} z ${total}`,
   pagination: "Str\xE1nkov\xE1n\xED",
   pause: "Pozastavit",
@@ -169,6 +182,8 @@ var translation = {
   sortColumn: "Se\u0159adit sloupec",
   sortDescending: "Se\u0159adit sestupn\u011B",
   startDate: "Datum zah\xE1jen\xED",
+  steps: "Kroky",
+  stepXOfY: (step, total) => `Krok ${step} z ${total}`,
   tagAdded: (tag) => `${tag} p\u0159id\xE1no`,
   tagAlreadyAdded: (tag) => `\u0160t\xEDtek ${tag} ji\u017E existuje`,
   tagInputKeyboardHelp: "Stisknut\xEDm Backspace nebo Delete tento \u0161t\xEDtek odeberete.",

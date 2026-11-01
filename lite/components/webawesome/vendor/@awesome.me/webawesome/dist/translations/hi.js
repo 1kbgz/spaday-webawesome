@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} \u0915\u094B ${total} \u092E\u0947\u0902 \u0938\u0947 \u0938\u094D\u0925\u093E\u0928 ${position} \u092A\u0930 \u0932\u0947 \u091C\u093E\u092F\u093E \u0917\u092F\u093E`,
   columns: "\u0915\u0949\u0932\u092E",
   compactPageXOfY: (page, total) => `${total} \u092E\u0947\u0902 \u0938\u0947 ${page}`,
+  completed: "\u092A\u0942\u0930\u094D\u0923",
   copied: "\u0915\u0949\u092A\u0940 \u0915\u093F\u092F\u093E \u0917\u092F\u093E",
   copy: "\u0915\u0949\u092A\u0940 \u0915\u0930\u0947\u0902",
   createOption: (value) => `"${value}" \u092C\u0928\u093E\u090F\u0901`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "\u092A\u0942\u0930\u094D\u0935\u093E\u0939\u094D\u0928/\u0905\u092A\u0930\u093E\u0939\u094D\u0928",
   decrement: "\u0918\u091F\u093E\u090F\u0902",
   deselectAllRows: "\u0938\u092D\u0940 \u092A\u0902\u0915\u094D\u0924\u093F\u092F\u094B\u0902 \u0915\u093E \u091A\u092F\u0928 \u0939\u091F\u093E\u090F\u0902",
+  disabled: "\u0905\u0915\u094D\u0937\u092E",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "\u0916\u093E\u0932\u0940",
@@ -67,6 +69,7 @@ var translation = {
   jumpForwardX: (count) => `${count} \u092A\u0943\u0937\u094D\u0920 \u0906\u0917\u0947 \u091C\u093E\u090F\u0902`,
   lastPage: "\u0905\u0902\u0924\u093F\u092E \u092A\u0943\u0937\u094D\u0920",
   loading: "\u0932\u094B\u0921 \u0939\u094B \u0930\u0939\u093E \u0939\u0948",
+  locked: "\u0932\u0949\u0915",
   minute: "\u092E\u093F\u0928\u091F",
   month: "\u092E\u0939\u0940\u0928\u093E",
   moreOptions: "\u0905\u0927\u093F\u0915 \u0935\u093F\u0915\u0932\u094D\u092A",
@@ -78,7 +81,9 @@ var translation = {
   nextVideo: "\u0905\u0917\u0932\u093E \u0935\u0940\u0921\u093F\u092F\u094B",
   nextYear: "\u0905\u0917\u0932\u093E \u0935\u0930\u094D\u0937",
   noData: "\u0915\u094B\u0908 \u0921\u0947\u091F\u093E \u0928\u0939\u0940\u0902",
+  noOptions: "\u0915\u094B\u0908 \u0935\u093F\u0915\u0932\u094D\u092A \u0928\u0939\u0940\u0902",
   noResults: "\u0915\u094B\u0908 \u092E\u0947\u0932 \u0916\u093E\u0928\u0947 \u0935\u093E\u0932\u0947 \u092A\u0930\u093F\u0923\u093E\u092E \u0928\u0939\u0940\u0902",
+  notCompleted: "\u0905\u092A\u0942\u0930\u094D\u0923",
   now: "\u0905\u092D\u0940",
   numCharacters: (num) => {
     if (num === 1) return "1 \u0905\u0915\u094D\u0937\u0930";
@@ -88,6 +93,11 @@ var translation = {
     if (num === 1) return "1 \u0905\u0915\u094D\u0937\u0930 \u0936\u0947\u0937";
     return `${num} \u0905\u0915\u094D\u0937\u0930 \u0936\u0947\u0937`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "\u0915\u094B\u0908 \u0935\u093F\u0915\u0932\u094D\u092A \u0909\u092A\u0932\u092C\u094D\u0927 \u0928\u0939\u0940\u0902";
+    if (num === 1) return "1 \u0935\u093F\u0915\u0932\u094D\u092A \u0909\u092A\u0932\u092C\u094D\u0927";
+    return `${num} \u0935\u093F\u0915\u0932\u094D\u092A \u0909\u092A\u0932\u092C\u094D\u0927`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "\u0915\u094B\u0908 \u0935\u093F\u0915\u0932\u094D\u092A \u091A\u092F\u0928\u093F\u0924 \u0928\u0939\u0940\u0902";
     if (num === 1) return "1 \u0935\u093F\u0915\u0932\u094D\u092A \u091A\u092F\u0928\u093F\u0924";
@@ -95,6 +105,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 \u092A\u0902\u0915\u094D\u0924\u093F \u0915\u0949\u092A\u0940 \u0915\u0940 \u0917\u0908" : `${num} \u092A\u0902\u0915\u094D\u0924\u093F\u092F\u093E\u0901 \u0915\u0949\u092A\u0940 \u0915\u0940 \u0917\u0908\u0902`,
   numRowsSelected: (num) => num === 1 ? "1 \u092A\u0902\u0915\u094D\u0924\u093F \u091A\u092F\u0928\u093F\u0924" : `${num} \u092A\u0902\u0915\u094D\u0924\u093F\u092F\u093E\u0901 \u091A\u092F\u0928\u093F\u0924`,
+  optionPosition: (label, position, total) => `${label}, ${total} \u092E\u0947\u0902 \u0938\u0947 ${position}`,
+  optionsLoadError: "\u0935\u093F\u0915\u0932\u094D\u092A \u0932\u094B\u0921 \u0928\u0939\u0940\u0902 \u0915\u093F\u090F \u091C\u093E \u0938\u0915\u0947",
   pageXOfY: (page, total) => `${total} \u092E\u0947\u0902 \u0938\u0947 \u092A\u0943\u0937\u094D\u0920 ${page}`,
   pagination: "\u092A\u0943\u0937\u094D\u0920 \u0915\u094D\u0930\u092E\u093E\u0902\u0915\u0928",
   pause: "\u0930\u094B\u0915\u0947\u0902",
@@ -151,6 +163,8 @@ var translation = {
   sortColumn: "\u0915\u0949\u0932\u092E \u0915\u094D\u0930\u092E\u092C\u0926\u094D\u0927 \u0915\u0930\u0947\u0902",
   sortDescending: "\u0905\u0935\u0930\u094B\u0939\u0940 \u0915\u094D\u0930\u092E \u092E\u0947\u0902 \u0915\u094D\u0930\u092E\u092C\u0926\u094D\u0927 \u0915\u0930\u0947\u0902",
   startDate: "\u0906\u0930\u0902\u092D \u0924\u093F\u0925\u093F",
+  steps: "\u091A\u0930\u0923",
+  stepXOfY: (step, total) => `${total} \u092E\u0947\u0902 \u0938\u0947 \u091A\u0930\u0923 ${step}`,
   tagAdded: (tag) => `${tag} \u091C\u094B\u0921\u093C\u093E \u0917\u092F\u093E`,
   tagAlreadyAdded: (tag) => `${tag} \u092A\u0939\u0932\u0947 \u0938\u0947 \u091C\u094B\u0921\u093C\u093E \u0917\u092F\u093E \u0939\u0948`,
   tagInputKeyboardHelp: "\u0907\u0938 \u091F\u0948\u0917 \u0915\u094B \u0939\u091F\u093E\u0928\u0947 \u0915\u0947 \u0932\u093F\u090F Backspace \u092F\u093E Delete \u0926\u092C\u093E\u090F\u0901\u0964",

@@ -1,6 +1,6 @@
 /*! Copyright 2026 Fonticons, Inc. - https://webawesome.com/license */
-import "../chunks/chunk.6XPM2MZA.js";
-import "../chunks/chunk.J3AO6HK6.js";
+import "../chunks/chunk.DL7HG4WM.js";
+import "../chunks/chunk.D5HA4OFX.js";
 import {
   registerTranslation
 } from "../chunks/chunk.HOKYDFUG.js";
@@ -32,6 +32,7 @@ var translation = {
   columnMovedToPosition: (label, position, total) => `${label} movida a la posici\xF3n ${position} de ${total}`,
   columns: "Columnas",
   compactPageXOfY: (page, total) => `${page} de ${total}`,
+  completed: "Completado",
   copied: "Copiado",
   copy: "Copiar",
   createOption: (value) => `Crear "${value}"`,
@@ -43,6 +44,7 @@ var translation = {
   dayPeriod: "AM/PM",
   decrement: "Disminuir",
   deselectAllRows: "Deseleccionar todas las filas",
+  disabled: "Deshabilitado",
   dropFileHere: "Drop file here or click to browse",
   dropFilesHere: "Drop files here or click to browse",
   empty: "Vac\xEDo",
@@ -73,6 +75,7 @@ var translation = {
   },
   lastPage: "\xDAltima p\xE1gina",
   loading: "Cargando",
+  locked: "Bloqueado",
   minute: "Minuto",
   month: "Mes",
   moreOptions: "M\xE1s opciones",
@@ -84,7 +87,9 @@ var translation = {
   nextVideo: "Siguiente v\xEDdeo",
   nextYear: "A\xF1o siguiente",
   noData: "No hay datos",
+  noOptions: "No hay opciones",
   noResults: "No hay resultados coincidentes",
+  notCompleted: "No completado",
   now: "Ahora",
   numCharacters: (num) => {
     if (num === 1) return "1 car\xE1cter";
@@ -94,6 +99,11 @@ var translation = {
     if (num === 1) return "1 car\xE1cter restante";
     return `${num} caracteres restantes`;
   },
+  numOptionsAvailable: (num) => {
+    if (num === 0) return "No hay opciones disponibles";
+    if (num === 1) return "1 opci\xF3n disponible";
+    return `${num} opciones disponibles`;
+  },
   numOptionsSelected: (num) => {
     if (num === 0) return "No hay opciones seleccionadas";
     if (num === 1) return "1 opci\xF3n seleccionada";
@@ -101,6 +111,8 @@ var translation = {
   },
   numRowsCopied: (num) => num === 1 ? "1 fila copiada" : `${num} filas copiadas`,
   numRowsSelected: (num) => num === 1 ? "1 fila seleccionada" : `${num} filas seleccionadas`,
+  optionPosition: (label, position, total) => `${label}, ${position} de ${total}`,
+  optionsLoadError: "No se pudieron cargar las opciones",
   pageXOfY: (page, total) => `P\xE1gina ${page} de ${total}`,
   pagination: "Paginaci\xF3n",
   pause: "Pausar",
@@ -157,6 +169,8 @@ var translation = {
   sortColumn: "Ordenar columna",
   sortDescending: "Ordenar de forma descendente",
   startDate: "Fecha de inicio",
+  steps: "Pasos",
+  stepXOfY: (step, total) => `Paso ${step} de ${total}`,
   tagAdded: (tag) => `Se a\xF1adi\xF3 ${tag}`,
   tagAlreadyAdded: (tag) => `${tag} ya existe`,
   tagInputKeyboardHelp: "Pulse Retroceso o Suprimir para eliminar esta etiqueta.",
