@@ -39,6 +39,7 @@ webawesome = "spaday_webawesome:package"
 
 [project.optional-dependencies]
 examples = [
+    "spaday>=0.12,<1.0",
     "pydantic>=2",
     "starlette",
     "transports",
@@ -46,6 +47,7 @@ examples = [
     "websockets",
 ]
 develop = [
+    "spaday>=0.12,<1.0",
     "build",
     "bump-my-version",
     "check-dist",

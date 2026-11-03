@@ -51,7 +51,9 @@ test("runs the complete example in Pyodide", async ({ page }) => {
   await page.getByText("Order controls", { exact: true }).click();
   await page.getByRole("textbox", { name: "Symbol" }).fill("MSFT");
   await expect(
-    page.getByText("MSFT · Microsoft", { exact: true }),
+    page
+      .locator("#symbol-input")
+      .getByText("MSFT · Microsoft", { exact: true }),
   ).toBeVisible();
   await page.getByRole("spinbutton", { name: "Quantity" }).fill("25");
   await page.getByRole("button", { name: "Preview order" }).click();

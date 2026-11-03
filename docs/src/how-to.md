@@ -102,3 +102,45 @@ tab becomes visible; no `wa-tab-show` handler or synthetic window resize is need
 viewport-relative grid, use a definite height such as `clamp(16rem, 60vh, 40rem)`. For a filling
 flex/grid layout, give every intervening container a resolved height and allow flex/grid items
 to shrink with `min-width: 0; min-height: 0`.
+
+## Offer server-backed suggestions while allowing free text
+
+The order form in `spaday_webawesome/example.py` keeps its Symbol field editable
+and offers matching ticker buttons below it. Typing calls a Python endpoint;
+selecting a suggestion updates the same store field as typing. Unknown symbols
+remain valid input. This is an input with suggestion buttons, not an ARIA combobox
+with arrow-key selection. There is no exported `Autocomplete` helper.
+
+The example requires Spaday 0.12 or later, supplied by the `examples` extra.
+Use a request group to cancel older lookups and ignore late responses:
+
+```python
+from spaday import CallEndpoint, Request, Sequence, SetField, obj, prop, this
+from spaday_webawesome import WaInput
+
+symbol = WaInput(label="Symbol", autocomplete="off").bind(
+    "value", "symbol",
+).on(
+    "input",
+    Sequence(
+        SetField("symbol", prop(this(), "value")),
+        SetField("symbol_hint.body.suggestions", []),
+        CallEndpoint(
+            "POST", "/api/symbols/hint",
+            obj({"query": prop(this(), "value")}),
+            result="symbol_hint",
+            request=Request("symbol-suggestions", pending="symbol_pending", watch=("symbol",)),
+        ),
+    ),
+)
+```
+
+The example endpoint returns `{"hint": "MSFT · Microsoft", "suggestions": [{"symbol": "MSFT", "label": "MSFT · Microsoft"}]}`. Render those entries with
+`Each(..., field="symbol_hint.body.suggestions", key="symbol")` and `WaButton`.
+On selection, set `symbol` to `item("symbol")` and clear the suggestions. Bind the
+input's `hint` to `symbol_hint.body.hint`. Initialize the suggestion list to `[]`
+and `symbol_pending` to `False` in the page store.
+
+`Request.watch` also cancels a pending lookup when another action changes the
+symbol. Empty and unmatched queries return no suggestions. The same Python
+endpoint and UI run in the browser example through Pyodide's HTTP adapter.
