@@ -1,3 +1,4 @@
 {
-  "@awesome.me/webawesome": "3.14.0"
+  "@awesome.me/webawesome": "3.14.0",
+  "lit": "3.3.3"
 }

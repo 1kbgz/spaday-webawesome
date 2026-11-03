@@ -231,41 +231,41 @@ to shrink with <code class="docutils literal notranslate"><span class="pre">min-
 </section>
 <section id="offer-server-backed-suggestions-while-allowing-free-text">
 <h2>Offer server-backed suggestions while allowing free text<a class="headerlink" href="#offer-server-backed-suggestions-while-allowing-free-text" title="Link to this heading">¶</a></h2>
-<p>The order form in <code class="docutils literal notranslate"><span class="pre">spaday_webawesome/example.py</span></code> keeps its Symbol field editable
-and offers matching ticker buttons below it. Typing calls a Python endpoint;
-selecting a suggestion updates the same store field as typing. Unknown symbols
-remain valid input. This is an input with suggestion buttons, not an ARIA combobox
-with arrow-key selection. There is no exported <code class="docutils literal notranslate"><span class="pre">Autocomplete</span></code> helper.</p>
-<p>The example requires Spaday 0.12 or later, supplied by the <code class="docutils literal notranslate"><span class="pre">examples</span></code> extra.
-Use a request group to cancel older lookups and ignore late responses:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">spaday</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallEndpoint</span><span class="p">,</span> <span class="n">Request</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">SetField</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">this</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">spaday_webawesome</span><span class="w"> </span><span class="kn">import</span> <span class="n">WaInput</span>
+<p>Use <code class="docutils literal notranslate"><span class="pre">Autocomplete</span></code> to query a Python endpoint as the user types. It renders WebAwesome’s input
+with an accessible suggestion list. Bind <code class="docutils literal notranslate"><span class="pre">value</span></code> two-way to use selected and typed values in
+Spaday actions or a connected transports store.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">spaday_webawesome</span><span class="w"> </span><span class="kn">import</span> <span class="n">Autocomplete</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">starlette.responses</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONResponse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">starlette.routing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Route</span>
 
-<span class="n">symbol</span> <span class="o">=</span> <span class="n">WaInput</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Symbol"</span><span class="p">,</span> <span class="n">autocomplete</span><span class="o">=</span><span class="s2">"off"</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
-    <span class="s2">"value"</span><span class="p">,</span> <span class="s2">"symbol"</span><span class="p">,</span>
-<span class="p">)</span><span class="o">.</span><span class="n">on</span><span class="p">(</span>
-    <span class="s2">"input"</span><span class="p">,</span>
-    <span class="n">Sequence</span><span class="p">(</span>
-        <span class="n">SetField</span><span class="p">(</span><span class="s2">"symbol"</span><span class="p">,</span> <span class="n">prop</span><span class="p">(</span><span class="n">this</span><span class="p">(),</span> <span class="s2">"value"</span><span class="p">)),</span>
-        <span class="n">SetField</span><span class="p">(</span><span class="s2">"symbol_hint.body.suggestions"</span><span class="p">,</span> <span class="p">[]),</span>
-        <span class="n">CallEndpoint</span><span class="p">(</span>
-            <span class="s2">"POST"</span><span class="p">,</span> <span class="s2">"/api/symbols/hint"</span><span class="p">,</span>
-            <span class="n">obj</span><span class="p">({</span><span class="s2">"query"</span><span class="p">:</span> <span class="n">prop</span><span class="p">(</span><span class="n">this</span><span class="p">(),</span> <span class="s2">"value"</span><span class="p">)}),</span>
-            <span class="n">result</span><span class="o">=</span><span class="s2">"symbol_hint"</span><span class="p">,</span>
-            <span class="n">request</span><span class="o">=</span><span class="n">Request</span><span class="p">(</span><span class="s2">"symbol-suggestions"</span><span class="p">,</span> <span class="n">pending</span><span class="o">=</span><span class="s2">"symbol_pending"</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="p">(</span><span class="s2">"symbol"</span><span class="p">,)),</span>
-        <span class="p">),</span>
-    <span class="p">),</span>
-<span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">symbols</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">())</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"query"</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"AAPL"</span><span class="p">:</span> <span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"MSFT"</span><span class="p">:</span> <span class="s2">"Microsoft"</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">JSONResponse</span><span class="p">([</span>
+        <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="n">symbol</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> · </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">query</span> <span class="ow">and</span> <span class="n">symbol</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    <span class="p">])</span>
+
+<span class="n">symbol</span> <span class="o">=</span> <span class="n">Autocomplete</span><span class="p">(</span>
+    <span class="n">suggestions_url</span><span class="o">=</span><span class="s2">"/api/symbols"</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"Symbol"</span><span class="p">,</span>
+    <span class="n">hint</span><span class="o">=</span><span class="s2">"Choose a ticker or enter your own"</span><span class="p">,</span>
+    <span class="n">allow_custom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">"value"</span><span class="p">,</span> <span class="s2">"symbol"</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"two-way"</span><span class="p">)</span>
+
+<span class="c1"># Add Route("/api/symbols", symbols, methods=["POST"]) to serve(..., routes=[...]).</span>
+<span class="c1"># Initialize store={"symbol": ""}.</span>
 </pre></div>
 </div>
-<p>The example endpoint returns <code class="docutils literal notranslate"><span class="pre">{&quot;hint&quot;:</span> <span class="pre">&quot;MSFT</span> <span class="pre">·</span> <span class="pre">Microsoft&quot;,</span> <span class="pre">&quot;suggestions&quot;:</span> <span class="pre">[{&quot;symbol&quot;:</span> <span class="pre">&quot;MSFT&quot;,</span> <span class="pre">&quot;label&quot;:</span> <span class="pre">&quot;MSFT</span> <span class="pre">·</span> <span class="pre">Microsoft&quot;}]}</span></code>. Render those entries with
-<code class="docutils literal notranslate"><span class="pre">Each(...,</span> <span class="pre">field=&quot;symbol_hint.body.suggestions&quot;,</span> <span class="pre">key=&quot;symbol&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">WaButton</span></code>.
-On selection, set <code class="docutils literal notranslate"><span class="pre">symbol</span></code> to <code class="docutils literal notranslate"><span class="pre">item(&quot;symbol&quot;)</span></code> and clear the suggestions. Bind the
-input’s <code class="docutils literal notranslate"><span class="pre">hint</span></code> to <code class="docutils literal notranslate"><span class="pre">symbol_hint.body.hint</span></code>. Initialize the suggestion list to <code class="docutils literal notranslate"><span class="pre">[]</span></code>
-and <code class="docutils literal notranslate"><span class="pre">symbol_pending</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code> in the page store.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Request.watch</span></code> also cancels a pending lookup when another action changes the
-symbol. Empty and unmatched queries return no suggestions. The same Python
-endpoint and UI run in the browser example through Pyodide’s HTTP adapter.</p>
+<p>The component waits 150 ms after typing, cancels outdated requests, and ignores stale responses.
+Arrow keys move through suggestions, Enter chooses one, Escape closes the list, and Tab leaves the
+field without selecting. Selection emits ordinary <code class="docutils literal notranslate"><span class="pre">input</span></code> and <code class="docutils literal notranslate"><span class="pre">change</span></code> events.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">allow_custom=False</span></code> to require a matching suggestion. This participates in WebAwesome’s form
+validation; validate again on the server before accepting an order or other operation. Empty values
+remain valid unless <code class="docutils literal notranslate"><span class="pre">required=True</span></code>. Network failures show a status message and emit
+<code class="docutils literal notranslate"><span class="pre">suggestions-error</span></code>; free text remains usable when <code class="docutils literal notranslate"><span class="pre">allow_custom=True</span></code>.</p>
+<p>The order example and gallery call Python endpoints both locally and through the Pyodide HTTP adapter.</p>
 </section>
 </section>
 

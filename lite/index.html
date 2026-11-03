@@ -87,8 +87,12 @@
             location.href,
           );
           if (
-            exampleName !== "example" ||
-            !["/api/orders/preview", "/api/symbols/hint"].includes(url.pathname)
+            ![
+              "/api/orders/preview",
+              "/api/symbols/hint",
+              "/api/symbols/suggestions",
+              "/api/colors/suggestions",
+            ].includes(url.pathname)
           )
             return nativeFetch(input, options);
 

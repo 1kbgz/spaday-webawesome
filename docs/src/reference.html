@@ -142,6 +142,9 @@
   <li class="fd-toc-item" data-depth="1">
     <a href="#radio-orientation">Radio orientation</a>
   </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#autocomplete">Autocomplete</a>
+  </li>
 </ul>
 </div>
   </div>
@@ -227,7 +230,7 @@ is a slug of the label.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">cdn/index.js</span></code></p></li>
 </ol>
 <p>The CSS maps WebAwesome theme colors onto core <code class="docutils literal notranslate"><span class="pre">--spa-*</span></code> shell tokens. The JavaScript bundle registers
-the full component catalog. <code class="docutils literal notranslate"><span class="pre">package.components</span></code> contains every generated component class;
+the full component catalog. <code class="docutils literal notranslate"><span class="pre">package.components</span></code> contains every generated component class plus <code class="docutils literal notranslate"><span class="pre">Autocomplete</span></code>;
 <code class="docutils literal notranslate"><span class="pre">package.catalog</span></code> returns their property, event, and slot schemas.</p>
 <p><code class="docutils literal notranslate"><span class="pre">package.imports</span></code> publishes WebAwesome’s own ES modules under its bare specifiers, which spaday emits
 as the page’s import map:</p>
@@ -264,6 +267,42 @@ shows horizontal placement.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="autocomplete">
+<h2>Autocomplete<a class="headerlink" href="#autocomplete" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Autocomplete(suggestions_url=...,</span> <span class="pre">allow_custom=True,</span> <span class="pre">**input_props)</span></code> renders
+<code class="docutils literal notranslate"><span class="pre">&lt;spaday-wa-autocomplete&gt;</span></code>, a subclass of WebAwesome’s input. Use it as a text input;
+normal <code class="docutils literal notranslate"><span class="pre">WaInput</span></code> text-input properties, label/hint slots, validation, and form submission apply.
+<code class="docutils literal notranslate"><span class="pre">value</span></code> supports two-way binding. Styling uses WebAwesome’s existing theme tokens.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Python argument</p></th>
+<th class="head"><p>Browser property</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">suggestions_url</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">suggestionsUrl</span></code></p></td>
+<td><p>POST endpoint accepting <code class="docutils literal notranslate"><span class="pre">{&quot;query&quot;:</span> <span class="pre">&quot;text&quot;}</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">allow_custom</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">allowCustom</span></code></p></td>
+<td><p>Accept free text; defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The endpoint must return a JSON array of <code class="docutils literal notranslate"><span class="pre">{&quot;value&quot;:</span> <span class="pre">&quot;...&quot;,</span> <span class="pre">&quot;label&quot;:</span> <span class="pre">&quot;...&quot;}</span></code> objects.
+Labels render as text. Return only a bounded set of relevant suggestions. Requests use the browser’s
+same-origin credentials; authenticate and authorize the endpoint as usual.</p>
+<p>The component emits the input’s standard events plus <code class="docutils literal notranslate"><span class="pre">suggestions-error</span></code> with a <code class="docutils literal notranslate"><span class="pre">detail.message</span></code>
+string for HTTP, network, or response-format failures. Programmatic value changes cancel previous
+lookups. Empty input, disabling the field, blur, Escape, and disconnect cancel pending work.
+A successful response cannot reopen an unfocused or dismissed list.</p>
+<p>The native input has <code class="docutils literal notranslate"><span class="pre">role=&quot;combobox&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">aria-autocomplete=&quot;list&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">aria-expanded</span></code>,
+<code class="docutils literal notranslate"><span class="pre">aria-controls</span></code>, and an active-descendant reference during keyboard navigation. The listbox and
+options share its shadow root. Focus stays on the input while navigating or selecting options.
+The inherited input parts remain available; additional parts are <code class="docutils literal notranslate"><span class="pre">suggestions</span></code> and <code class="docutils literal notranslate"><span class="pre">option</span></code>.</p>
 </section>
 </section>
 
@@ -323,6 +362,9 @@ shows horizontal placement.</p>
   </li>
   <li class="fd-toc-item" data-depth="1">
     <a href="#radio-orientation">Radio orientation</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#autocomplete">Autocomplete</a>
   </li>
 </ul>
 
