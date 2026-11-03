@@ -2,9 +2,19 @@
 /* eslint-disable */
 
 /**
+ * Return JSON Schema for the complete action wire model.
+ */
+export function action_schema(): string;
+
+/**
  * Apply a JSON-encoded patch to a JSON-encoded tree, returning the JSON-encoded result.
  */
 export function apply(root: string, patch: string): string;
+
+/**
+ * Return JSON Schema for the complete binding wire model.
+ */
+export function binding_schema(): string;
 
 /**
  * Decode one frame back to a `{"model_type","kind","rev","payload"}` JSON string.
@@ -27,12 +37,32 @@ export function diff(old: string, _new: string): string;
 export function encode_frame(payload: string, model_type: string, kind: string, rev: number, codec: string): Uint8Array;
 
 /**
+ * Return JSON Schema for the complete expression wire model.
+ */
+export function expr_schema(): string;
+
+/**
  * Interpret a serialized action (the core's DSL wire form) against the DOM primitives in `host`.
  *
  * Behavior is data: the action is parsed + validated by the shared core, then evaluated here with no
  * `eval`. This is the browser-side half of the action DSL — the same model the Python binding authors.
  */
 export function interpret(action: string, host: any): void;
+
+/**
+ * Validate and canonicalize a serialized action with the shared core model.
+ */
+export function normalize_action(value: string): string;
+
+/**
+ * Validate and canonicalize a serialized binding with the shared core model.
+ */
+export function normalize_binding(value: string): string;
+
+/**
+ * Validate and canonicalize a serialized expression with the shared core model.
+ */
+export function normalize_expr(value: string): string;
 
 /**
  * Parse a `custom-elements.json` manifest into the JSON-encoded list of component schemas.
@@ -43,13 +73,19 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
+    readonly action_schema: () => [number, number, number, number];
     readonly apply: (a: number, b: number, c: number, d: number) => [number, number, number, number];
+    readonly binding_schema: () => [number, number, number, number];
     readonly decode_frame: (a: number, b: number) => [number, number, number, number];
     readonly diff: (a: number, b: number, c: number, d: number) => [number, number, number, number];
     readonly encode_frame: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => [number, number, number, number];
+    readonly expr_schema: () => [number, number, number, number];
     readonly interpret: (a: number, b: number, c: any) => [number, number];
+    readonly normalize_action: (a: number, b: number) => [number, number, number, number];
+    readonly normalize_binding: (a: number, b: number) => [number, number, number, number];
+    readonly normalize_expr: (a: number, b: number) => [number, number, number, number];
     readonly parse_cem: (a: number, b: number) => [number, number, number, number];
-    readonly wasm_bindgen_106671a2228cc70f___convert__closures_____invoke___wasm_bindgen_106671a2228cc70f___JsValue__core_ed718c3d60ebd546___result__Result_____wasm_bindgen_106671a2228cc70f___JsError___true_: (a: number, b: number, c: any) => [number, number];
+    readonly wasm_bindgen_578b2af46f5757c9___convert__closures_____invoke___wasm_bindgen_578b2af46f5757c9___JsValue__core_608f92abc48d28da___result__Result_____wasm_bindgen_578b2af46f5757c9___JsError___true_: (a: number, b: number, c: any) => [number, number];
     readonly __wbindgen_malloc: (a: number, b: number) => number;
     readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
     readonly __wbindgen_exn_store: (a: number) => void;

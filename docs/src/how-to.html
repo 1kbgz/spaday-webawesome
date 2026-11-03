@@ -127,6 +127,9 @@
   <li class="fd-toc-item" data-depth="1">
     <a href="#how-to-size-a-perspective-grid-inside-tabs">How to size a Perspective grid inside tabs</a>
   </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#offer-server-backed-suggestions-while-allowing-free-text">Offer server-backed suggestions while allowing free text</a>
+  </li>
 </ul>
 </div>
   </div>
@@ -226,6 +229,44 @@ viewport-relative grid, use a definite height such as <code class="docutils lite
 flex/grid layout, give every intervening container a resolved height and allow flex/grid items
 to shrink with <code class="docutils literal notranslate"><span class="pre">min-width:</span> <span class="pre">0;</span> <span class="pre">min-height:</span> <span class="pre">0</span></code>.</p>
 </section>
+<section id="offer-server-backed-suggestions-while-allowing-free-text">
+<h2>Offer server-backed suggestions while allowing free text<a class="headerlink" href="#offer-server-backed-suggestions-while-allowing-free-text" title="Link to this heading">¶</a></h2>
+<p>The order form in <code class="docutils literal notranslate"><span class="pre">spaday_webawesome/example.py</span></code> keeps its Symbol field editable
+and offers matching ticker buttons below it. Typing calls a Python endpoint;
+selecting a suggestion updates the same store field as typing. Unknown symbols
+remain valid input. This is an input with suggestion buttons, not an ARIA combobox
+with arrow-key selection. There is no exported <code class="docutils literal notranslate"><span class="pre">Autocomplete</span></code> helper.</p>
+<p>The example requires Spaday 0.12 or later, supplied by the <code class="docutils literal notranslate"><span class="pre">examples</span></code> extra.
+Use a request group to cancel older lookups and ignore late responses:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">spaday</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallEndpoint</span><span class="p">,</span> <span class="n">Request</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">SetField</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">this</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spaday_webawesome</span><span class="w"> </span><span class="kn">import</span> <span class="n">WaInput</span>
+
+<span class="n">symbol</span> <span class="o">=</span> <span class="n">WaInput</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Symbol"</span><span class="p">,</span> <span class="n">autocomplete</span><span class="o">=</span><span class="s2">"off"</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
+    <span class="s2">"value"</span><span class="p">,</span> <span class="s2">"symbol"</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">on</span><span class="p">(</span>
+    <span class="s2">"input"</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">(</span>
+        <span class="n">SetField</span><span class="p">(</span><span class="s2">"symbol"</span><span class="p">,</span> <span class="n">prop</span><span class="p">(</span><span class="n">this</span><span class="p">(),</span> <span class="s2">"value"</span><span class="p">)),</span>
+        <span class="n">SetField</span><span class="p">(</span><span class="s2">"symbol_hint.body.suggestions"</span><span class="p">,</span> <span class="p">[]),</span>
+        <span class="n">CallEndpoint</span><span class="p">(</span>
+            <span class="s2">"POST"</span><span class="p">,</span> <span class="s2">"/api/symbols/hint"</span><span class="p">,</span>
+            <span class="n">obj</span><span class="p">({</span><span class="s2">"query"</span><span class="p">:</span> <span class="n">prop</span><span class="p">(</span><span class="n">this</span><span class="p">(),</span> <span class="s2">"value"</span><span class="p">)}),</span>
+            <span class="n">result</span><span class="o">=</span><span class="s2">"symbol_hint"</span><span class="p">,</span>
+            <span class="n">request</span><span class="o">=</span><span class="n">Request</span><span class="p">(</span><span class="s2">"symbol-suggestions"</span><span class="p">,</span> <span class="n">pending</span><span class="o">=</span><span class="s2">"symbol_pending"</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="p">(</span><span class="s2">"symbol"</span><span class="p">,)),</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The example endpoint returns <code class="docutils literal notranslate"><span class="pre">{&quot;hint&quot;:</span> <span class="pre">&quot;MSFT</span> <span class="pre">·</span> <span class="pre">Microsoft&quot;,</span> <span class="pre">&quot;suggestions&quot;:</span> <span class="pre">[{&quot;symbol&quot;:</span> <span class="pre">&quot;MSFT&quot;,</span> <span class="pre">&quot;label&quot;:</span> <span class="pre">&quot;MSFT</span> <span class="pre">·</span> <span class="pre">Microsoft&quot;}]}</span></code>. Render those entries with
+<code class="docutils literal notranslate"><span class="pre">Each(...,</span> <span class="pre">field=&quot;symbol_hint.body.suggestions&quot;,</span> <span class="pre">key=&quot;symbol&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">WaButton</span></code>.
+On selection, set <code class="docutils literal notranslate"><span class="pre">symbol</span></code> to <code class="docutils literal notranslate"><span class="pre">item(&quot;symbol&quot;)</span></code> and clear the suggestions. Bind the
+input’s <code class="docutils literal notranslate"><span class="pre">hint</span></code> to <code class="docutils literal notranslate"><span class="pre">symbol_hint.body.hint</span></code>. Initialize the suggestion list to <code class="docutils literal notranslate"><span class="pre">[]</span></code>
+and <code class="docutils literal notranslate"><span class="pre">symbol_pending</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code> in the page store.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Request.watch</span></code> also cancels a pending lookup when another action changes the
+symbol. Empty and unmatched queries return no suggestions. The same Python
+endpoint and UI run in the browser example through Pyodide’s HTTP adapter.</p>
+</section>
 </section>
 
 
@@ -269,6 +310,9 @@ to shrink with <code class="docutils literal notranslate"><span class="pre">min-
   </li>
   <li class="fd-toc-item" data-depth="1">
     <a href="#how-to-size-a-perspective-grid-inside-tabs">How to size a Perspective grid inside tabs</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#offer-server-backed-suggestions-while-allowing-free-text">Offer server-backed suggestions while allowing free text</a>
   </li>
 </ul>
 
