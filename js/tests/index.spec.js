@@ -31,7 +31,7 @@ test("runs the Python console with live metrics and order preview", async ({
     .not.toBe(initial);
 
   await page.getByText("Order controls", { exact: true }).click();
-  await page.getByRole("textbox", { name: "Symbol" }).fill("MSFT");
+  await page.getByRole("combobox", { name: "Symbol" }).fill("MSFT");
   await expect(
     page
       .locator("#symbol-input")
@@ -146,27 +146,23 @@ test("server suggestions can fill the symbol while custom values remain editable
 }) => {
   await page.goto("http://127.0.0.1:8012");
   await page.getByText("Order controls", { exact: true }).click();
-  const input = page.getByRole("textbox", { name: "Symbol" });
+  const input = page.getByRole("combobox", { name: "Symbol" });
   await input.fill("ms");
   await page
-    .getByRole("button", { name: "MSFT · Microsoft", exact: true })
+    .getByRole("option", { name: "MSFT · Microsoft", exact: true })
     .click();
   await expect(input).toHaveValue("MSFT");
-  await expect(page.locator("#symbol-suggestions wa-button")).toHaveCount(0);
+  await expect(page.getByRole("option")).toHaveCount(0);
   await input.fill("CUSTOM");
-  await expect(page.locator("#symbol-input")).toHaveJSProperty(
-    "hint",
-    "No matching ticker",
+  await expect(page.locator("#symbol-input").getByRole("status")).toHaveText(
+    "No matching suggestions.",
   );
   await expect(input).toHaveValue("CUSTOM");
   await page.getByRole("button", { name: "Preview order" }).click();
   await expect(page.locator("#order-preview")).toContainText("CUSTOM shares");
   await input.fill("");
-  await expect(page.locator("#symbol-input")).toHaveJSProperty(
-    "hint",
-    "Type a ticker such as AAPL or MSFT",
-  );
-  await expect(page.locator("#symbol-suggestions wa-button")).toHaveCount(0);
+  await expect(input).toHaveAttribute("aria-expanded", "false");
+  await expect(page.getByRole("option")).toHaveCount(0);
 });
 
 test("a late suggestion response cannot replace newer results", async ({
@@ -184,7 +180,7 @@ test("a late suggestion response cannot replace newer results", async ({
   const done = new Promise((resolve) => {
     finished = resolve;
   });
-  await page.route("**/api/symbols/hint", async (route) => {
+  await page.route("**/api/symbols/suggestions", async (route) => {
     if (route.request().postDataJSON().query !== "A") return route.continue();
     const response = await route.fetch();
     held();
@@ -194,18 +190,15 @@ test("a late suggestion response cannot replace newer results", async ({
   });
   await page.goto("http://127.0.0.1:8012");
   await page.getByText("Order controls", { exact: true }).click();
-  const input = page.getByRole("textbox", { name: "Symbol" });
+  const input = page.getByRole("combobox", { name: "Symbol" });
   await input.fill("A");
   await blocked;
   await input.fill("MS");
   await expect(
-    page.getByRole("button", { name: "MSFT · Microsoft", exact: true }),
+    page.getByRole("option", { name: "MSFT · Microsoft", exact: true }),
   ).toBeVisible();
   release();
   await done;
-  await expect(page.locator("#symbol-suggestions wa-button")).toHaveCount(1);
-  await expect(page.locator("#symbol-input")).toHaveJSProperty(
-    "hint",
-    "MSFT · Microsoft",
-  );
+  await expect(page.getByRole("option")).toHaveCount(1);
+  await expect(page.getByRole("option")).toHaveText("MSFT · Microsoft");
 });

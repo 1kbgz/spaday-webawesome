@@ -10,8 +10,10 @@ import tokenize
 from spaday import SetProp, by_id, element, item
 from spaday.backends.starlette import serve
 from spaday.components import Each
+from starlette.responses import JSONResponse
+from starlette.routing import Route
 
-from . import components as wa, package
+from . import Autocomplete, components as wa, package
 
 DEMO_IMAGE = (
     "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360' viewBox='0 0 640 360'%3E"
@@ -142,6 +144,14 @@ actions = _section(
     ),
 )
 
+
+async def color_suggestions(request):
+    query = str((await request.json()).get("query", "")).strip().lower()
+    return JSONResponse(
+        [{"value": color.lower(), "label": color} for color in ("Blue", "Brown", "Green", "Red") if query and color.lower().startswith(query)]
+    )
+
+
 forms = _section(
     "forms",
     "Forms",
@@ -172,6 +182,15 @@ forms = _section(
         "Select colors in common CSS formats.",
         _snippet("WaColorPicker", 'picker = WaColorPicker(label="Accent", value="#2563eb", format="hex", with_label=True)'),
         wa.WaColorPicker(label="Accent", value="#2563eb", format="hex", with_label=True),
+    ),
+    _demo(
+        "Autocomplete",
+        "Fetch suggestions from Python. Use arrow keys and Enter to choose, or enter your own value.",
+        _snippet(
+            "Autocomplete",
+            'color = Autocomplete(suggestions_url="/api/colors/suggestions", label="Color", allow_custom=True)',
+        ),
+        Autocomplete(suggestions_url="/api/colors/suggestions", label="Color", hint="Try B for Blue or Brown"),
     ),
     _demo(
         "Input",
@@ -865,7 +884,14 @@ initial_store = {
     ]
 }
 
-app = serve(page, packages=[package], store=initial_store, head=styles, title="spaday-webawesome gallery")
+app = serve(
+    page,
+    packages=[package],
+    store=initial_store,
+    head=styles,
+    title="spaday-webawesome gallery",
+    routes=[Route("/api/colors/suggestions", color_suggestions, methods=["POST"])],
+)
 
 if __name__ == "__main__":
     import uvicorn
