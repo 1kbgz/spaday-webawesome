@@ -78,3 +78,16 @@ def test_generated_catalog_is_current():
     root = Path(__file__).parent.parent
     fresh = generate(str(root / "custom-elements.json"))
     assert _generated_ast(fresh) == _generated_ast((root / "components.py").read_text(encoding="utf-8"))
+
+
+def test_radio_orientation_is_a_generated_enum():
+    from spaday import validate
+
+    from spaday_webawesome import WaRadio, WaRadioGroup
+
+    group = WaRadioGroup(WaRadio(value="one").text("One"), orientation="horizontal")
+    assert group.to_node()["props"]["orientation"] == {"Str": "horizontal"}
+    validate(group)
+    assert WaRadioGroup.schema is not None
+    prop = next(prop for prop in WaRadioGroup.schema.props if prop.name == "orientation")
+    assert prop.choices == ("horizontal", "vertical")

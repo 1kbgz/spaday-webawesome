@@ -199,7 +199,7 @@ forms = _section(
     ),
     _demo(
         "Radio group",
-        "Choose one option from a visible set.",
+        "Choose one option from a horizontal or vertical set. Orientation is a generated Python property.",
         _snippet(
             "WaRadio, WaRadioGroup",
             """
@@ -207,6 +207,7 @@ forms = _section(
                 WaRadio(value="starter").text("Starter"),
                 WaRadio(value="pro").text("Pro"),
                 label="Plan",
+                orientation="horizontal",
                 value="starter",
                 with_label=True,
             )
@@ -216,6 +217,7 @@ forms = _section(
             wa.WaRadio(value="starter").text("Starter"),
             wa.WaRadio(value="pro").text("Pro"),
             label="Plan",
+            orientation="horizontal",
             value="starter",
             with_label=True,
         ),

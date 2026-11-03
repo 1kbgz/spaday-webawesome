@@ -46,4 +46,10 @@ def test_example_serves_console_updates_metrics_and_previews_orders(monkeypatch)
 
     response = asyncio.run(request("POST", "/api/symbols/hint", json={"query": "ms"}))
     assert response.status_code == 200
-    assert response.json() == {"hint": "MSFT · Microsoft"}
+    assert response.json() == {"hint": "MSFT · Microsoft", "suggestions": [{"symbol": "MSFT", "label": "MSFT · Microsoft"}]}
+
+
+@pytest.mark.parametrize("query", ["", "UNLISTED"])
+def test_symbol_suggestions_allow_empty_and_custom_values(query):
+    response = asyncio.run(request("POST", "/api/symbols/hint", json={"query": query}))
+    assert response.json()["suggestions"] == []

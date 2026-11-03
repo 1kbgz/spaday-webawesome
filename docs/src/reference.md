@@ -51,3 +51,20 @@ as the page's import map:
 
 The bundle imports the catalog through those specifiers too, so any other module on the page that
 imports them gets the same copy.
+
+## Radio orientation
+
+`WaRadioGroup(orientation="horizontal")` displays its radios side by side.
+`orientation="vertical"` is the upstream default. Both values are present in the
+committed manifest, generated constructor, and property schema. The gallery
+shows horizontal placement.
+
+```python
+from spaday_webawesome import WaRadio, WaRadioGroup
+
+WaRadioGroup(
+    WaRadio(value="buy").text("Buy"),
+    WaRadio(value="sell").text("Sell"),
+    label="Side", orientation="horizontal", value="buy",
+)
+```

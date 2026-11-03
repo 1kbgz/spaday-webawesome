@@ -33,7 +33,9 @@ test("runs the Python console with live metrics and order preview", async ({
   await page.getByText("Order controls", { exact: true }).click();
   await page.getByRole("textbox", { name: "Symbol" }).fill("MSFT");
   await expect(
-    page.getByText("MSFT · Microsoft", { exact: true }),
+    page
+      .locator("#symbol-input")
+      .getByText("MSFT · Microsoft", { exact: true }),
   ).toBeVisible();
   await page.getByRole("spinbutton", { name: "Quantity" }).fill("25");
   await page.getByRole("button", { name: "Preview order" }).click();
@@ -115,5 +117,95 @@ test("warns, naming what it serves, when another copy registered its elements fi
     .toMatch(/ \d+\.\d+\.\d+\S*: another copy on the page already registered /);
   expect(warnings.find((text) => text.includes("<wa-button>"))).toContain(
     "@awesome.me/webawesome ",
+  );
+});
+
+test("the Python gallery renders horizontal and vertical radio groups", async ({
+  page,
+}) => {
+  await page.goto("http://127.0.0.1:8013");
+  const group = page
+    .locator("wa-radio-group")
+    .filter({ has: page.locator('wa-radio[value="starter"]') });
+  await expect(group).toHaveJSProperty("orientation", "horizontal");
+  const radios = group.locator("wa-radio");
+  const first = await radios.first().boundingBox();
+  const second = await radios.nth(1).boundingBox();
+  expect(second.x).toBeGreaterThan(first.x + first.width - 1);
+  expect(second.y).toBeCloseTo(first.y, 0);
+  await group.evaluate((group) => {
+    group.orientation = "vertical";
+  });
+  await expect
+    .poll(async () => (await radios.nth(1).boundingBox()).y)
+    .toBeGreaterThan(first.y + first.height - 1);
+});
+
+test("server suggestions can fill the symbol while custom values remain editable", async ({
+  page,
+}) => {
+  await page.goto("http://127.0.0.1:8012");
+  await page.getByText("Order controls", { exact: true }).click();
+  const input = page.getByRole("textbox", { name: "Symbol" });
+  await input.fill("ms");
+  await page
+    .getByRole("button", { name: "MSFT · Microsoft", exact: true })
+    .click();
+  await expect(input).toHaveValue("MSFT");
+  await expect(page.locator("#symbol-suggestions wa-button")).toHaveCount(0);
+  await input.fill("CUSTOM");
+  await expect(page.locator("#symbol-input")).toHaveJSProperty(
+    "hint",
+    "No matching ticker",
+  );
+  await expect(input).toHaveValue("CUSTOM");
+  await page.getByRole("button", { name: "Preview order" }).click();
+  await expect(page.locator("#order-preview")).toContainText("CUSTOM shares");
+  await input.fill("");
+  await expect(page.locator("#symbol-input")).toHaveJSProperty(
+    "hint",
+    "Type a ticker such as AAPL or MSFT",
+  );
+  await expect(page.locator("#symbol-suggestions wa-button")).toHaveCount(0);
+});
+
+test("a late suggestion response cannot replace newer results", async ({
+  page,
+}) => {
+  let release;
+  let held;
+  const blocked = new Promise((resolve) => {
+    held = resolve;
+  });
+  const wait = new Promise((resolve) => {
+    release = resolve;
+  });
+  let finished;
+  const done = new Promise((resolve) => {
+    finished = resolve;
+  });
+  await page.route("**/api/symbols/hint", async (route) => {
+    if (route.request().postDataJSON().query !== "A") return route.continue();
+    const response = await route.fetch();
+    held();
+    await wait;
+    await route.fulfill({ response }).catch(() => {});
+    finished();
+  });
+  await page.goto("http://127.0.0.1:8012");
+  await page.getByText("Order controls", { exact: true }).click();
+  const input = page.getByRole("textbox", { name: "Symbol" });
+  await input.fill("A");
+  await blocked;
+  await input.fill("MS");
+  await expect(
+    page.getByRole("button", { name: "MSFT · Microsoft", exact: true }),
+  ).toBeVisible();
+  release();
+  await done;
+  await expect(page.locator("#symbol-suggestions wa-button")).toHaveCount(1);
+  await expect(page.locator("#symbol-input")).toHaveJSProperty(
+    "hint",
+    "MSFT · Microsoft",
   );
 });
