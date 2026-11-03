@@ -4,6 +4,7 @@ from pathlib import Path
 from spaday import ComponentPackage, Token
 
 from . import components as _components
+from .autocomplete import Autocomplete
 from .components import *
 from .components import __all__ as _component_names
 from .design import DESIGN
@@ -19,7 +20,7 @@ package = ComponentPackage(
     name="webawesome",
     assets_dir=Path(__file__).parent / "extension",
     assets=(("css", "css/webawesome.css"), ("js", "cdn/index.js")),
-    components=tuple(getattr(_components, name) for name in _component_names),
+    components=(*tuple(getattr(_components, name) for name in _component_names), Autocomplete),
     # WebAwesome's modules under its own bare specifiers: a library on the page that imports
     # WebAwesome resolves to this copy instead of registering the same tags a second time
     imports=(
@@ -55,4 +56,4 @@ TOKENS = {
     "wa_color_danger_fill_loud": Token("--wa-color-danger-fill-loud", "drives --spa-danger"),
 }
 
-__all__ = [*_component_names, "DESIGN", "FormField", "TOKENS", "Tabs", "form", "package"]  # noqa: PLE0604
+__all__ = [*_component_names, "Autocomplete", "DESIGN", "FormField", "TOKENS", "Tabs", "form", "package"]  # noqa: PLE0604

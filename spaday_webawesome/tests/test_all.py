@@ -91,3 +91,19 @@ def test_radio_orientation_is_a_generated_enum():
     assert WaRadioGroup.schema is not None
     prop = next(prop for prop in WaRadioGroup.schema.props if prop.name == "orientation")
     assert prop.choices == ("horizontal", "vertical")
+
+
+def test_autocomplete_exposes_input_props_and_suggestion_contract():
+    from spaday_webawesome import Autocomplete
+
+    control = Autocomplete(suggestions_url="/api/symbols", allow_custom=False, label="Symbol", required=True).bind("value", "symbol", mode="two-way")
+    node = control.to_node()
+    assert node["tag"] == "spaday-wa-autocomplete"
+    assert node["props"]["suggestions-url"] == {"Str": "/api/symbols"}
+    assert node["props"]["allow-custom"] == {"Bool": False}
+    assert node["props"]["label"] == {"Str": "Symbol"}
+    assert node["props"]["required"] == {"Bool": True}
+    assert any(schema.tag == control.tag for schema in package.catalog)
+    assert control.schema is not None
+    assert {"suggestions-url", "allow-custom", "value", "name", "label"} <= {prop.name for prop in control.schema.props}
+    assert {"input", "change", "suggestions-error"} <= set(control.schema.events)

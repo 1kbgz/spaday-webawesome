@@ -105,42 +105,42 @@ to shrink with `min-width: 0; min-height: 0`.
 
 ## Offer server-backed suggestions while allowing free text
 
-The order form in `spaday_webawesome/example.py` keeps its Symbol field editable
-and offers matching ticker buttons below it. Typing calls a Python endpoint;
-selecting a suggestion updates the same store field as typing. Unknown symbols
-remain valid input. This is an input with suggestion buttons, not an ARIA combobox
-with arrow-key selection. There is no exported `Autocomplete` helper.
-
-The example requires Spaday 0.12 or later, supplied by the `examples` extra.
-Use a request group to cancel older lookups and ignore late responses:
+Use `Autocomplete` to query a Python endpoint as the user types. It renders WebAwesome's input
+with an accessible suggestion list. Bind `value` two-way to use selected and typed values in
+Spaday actions or a connected transports store.
 
 ```python
-from spaday import CallEndpoint, Request, Sequence, SetField, obj, prop, this
-from spaday_webawesome import WaInput
+from spaday_webawesome import Autocomplete
+from starlette.responses import JSONResponse
+from starlette.routing import Route
 
-symbol = WaInput(label="Symbol", autocomplete="off").bind(
-    "value", "symbol",
-).on(
-    "input",
-    Sequence(
-        SetField("symbol", prop(this(), "value")),
-        SetField("symbol_hint.body.suggestions", []),
-        CallEndpoint(
-            "POST", "/api/symbols/hint",
-            obj({"query": prop(this(), "value")}),
-            result="symbol_hint",
-            request=Request("symbol-suggestions", pending="symbol_pending", watch=("symbol",)),
-        ),
-    ),
-)
+async def symbols(request):
+    query = str((await request.json()).get("query", "")).strip().upper()
+    names = {"AAPL": "Apple", "MSFT": "Microsoft"}
+    return JSONResponse([
+        {"value": symbol, "label": f"{symbol} · {name}"}
+        for symbol, name in names.items()
+        if query and symbol.startswith(query)
+    ])
+
+symbol = Autocomplete(
+    suggestions_url="/api/symbols",
+    label="Symbol",
+    hint="Choose a ticker or enter your own",
+    allow_custom=True,
+).bind("value", "symbol", mode="two-way")
+
+# Add Route("/api/symbols", symbols, methods=["POST"]) to serve(..., routes=[...]).
+# Initialize store={"symbol": ""}.
 ```
 
-The example endpoint returns `{"hint": "MSFT · Microsoft", "suggestions": [{"symbol": "MSFT", "label": "MSFT · Microsoft"}]}`. Render those entries with
-`Each(..., field="symbol_hint.body.suggestions", key="symbol")` and `WaButton`.
-On selection, set `symbol` to `item("symbol")` and clear the suggestions. Bind the
-input's `hint` to `symbol_hint.body.hint`. Initialize the suggestion list to `[]`
-and `symbol_pending` to `False` in the page store.
+The component waits 150 ms after typing, cancels outdated requests, and ignores stale responses.
+Arrow keys move through suggestions, Enter chooses one, Escape closes the list, and Tab leaves the
+field without selecting. Selection emits ordinary `input` and `change` events.
 
-`Request.watch` also cancels a pending lookup when another action changes the
-symbol. Empty and unmatched queries return no suggestions. The same Python
-endpoint and UI run in the browser example through Pyodide's HTTP adapter.
+Set `allow_custom=False` to require a matching suggestion. This participates in WebAwesome's form
+validation; validate again on the server before accepting an order or other operation. Empty values
+remain valid unless `required=True`. Network failures show a status message and emit
+`suggestions-error`; free text remains usable when `allow_custom=True`.
+
+The order example and gallery call Python endpoints both locally and through the Pyodide HTTP adapter.

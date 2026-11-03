@@ -49,7 +49,7 @@ test("runs the complete example in Pyodide", async ({ page }) => {
     .not.toBe(initial);
 
   await page.getByText("Order controls", { exact: true }).click();
-  await page.getByRole("textbox", { name: "Symbol" }).fill("MSFT");
+  await page.getByRole("combobox", { name: "Symbol" }).fill("MSFT");
   await expect(
     page
       .locator("#symbol-input")
@@ -81,6 +81,14 @@ test("runs the component gallery in Pyodide", async ({ page }) => {
     40,
   );
   await expect(page.locator("wa-zoomable-frame")).toBeVisible();
+  const color = page.getByRole("combobox", { name: "Color" });
+  await color.fill("B");
+  await expect(
+    page.getByRole("option", { name: "Blue", exact: true }),
+  ).toBeVisible();
+  await color.press("ArrowDown");
+  await color.press("Enter");
+  await expect(color).toHaveValue("blue");
   const tree = page.locator("#reactive-tree");
   await expect(tree.locator(":scope > wa-tree-item")).toHaveCount(1);
   await expect(

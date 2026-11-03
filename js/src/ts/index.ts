@@ -3,3 +3,5 @@ import { restoreDefine } from "./define-guard";
 import "@awesome.me/webawesome";
 
 restoreDefine("@awesome.me/webawesome");
+
+export { Autocomplete } from "./autocomplete.js";

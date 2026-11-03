@@ -41,7 +41,8 @@
     "watch": "nodemon --watch src -e ts,css,html --exec \"pnpm build:debug\""
   },
   "dependencies": {
-    "@awesome.me/webawesome": "3.14.0"
+    "@awesome.me/webawesome": "3.14.0",
+    "lit": "3.3.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",

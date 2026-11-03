@@ -4,13 +4,13 @@ import logging
 import transports
 import uvicorn
 from pydantic import BaseModel
-from spaday import CallEndpoint, Request, Sequence, SetField, SetProp, Toggle, by_id, element, field, item, obj, prop, this
+from spaday import CallEndpoint, Sequence, SetProp, Toggle, by_id, element, field, obj
 from spaday.backends.starlette import serve
-from spaday.components import Each
 from starlette.responses import JSONResponse
 from starlette.routing import Route, WebSocketRoute
 
 from spaday_webawesome import (
+    Autocomplete,
     Tabs,
     WaBadge,
     WaButton,
@@ -78,6 +78,11 @@ async def symbol_hint(request):
     return JSONResponse({"hint": hint, "suggestions": suggestions})
 
 
+async def symbol_suggestions(request):
+    query = str((await request.json()).get("query", "")).strip().upper()
+    return JSONResponse([{"value": ticker, "label": f"{ticker} · {name}"} for ticker, name in SYMBOLS.items() if query and ticker.startswith(query)])
+
+
 details = element(
     "section",
     WaCallout(
@@ -95,47 +100,14 @@ order_form = element(
     "section",
     element(
         "div",
-        element(
-            "div",
-            WaInput(label="Symbol", value="AAPL", autocomplete="off", with_clear=True, id="symbol-input")
-            .compute("hint", field("symbol_hint.body.hint"))
-            .bind("value", "symbol")
-            .on(
-                "input",
-                Sequence(
-                    SetField("symbol", prop(this(), "value")),
-                    SetField("symbol_hint.body.suggestions", []),
-                    CallEndpoint(
-                        "POST",
-                        "/api/symbols/hint",
-                        obj({"query": prop(this(), "value")}),
-                        result="symbol_hint",
-                        request=Request("symbol-suggestions", pending="symbol_pending", watch=("symbol",)),
-                    ),
-                ),
-            ),
-            element(
-                "div",
-                Each(
-                    WaButton(appearance="plain", size="small")
-                    .compute("textContent", item("label"))
-                    .compute("disabled", field("symbol_pending"))
-                    .on(
-                        "click",
-                        Sequence(
-                            SetField("symbol", item("symbol")),
-                            SetField("symbol_hint.body.hint", item("label")),
-                            SetField("symbol_hint.body.suggestions", []),
-                        ),
-                    ),
-                    field="symbol_hint.body.suggestions",
-                    key="symbol",
-                ),
-                id="symbol-suggestions",
-                role="group",
-                aria_label="Symbol suggestions",
-            ),
-        ),
+        Autocomplete(
+            suggestions_url="/api/symbols/suggestions",
+            label="Symbol",
+            hint="Choose a ticker or enter your own",
+            value="AAPL",
+            with_clear=True,
+            id="symbol-input",
+        ).bind("value", "symbol", mode="two-way"),
         WaSelect(
             WaOption(value="buy").text("Buy"),
             WaOption(value="sell").text("Sell"),
@@ -256,8 +228,6 @@ initial_store = {
     "quantity": "100",
     "limit_order": True,
     "preview": {"body": {"message": "Waiting for server preview"}},
-    "symbol_hint": {"body": {"hint": "Type a ticker such as AAPL or MSFT", "suggestions": []}},
-    "symbol_pending": False,
 }
 
 app = serve(
@@ -268,6 +238,7 @@ app = serve(
         WebSocketRoute("/ws", transports.ws_endpoint(server)),
         Route("/api/orders/preview", preview_order, methods=["POST"]),
         Route("/api/symbols/hint", symbol_hint, methods=["POST"]),
+        Route("/api/symbols/suggestions", symbol_suggestions, methods=["POST"]),
     ],
     background=[transports.autosync(server), update_overview()],
     store=initial_store,

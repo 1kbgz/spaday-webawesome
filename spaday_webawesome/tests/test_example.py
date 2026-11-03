@@ -53,3 +53,10 @@ def test_example_serves_console_updates_metrics_and_previews_orders(monkeypatch)
 def test_symbol_suggestions_allow_empty_and_custom_values(query):
     response = asyncio.run(request("POST", "/api/symbols/hint", json={"query": query}))
     assert response.json()["suggestions"] == []
+
+
+@pytest.mark.parametrize(("query", "expected"), [("ms", [{"value": "MSFT", "label": "MSFT · Microsoft"}]), ("CUSTOM", []), ("", [])])
+def test_autocomplete_endpoint(query, expected):
+    response = asyncio.run(request("POST", "/api/symbols/suggestions", json={"query": query}))
+    assert response.status_code == 200
+    assert response.json() == expected

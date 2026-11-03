@@ -65,15 +65,16 @@ class LocalRequest:
         return self._body
 
 async def call_endpoint(path, body_json):
-    endpoints = {
+    endpoints = {"/api/colors/suggestions": example.color_suggestions} if example_name == "gallery" else {
         "/api/orders/preview": example.preview_order,
         "/api/symbols/hint": example.symbol_hint,
+        "/api/symbols/suggestions": example.symbol_suggestions,
     }
     response = await endpoints[path](LocalRequest(json.loads(body_json)))
     return json.dumps({
         "status": response.status_code,
         "body": json.loads(bytes(response.body).decode()),
-        "wires": local_wires(server.flush()),
+        "wires": local_wires(server.flush()) if server is not None else [],
     })
 
 opening = server.open(connection, "json") if server is not None else []

@@ -11,6 +11,9 @@ importers:
       '@awesome.me/webawesome':
         specifier: 3.14.0
         version: 3.14.0(@floating-ui/utils@0.2.12)(@types/react@19.2.18)
+      lit:
+        specifier: 3.3.3
+        version: 3.3.3
     devDependencies:
       '@playwright/test':
         specifier: ^1.64.1

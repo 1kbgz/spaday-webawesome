@@ -69,7 +69,13 @@ const BUNDLES = [
   },
   {
     stdin: {
-      contents: defineGuard + catalog + restore + layoutFixes + publishVersion,
+      contents:
+        defineGuard +
+        catalog +
+        '\nexport { Autocomplete } from "./src/ts/autocomplete.ts";\n' +
+        restore +
+        layoutFixes +
+        publishVersion,
       resolveDir: ".",
       loader: "js",
     },

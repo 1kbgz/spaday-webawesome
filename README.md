@@ -31,7 +31,7 @@ page = WaCard(WaButton().text("Run"))
 serve(page, packages=["webawesome"])
 ```
 
-The package also exports `Tabs`, plus `form()` and `FormField` for generating bound WebAwesome controls from pydantic models or JSON Schema.
+The package also exports `Tabs`, `Autocomplete` for [server-backed suggestions](docs/src/how-to.md#offer-server-backed-suggestions-while-allowing-free-text), plus `form()` and `FormField` for generating bound WebAwesome controls from pydantic models or JSON Schema.
 
 Installing the package does not inject assets. Select it explicitly with `packages=["webawesome"]` or pass the exported `package` descriptor.
 
